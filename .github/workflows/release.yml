@@ -10,6 +10,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Grant execute permission for gradlew
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x gradlew
       - run: ./gradlew build -xtest publish --stacktrace
         env:
           MAVEN_URL: ${{ secrets.MAVEN_URL }}
