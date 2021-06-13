@@ -41,8 +41,12 @@ repositories {
 
 dependencies {
     implementation(gradleApi())
+
     implementation("net.fabricmc:fabric-loom:0.7.32")
     implementation("net.fabricmc:fabric-fernflower:1.4.1")
+    implementation("net.fabricmc:tiny-mappings-parser:0.3.0+build.17")
+    implementation("org.ow2.asm:asm:9.1")
+
     shade("org.quiltmc:quiltflower:1.4.0") {
         attributes {
             attribute(juuxel.loomquiltflower.plugin.RemapState.REMAP_STATE_ATTRIBUTE, juuxel.loomquiltflower.plugin.RemapState.REMAPPED)

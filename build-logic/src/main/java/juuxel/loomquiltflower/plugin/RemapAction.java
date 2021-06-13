@@ -40,7 +40,7 @@ public abstract class RemapAction implements TransformAction<TransformParameters
             Map<String, String> patterns = new HashMap<>();
             patterns.put("org/jetbrains/java/decompiler", "juuxel/loomquiltflower/relocated/quiltflower");
             patterns.put("net/fabricmc/fernflower/api", "juuxel/loomquiltflower/relocated/quiltflowerapi");
-            Set<String> excludes = Collections.singleton("net/fabricmc/fernflower/api/IFabricJavadocProvider");
+            Set<String> excludes = Collections.emptySet();
 
             TinyRemapper remapper = TinyRemapper.newRemapper()
                 .extraRemapper(new RelocationRemapper(patterns, excludes))

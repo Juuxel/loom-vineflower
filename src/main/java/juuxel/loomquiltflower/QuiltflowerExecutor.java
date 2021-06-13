@@ -1,6 +1,7 @@
 package juuxel.loomquiltflower;
 
 import juuxel.loomquiltflower.bridge.QResultSaver;
+import juuxel.loomquiltflower.bridge.QTinyJavadocProvider;
 import juuxel.loomquiltflower.bridge.ThreadIdQfLogger;
 import juuxel.loomquiltflower.relocated.quiltflower.main.Fernflower;
 import net.fabricmc.fernflower.api.IFabricJavadocProvider;
@@ -8,7 +9,6 @@ import net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor;
 import net.fabricmc.loom.decompilers.fernflower.FernFlowerUtils;
 import net.fabricmc.loom.decompilers.fernflower.ThreadIDFFLogger;
 import net.fabricmc.loom.decompilers.fernflower.ThreadSafeResultSaver;
-import net.fabricmc.loom.decompilers.fernflower.TinyJavadocProvider;
 
 import java.io.File;
 import java.util.List;
@@ -21,7 +21,7 @@ public class QuiltflowerExecutor extends AbstractForkedFFExecutor {
 
     @Override
     public void runFF(Map<String, Object> options, List<File> libraries, File input, File output, File lineMap, File mappings) {
-        options.put(IFabricJavadocProvider.PROPERTY_NAME, new TinyJavadocProvider(mappings));
+        options.put(IFabricJavadocProvider.PROPERTY_NAME, new QTinyJavadocProvider(mappings));
 
         Fernflower ff = new Fernflower(FernFlowerUtils::getBytecode, new QResultSaver(new ThreadSafeResultSaver(() -> output, () -> lineMap)), options, new ThreadIdQfLogger(new ThreadIDFFLogger()));
 
