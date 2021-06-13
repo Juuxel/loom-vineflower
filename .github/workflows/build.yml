@@ -7,7 +7,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         java: [
           11, # Minimum
-          16 # Current
+          16  # Current
         ]
     runs-on: ${{ matrix.os }}
     steps:
@@ -21,4 +21,6 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build -xtest --stacktrace
+        run: ./gradlew build --stacktrace
+        if: |
+          !contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.pull_request.title, '[ci skip]')
