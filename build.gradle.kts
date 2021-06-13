@@ -15,7 +15,7 @@ if (file("private.gradle").exists()) {
 val shade by configurations.creating
 
 configurations {
-    implementation {
+    compileOnly {
         extendsFrom(shade)
     }
 }
@@ -57,13 +57,19 @@ tasks {
     }
 
     jar {
+        archiveClassifier.set("slim")
         from(file("LICENSE"))
     }
 
     shadowJar {
+        archiveClassifier.set("")
         configurations = listOf(shade)
         exclude("net/fabricmc/**")
         relocate("org.jetbrains.java.decompiler.**", "juuxel.loomquiltflower.shaded.quiltflower")
+    }
+
+    assemble {
+        dependsOn(shadowJar)
     }
 }
 
