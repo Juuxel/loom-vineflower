@@ -68,8 +68,6 @@ tasks {
     shadowJar {
         archiveClassifier.set("")
         configurations = listOf(shade)
-        exclude("net/fabricmc/**")
-        relocate("org.jetbrains.java.decompiler.**", "juuxel.loomquiltflower.shaded.quiltflower")
     }
 
     assemble {
