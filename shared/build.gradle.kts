@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     `java-library`
 }
@@ -13,7 +15,11 @@ repositories {
 
 dependencies {
     compileOnly(gradleApi())
-    api("org.ow2.asm:asm:9.1")
-    api("org.ow2.asm:asm-commons:9.1")
-    implementation("net.fabricmc:tiny-remapper:0.4.1")
+
+    val versions = Properties()
+    file("../gradle.properties").inputStream().use { versions.load(it) }
+
+    api("org.ow2.asm:asm:${versions["asm-version"]}")
+    api("org.ow2.asm:asm-commons:${versions["asm-version"]}")
+    implementation("net.fabricmc:tiny-remapper:${versions["tiny-remapper-version"]}")
 }

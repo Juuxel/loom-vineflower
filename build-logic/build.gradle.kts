@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     `groovy-gradle-plugin`
 }
@@ -17,10 +19,13 @@ repositories {
 }
 
 dependencies {
-    implementation("org.ow2.asm:asm:9.1")
-    implementation("org.ow2.asm:asm-commons:9.1")
-    implementation("net.fabricmc:tiny-remapper:0.4.1")
-    implementation("com.google.guava:guava:30.1-jre")
+    val versions = Properties()
+    file("../gradle.properties").inputStream().use { versions.load(it) }
+
+    implementation("org.ow2.asm:asm:${versions["asm-version"]}")
+    implementation("org.ow2.asm:asm-commons:${versions["asm-version"]}")
+    implementation("net.fabricmc:tiny-remapper:${versions["tiny-remapper-version"]}")
+    implementation("com.google.guava:guava:${versions["guava-version"]}")
     implementation("io.github.juuxel:loom-quiltflower-core")
 }
 
