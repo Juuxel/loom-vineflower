@@ -62,7 +62,7 @@ tasks {
 
     jar {
         archiveClassifier.set("slim")
-        from(file("LICENSE"))
+        from(file("LICENSE"), file("LICENSE.quiltflower.txt"))
     }
 
     shadowJar {
