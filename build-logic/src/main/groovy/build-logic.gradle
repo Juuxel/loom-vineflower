@@ -1,3 +1,5 @@
+import juuxel.loomquiltflower.plugin.LoomQuiltflowerLogicExtension
 import juuxel.loomquiltflower.plugin.RemapSetup
 
 RemapSetup.setup(project)
+extensions.add("loomQuiltflowerLogic", new LoomQuiltflowerLogicExtension(project))

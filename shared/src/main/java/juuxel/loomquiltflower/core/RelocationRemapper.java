@@ -1,17 +1,28 @@
-package juuxel.loomquiltflower.plugin;
+package juuxel.loomquiltflower.core;
 
 import org.objectweb.asm.commons.Remapper;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-final class RelocationRemapper extends Remapper {
+public final class RelocationRemapper extends Remapper {
     private final Map<String, String> patterns;
     private final Set<String> excludes;
 
-    RelocationRemapper(Map<String, String> patterns, Set<String> excludes) {
+    public RelocationRemapper(Map<String, String> patterns, Set<String> excludes) {
         this.patterns = patterns;
         this.excludes = excludes;
+    }
+
+    public static RelocationRemapper createQuiltflowerRelocator() {
+        Map<String, String> patterns = new HashMap<>();
+        patterns.put("org/jetbrains/java/decompiler", "juuxel/loomquiltflower/relocated/quiltflower");
+        patterns.put("net/fabricmc/fernflower/api", "juuxel/loomquiltflower/relocated/quiltflowerapi");
+        Set<String> excludes = Collections.emptySet();
+
+        return new RelocationRemapper(patterns, excludes);
     }
 
     @Override

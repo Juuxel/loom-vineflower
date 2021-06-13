@@ -2,22 +2,19 @@ plugins {
     `java-gradle-plugin`
     `maven-publish`
     id("build-logic")
+    id("net.kyori.blossom") version "1.3.0"
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "io.github.juuxel"
-version = "1.0.1+quiltflower.1.4.0"
+version = "1.1.0"
 
 if (file("private.gradle").exists()) {
     apply(from = "private.gradle")
 }
 
-val shade by configurations.creating
-
-configurations {
-    compileOnly {
-        extendsFrom(shade)
-    }
+val shade by configurations.creating {
+    isTransitive = false
 }
 
 java {
@@ -42,16 +39,21 @@ repositories {
 dependencies {
     implementation(gradleApi())
 
-    compileOnly("net.fabricmc:fabric-loom:0.7.32")
-    implementation("net.fabricmc:fabric-fernflower:1.4.1")
-    implementation("net.fabricmc:tiny-mappings-parser:0.3.0+build.17")
-    implementation("org.ow2.asm:asm:9.1")
+    compileOnly("net.fabricmc:fabric-loom:${property("loom-version")}")
+    implementation("net.fabricmc:fabric-fernflower:${property("fabric-fernflower-version")}")
+    implementation("net.fabricmc:tiny-mappings-parser:${property("tiny-mappings-parser-version")}")
+    implementation("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
+    implementation("org.ow2.asm:asm:${property("asm-version")}")
+    implementation("org.ow2.asm:asm-commons:${property("asm-version")}")
 
-    shade("org.quiltmc:quiltflower:1.4.0") {
-        attributes {
-            attribute(juuxel.loomquiltflower.plugin.RemapState.REMAP_STATE_ATTRIBUTE, juuxel.loomquiltflower.plugin.RemapState.REMAPPED)
-        }
-    }
+    // Only needed for providing the classes to compile against, it is downloaded at runtime
+    compileOnly(loomQuiltflowerLogic.quiltflower())
+    compileOnly("io.github.juuxel:loom-quiltflower-core")
+    shade("io.github.juuxel:loom-quiltflower-core")
+}
+
+blossom {
+    replaceToken("CURRENT_QUILTFLOWER_VERSION", property("quiltflower-version"))
 }
 
 tasks {
