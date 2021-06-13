@@ -1,5 +1,7 @@
 # loom-quiltflower
 
+![Maven metadata](https://img.shields.io/maven-metadata/v/https/server.bbkr.space/artifactory/libs-release/io/github/juuxel/loom-quiltflower/maven-metadata.xml.svg?style=flat-square&color=49bfe0)
+
 A Loom addon that adds [Quiltflower](https://github.com/QuiltMC/Quiltflower) as a Loom decompiler
 for non-Quilt distributions of Loom (upstream, Architectury etc.).
 
