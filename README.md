@@ -5,6 +5,10 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
 
 ## Usage
 
+See further down for Architectury instructions.
+
+### Usage with Fabric projects
+
 1. Add the Cotton maven repository to settings.gradle:
 ```diff
   pluginManagement {
@@ -32,3 +36,42 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
 ```
 
 3. Instead of `genSources`, you can now use `genSourcesWithQuiltflower`.
+
+### Usage with Architectury projects
+
+1. Add the Cotton maven repository to settings.gradle:
+```diff
+  pluginManagement {
+      repositories {
+          maven { url "https://maven.fabricmc.net/" }
+          maven { url "https://maven.architectury.dev/" }
+          maven { url "https://maven.minecraftforge.net/" }
++         maven {
++             name = 'Cotton'
++             url = 'https://server.bbkr.space/artifactory/libs-release/'
++         }
+          gradlePluginPortal()
+      }
+  }
+```
+
+2. Add loom-quiltflower to your `plugins` block:
+```diff
+  plugins {
+      id "architectury-plugin" version "3.1-SNAPSHOT"
+      id "dev.architectury.loom" version "0.7.2-SNAPSHOT" apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.0.0+quiltflower.1.4.0' apply false
+  }
+```
+
+3. Apply loom-quiltflower to subprojects:
+
+```diff
+  subprojects {
+      apply plugin: "dev.architectury.loom"
++     apply plugin: "io.github.juuxel.loom-quiltflower"
+```
+
+> Note: this can also be done in the subprojects' `plugins` blocks.
+
+4. Instead of `genSources`, you can now use `genSourcesWithQuiltflower`.
