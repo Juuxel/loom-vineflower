@@ -3,10 +3,10 @@ package juuxel.loomquiltflower.bridge;
 import juuxel.loomquiltflower.relocated.quiltflower.main.extern.IFernflowerLogger;
 import net.fabricmc.loom.decompilers.fernflower.ThreadIDFFLogger;
 
-public class ThreadIdQfLogger extends IFernflowerLogger {
+public class QfThreadIdLogger extends IFernflowerLogger {
     private final ThreadIDFFLogger logger;
 
-    public ThreadIdQfLogger(ThreadIDFFLogger logger) {
+    public QfThreadIdLogger(ThreadIDFFLogger logger) {
         this.logger = logger;
     }
 

@@ -51,14 +51,14 @@ import net.fabricmc.mappings.EntryTriple;
 // From Fabric Loom 0.8 (commit ed08e47a).
 // As Fudge put it in their ForgedFlowerLoom,
 //   "Unfortunately IFabricJavadocProvider is too entangled in FF api, so we need to reimplement it"
-public class QTinyJavadocProvider implements IFabricJavadocProvider {
+public class QfTinyJavadocProvider implements IFabricJavadocProvider {
     private final Map<String, ClassDef> classes = new HashMap<>();
     private final Map<EntryTriple, FieldDef> fields = new HashMap<>();
     private final Map<EntryTriple, MethodDef> methods = new HashMap<>();
 
     private final String namespace = "named";
 
-    public QTinyJavadocProvider(File tinyFile) {
+    public QfTinyJavadocProvider(File tinyFile) {
         final TinyTree mappings = readMappings(tinyFile);
 
         for (ClassDef classDef : mappings.getClasses()) {

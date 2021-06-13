@@ -24,6 +24,7 @@
 
 package juuxel.loomquiltflower.loom;
 
+import juuxel.loomquiltflower.ReflectionUtil;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 import net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor;

@@ -4,10 +4,10 @@ import juuxel.loomquiltflower.relocated.quiltflowerapi.IFabricResultSaver;
 
 import java.util.jar.Manifest;
 
-public class QResultSaver implements IFabricResultSaver {
+public class QfResultSaver implements IFabricResultSaver {
     private final net.fabricmc.fernflower.api.IFabricResultSaver parent;
 
-    public QResultSaver(net.fabricmc.fernflower.api.IFabricResultSaver parent) {
+    public QfResultSaver(net.fabricmc.fernflower.api.IFabricResultSaver parent) {
         this.parent = parent;
     }
 
