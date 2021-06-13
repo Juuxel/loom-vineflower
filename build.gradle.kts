@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.juuxel"
-version = "1.0.0+quiltflower.1.4.0"
+version = "1.0.1+quiltflower.1.4.0"
 
 if (file("private.gradle").exists()) {
     apply(from = "private.gradle")
@@ -42,7 +42,7 @@ repositories {
 dependencies {
     implementation(gradleApi())
 
-    implementation("net.fabricmc:fabric-loom:0.7.32")
+    compileOnly("net.fabricmc:fabric-loom:0.7.32")
     implementation("net.fabricmc:fabric-fernflower:1.4.1")
     implementation("net.fabricmc:tiny-mappings-parser:0.3.0+build.17")
     implementation("org.ow2.asm:asm:9.1")
