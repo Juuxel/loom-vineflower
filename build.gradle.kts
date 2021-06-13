@@ -89,18 +89,17 @@ gradlePlugin {
 artifacts.apiElements(tasks.shadowJar)
 artifacts.runtimeElements(tasks.shadowJar)
 
-publishing {
-    repositories {
-        if (project.hasProperty("artifactoryUsername")) {
+val env = System.getenv()
+if ("MAVEN_URL" in env) {
+    publishing {
+        repositories {
             maven {
-                url = uri("https://server.bbkr.space/artifactory/libs-release/")
+                url = uri(env.getValue("MAVEN_URL"))
                 credentials {
-                    username = project.property("artifactoryUsername").toString()
-                    password = project.property("artifactoryPassword").toString()
+                    username = env.getValue("MAVEN_USERNAME")
+                    password = env.getValue("MAVEN_PASSWORD")
                 }
             }
-        } else {
-            println("Cannot configure artifactory; please define ext.artifactoryUsername and ext.artifactoryPassword before running publish")
         }
     }
 }
