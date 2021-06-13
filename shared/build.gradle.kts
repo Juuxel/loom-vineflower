@@ -4,6 +4,11 @@ plugins {
     `java-library`
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 repositories {
     mavenCentral()
 
@@ -22,4 +27,11 @@ dependencies {
     api("org.ow2.asm:asm:${versions["asm-version"]}")
     api("org.ow2.asm:asm-commons:${versions["asm-version"]}")
     implementation("net.fabricmc:tiny-remapper:${versions["tiny-remapper-version"]}")
+}
+
+tasks {
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
+        options.release.set(11)
+    }
 }
