@@ -1,0 +1,3 @@
+import juuxel.loomquiltflower.plugin.RemapSetup
+
+RemapSetup.setup(project)
