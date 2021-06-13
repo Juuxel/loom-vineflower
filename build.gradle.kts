@@ -82,6 +82,9 @@ gradlePlugin {
     }
 }
 
+artifacts.apiElements(tasks.shadowJar)
+artifacts.runtimeElements(tasks.shadowJar)
+
 publishing {
     repositories {
         if (project.hasProperty("artifactoryUsername")) {
