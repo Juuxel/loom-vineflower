@@ -5,11 +5,14 @@
 A Loom addon that adds [Quiltflower](https://github.com/QuiltMC/Quiltflower) as a Loom decompiler
 for non-Quilt distributions of Loom (upstream, Architectury etc.).
 
-## Usage
+- [Getting started](#getting-started)
+  - [Fabric projects](#fabric-projects)
+  - [Architectury projects](#architectury-projects)
+- [Configuration](#configuration)
 
-See further down for Architectury instructions.
+## Getting started
 
-### Usage with Fabric projects
+### Fabric projects
 
 1. Add the Cotton maven repository to settings.gradle:
 ```diff
@@ -32,14 +35,14 @@ See further down for Architectury instructions.
 ```diff
   plugins {
       id 'fabric-loom' version '0.8-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.0.1+quiltflower.1.4.0'
++     id 'io.github.juuxel.loom-quiltflower' version '1.1.0'
       id 'maven-publish'
   }
 ```
 
 3. Instead of `genSources`, you can now use `genSourcesWithQuiltflower`.
 
-### Usage with Architectury projects
+### Architectury projects
 
 1. Add the Cotton maven repository to settings.gradle:
 ```diff
@@ -62,7 +65,7 @@ See further down for Architectury instructions.
   plugins {
       id "architectury-plugin" version "3.1-SNAPSHOT"
       id "dev.architectury.loom" version "0.7.2-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.0.1+quiltflower.1.4.0' apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.1.0' apply false
   }
 ```
 
@@ -77,3 +80,13 @@ See further down for Architectury instructions.
 > Note: this can also be done in the subprojects' `plugins` blocks.
 
 4. Instead of `genSources`, you can now use `genSourcesWithQuiltflower`.
+
+## Configuration
+
+You can configure the used version of Quiltflower with the `loomQuiltflower` extension:
+
+```groovy
+loomQuiltflower {
+    quiltflowerVersion.set("1.4.0")
+}
+```
