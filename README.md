@@ -5,10 +5,18 @@
 A Loom addon that adds [Quiltflower](https://github.com/QuiltMC/Quiltflower) as a Loom decompiler
 for non-Quilt distributions of Loom (upstream, Architectury etc.).
 
+- [Version compatibility](#version-compatibility)
 - [Getting started](#getting-started)
   - [Fabric projects](#fabric-projects)
   - [Architectury projects](#architectury-projects)
 - [Configuration](#configuration)
+
+## Version compatibility
+
+Loom variant      | Supported versions
+------------------|-------------------
+Fabric Loom       | 0.7 - 0.9
+Architectury Loom | 0.7.2 - 0.8.0
 
 ## Getting started
 
