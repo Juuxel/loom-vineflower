@@ -11,17 +11,25 @@ import java.util.List;
 
 public class LoomQuiltflowerPlugin implements Plugin<Project> {
     private static final List<String> LOOMS = Arrays.asList("fabric-loom", "dev.architectury.loom");
+    private boolean applied = false;
 
     @Override
     public void apply(Project target) {
-        if (LOOMS.stream().noneMatch(target.getPluginManager()::hasPlugin)) {
-            throw new GradleException("Loom not found! Loom must be applied *before* loom-quiltflower.");
-        }
-
         LoomQuiltflowerExtension extension = new LoomQuiltflowerExtension(target);
         target.getExtensions().add("loomQuiltflower", extension);
 
-        LoomGradleExtension loom = target.getExtensions().getByType(LoomGradleExtension.class);
-        loom.addDecompiler(new QuiltflowerDecompiler(target, extension));
+        for (String loomId : LOOMS) {
+            target.getPluginManager().withPlugin(loomId, p -> {
+                LoomGradleExtension loom = target.getExtensions().getByType(LoomGradleExtension.class);
+                loom.addDecompiler(new QuiltflowerDecompiler(target, extension));
+                applied = true;
+            });
+        }
+
+        target.afterEvaluate(p -> {
+            if (!applied) {
+                throw new GradleException("loom-quiltflower requires Loom! (One of " + LOOMS + ")");
+            }
+        });
     }
 }
