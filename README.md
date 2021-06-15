@@ -45,7 +45,7 @@ Architectury Loom | 0.7.2 - 0.8.0
 ```diff
   plugins {
       id 'fabric-loom' version '0.8-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.1.0'
++     id 'io.github.juuxel.loom-quiltflower' version '1.1.1'
       id 'maven-publish'
   }
 ```
@@ -75,7 +75,7 @@ Architectury Loom | 0.7.2 - 0.8.0
   plugins {
       id "architectury-plugin" version "3.1-SNAPSHOT"
       id "dev.architectury.loom" version "0.7.2-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.1.0' apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.1.1' apply false
   }
 ```
 
@@ -97,6 +97,7 @@ You can configure the used version of Quiltflower with the `loomQuiltflower` ext
 
 ```groovy
 loomQuiltflower {
-    quiltflowerVersion.set("1.4.0")
+    // This is the default; 1.4.0 and above should work
+    quiltflowerVersion.set("1.5.0")
 }
 ```
