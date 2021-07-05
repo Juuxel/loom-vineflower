@@ -53,7 +53,7 @@ public final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
             Files.createDirectories(cache);
         }
 
-        boolean refresh = project.getGradle().getStartParameter().isRefreshDependencies();
+        boolean refresh = project.getGradle().getStartParameter().isRefreshDependencies() || Boolean.getBoolean("loom-quiltflower.refresh");
         String version = extension.getQuiltflowerVersion().get();
         Path qfJar = cache.resolve("quiltflower-" + version + "-remapped.jar");
 
