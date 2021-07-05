@@ -18,8 +18,8 @@ public final class RelocationRemapper extends Remapper {
 
     public static RelocationRemapper createQuiltflowerRelocator() {
         Map<String, String> patterns = new HashMap<>();
-        patterns.put("org/jetbrains/java/decompiler", "juuxel/loomquiltflower/relocated/quiltflower");
-        patterns.put("net/fabricmc/fernflower/api", "juuxel/loomquiltflower/relocated/quiltflowerapi");
+        patterns.put("org/jetbrains/java/decompiler", "juuxel/loomquiltflower/impl/relocated/quiltflower");
+        patterns.put("net/fabricmc/fernflower/api", "juuxel/loomquiltflower/impl/relocated/quiltflowerapi");
         Set<String> excludes = Collections.emptySet();
 
         return new RelocationRemapper(patterns, excludes);

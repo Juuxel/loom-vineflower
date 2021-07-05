@@ -3,7 +3,7 @@ package juuxel.loomquiltflower.impl;
 import juuxel.loomquiltflower.impl.bridge.QfResultSaver;
 import juuxel.loomquiltflower.impl.bridge.QfTinyJavadocProvider;
 import juuxel.loomquiltflower.impl.bridge.QfThreadIdLogger;
-import juuxel.loomquiltflower.relocated.quiltflower.main.Fernflower;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.main.Fernflower;
 import net.fabricmc.fernflower.api.IFabricJavadocProvider;
 import net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor;
 import net.fabricmc.loom.decompilers.fernflower.FernFlowerUtils;

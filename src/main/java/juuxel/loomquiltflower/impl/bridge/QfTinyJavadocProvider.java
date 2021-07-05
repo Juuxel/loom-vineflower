@@ -33,11 +33,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import juuxel.loomquiltflower.relocated.quiltflower.struct.StructClass;
-import juuxel.loomquiltflower.relocated.quiltflower.struct.StructField;
-import juuxel.loomquiltflower.relocated.quiltflower.struct.StructMethod;
-import juuxel.loomquiltflower.relocated.quiltflower.struct.StructRecordComponent;
-import juuxel.loomquiltflower.relocated.quiltflowerapi.IFabricJavadocProvider;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.struct.StructClass;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.struct.StructField;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.struct.StructMethod;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.struct.StructRecordComponent;
+import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricJavadocProvider;
 import org.objectweb.asm.Opcodes;
 
 import net.fabricmc.mapping.tree.ClassDef;

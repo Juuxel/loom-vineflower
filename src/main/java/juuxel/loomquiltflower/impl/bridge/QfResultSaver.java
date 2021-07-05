@@ -1,6 +1,6 @@
 package juuxel.loomquiltflower.impl.bridge;
 
-import juuxel.loomquiltflower.relocated.quiltflowerapi.IFabricResultSaver;
+import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricResultSaver;
 
 import java.util.jar.Manifest;
 
