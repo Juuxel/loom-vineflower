@@ -1,6 +1,6 @@
-package juuxel.loomquiltflower;
+package juuxel.loomquiltflower.api;
 
-import juuxel.loomquiltflower.api.LoomQuiltflowerExtension;
+import juuxel.loomquiltflower.impl.QuiltflowerDecompiler;
 import net.fabricmc.loom.LoomGradleExtension;
 import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;

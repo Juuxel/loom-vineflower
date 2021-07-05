@@ -1,4 +1,4 @@
-package juuxel.loomquiltflower;
+package juuxel.loomquiltflower.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

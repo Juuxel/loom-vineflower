@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 
-package juuxel.loomquiltflower.loom;
+package juuxel.loomquiltflower.impl.loom;
 
-import juuxel.loomquiltflower.ReflectionUtil;
+import juuxel.loomquiltflower.impl.ReflectionUtil;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 import net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor;

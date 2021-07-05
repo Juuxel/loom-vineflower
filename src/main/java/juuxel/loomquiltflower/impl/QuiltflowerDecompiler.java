@@ -1,8 +1,8 @@
-package juuxel.loomquiltflower;
+package juuxel.loomquiltflower.impl;
 
 import juuxel.loomquiltflower.api.LoomQuiltflowerExtension;
 import juuxel.loomquiltflower.core.Remapping;
-import juuxel.loomquiltflower.loom.AbstractFernFlowerDecompiler;
+import juuxel.loomquiltflower.impl.loom.AbstractFernFlowerDecompiler;
 import net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor;
 import org.gradle.api.Project;
 import org.gradle.process.JavaExecSpec;
@@ -16,7 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 
-final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
+public final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
     private final Project project;
     private final LoomQuiltflowerExtension extension;
 

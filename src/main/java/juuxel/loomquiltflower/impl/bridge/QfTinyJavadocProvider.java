@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package juuxel.loomquiltflower.bridge;
+package juuxel.loomquiltflower.impl.bridge;
 
 import java.io.BufferedReader;
 import java.io.File;

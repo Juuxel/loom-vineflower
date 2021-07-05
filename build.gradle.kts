@@ -81,7 +81,7 @@ gradlePlugin {
     plugins {
         create("loom-quiltflower") {
             id = "io.github.juuxel.loom-quiltflower"
-            implementationClass = "juuxel.loomquiltflower.LoomQuiltflowerPlugin"
+            implementationClass = "juuxel.loomquiltflower.api.LoomQuiltflowerPlugin"
         }
     }
 }
