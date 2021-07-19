@@ -17,8 +17,10 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
 
 Loom variant      | Supported versions
 ------------------|-------------------
-Fabric Loom       | 0.7 - 0.9
-Architectury Loom | 0.7.2 - 0.8.0
+Fabric Loom       | 0.8 - 0.9
+Architectury Loom | 0.7.2 - 0.9.0
+
+Older versions might be compatible, but using them is unsupported. Bugs caused by outdated Loom versions will not be fixed.
 
 ## Getting started
 
