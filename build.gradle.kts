@@ -58,6 +58,11 @@ repositories {
     }
 
     maven {
+        name = "Forge"
+        url = uri("https://maven.minecraftforge.net")
+    }
+
+    maven {
         name = "Quilt"
         url = uri("https://maven.quiltmc.org/repository/release")
     }
