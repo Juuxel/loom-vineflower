@@ -52,14 +52,16 @@ repositories {
         url = uri("https://maven.fabricmc.net")
     }
 
-    maven {
-        name = "Arch"
-        url = uri("https://maven.architectury.dev")
-    }
+    if (loomId == "dev.architectury.loom") {
+        maven {
+            name = "Arch"
+            url = uri("https://maven.architectury.dev")
+        }
 
-    maven {
-        name = "Forge"
-        url = uri("https://maven.minecraftforge.net")
+        maven {
+            name = "Forge"
+            url = uri("https://maven.minecraftforge.net")
+        }
     }
 
     maven {
