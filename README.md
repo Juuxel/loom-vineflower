@@ -37,7 +37,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 +         maven {
 +             name = 'Cotton'
 +             url = 'https://server.bbkr.space/artifactory/libs-release/'
-+         }          
++         }
           gradlePluginPortal()
       }
   }
