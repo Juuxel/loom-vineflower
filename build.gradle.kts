@@ -30,17 +30,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-val testLoomVariant = System.getenv("TEST_LOOM_VARIANT") ?: "fabric0_8"
-val loomEntry: Pair<String, String> = when (testLoomVariant) {
-    "fabric0_8" -> "fabric-loom" to "0.8-SNAPSHOT"
-    "fabric0_9" -> "fabric-loom" to "0.9-SNAPSHOT"
-    "arch0_7_2" -> "dev.architectury.loom" to "0.7.2-SNAPSHOT"
-    "arch0_7_3" -> "dev.architectury.loom" to "0.7.3-SNAPSHOT"
-    "arch0_8_0" -> "dev.architectury.loom" to "0.8.0-SNAPSHOT"
-    "arch0_9_0" -> "dev.architectury.loom" to "0.9.0-SNAPSHOT"
-    else -> error("unknown loom variant: $testLoomVariant")
-}
-val (loomId, loomVersion) = loomEntry
+val (loomId, loomVersion) = (System.getenv("TEST_LOOM_VARIANT") ?: "fabric-loom:0.8-SNAPSHOT").split(":")
 
 repositories {
     mavenCentral()

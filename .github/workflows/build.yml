@@ -11,14 +11,14 @@ jobs:
         ]
         loom: [
           # Upstream
-          fabric0_8, # Minimum
-          fabric0_9, # Experimental
+          "fabric-loom:0.8-SNAPSHOT", # Minimum
+          "fabric-loom:0.9-SNAPSHOT", # Experimental
 
           # Arch
-          arch0_7_2, # Minimum
-          arch0_8_0, # Supported
-          arch0_7_3, # Experimental
-          arch0_9_0  # Experimental
+          "dev.architectury.loom:0.7.2-SNAPSHOT", # Minimum
+          "dev.architectury.loom:0.8.0-SNAPSHOT", # Supported
+          "dev.architectury.loom:0.7.3-SNAPSHOT", # Experimental
+          "dev.architectury.loom:0.9.0-SNAPSHOT"  # Experimental
         ]
         exclude:
           - java: 11
