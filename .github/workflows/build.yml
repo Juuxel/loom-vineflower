@@ -22,13 +22,13 @@ jobs:
         ]
         exclude:
           - java: 11
-            loom: fabric0_8
+            loom: "fabric-loom:0.8-SNAPSHOT"
           - java: 11
-            loom: fabric0_9
+            loom: "fabric-loom:0.9-SNAPSHOT"
           - java: 11
-            loom: arch0_8_0
+            loom: "dev.architectury.loom:0.8.0-SNAPSHOT"
           - java: 11
-            loom: arch0_9_0
+            loom: "dev.architectury.loom:0.9.0-SNAPSHOT"
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
