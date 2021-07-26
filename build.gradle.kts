@@ -13,9 +13,7 @@ if (file("private.gradle").exists()) {
     apply(from = "private.gradle")
 }
 
-val shade by configurations.creating {
-    isTransitive = false
-}
+val shade by configurations.creating
 
 configurations {
     compileClasspath {
@@ -32,7 +30,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-val testLoomVariant = System.getenv("TEST_LOOM_VARIANT") ?: "fabric0_9"
+val testLoomVariant = System.getenv("TEST_LOOM_VARIANT") ?: "fabric0_8"
 val loomEntry: Pair<String, String> = when (testLoomVariant) {
     "fabric0_8" -> "fabric-loom" to "0.8-SNAPSHOT"
     "fabric0_9" -> "fabric-loom" to "0.9-SNAPSHOT"
@@ -74,15 +72,17 @@ dependencies {
     implementation(gradleApi())
 
     compileOnly("net.fabricmc:fabric-loom:${property("loom-version")}")
-    implementation("net.fabricmc:fabric-fernflower:${property("fabric-fernflower-version")}")
-    implementation("net.fabricmc:tiny-mappings-parser:${property("tiny-mappings-parser-version")}")
-    implementation("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
-    implementation("org.ow2.asm:asm:${property("asm-version")}")
-    implementation("org.ow2.asm:asm-commons:${property("asm-version")}")
+    compileOnly("net.fabricmc:fabric-fernflower:${property("fabric-fernflower-version")}")
+    compileOnly("net.fabricmc:tiny-mappings-parser:${property("tiny-mappings-parser-version")}")
+    compileOnly("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
+    compileOnly("org.ow2.asm:asm:${property("asm-version")}")
+    compileOnly("org.ow2.asm:asm-commons:${property("asm-version")}")
 
     // Only needed for providing the classes to compile against, it is downloaded at runtime
     compileOnly(loomQuiltflowerLogic.quiltflower())
-    shade("io.github.juuxel:loom-quiltflower-core")
+    shade("io.github.juuxel:loom-quiltflower-core") {
+        isTransitive = false
+    }
 
     // Tests
     testImplementation(platform("org.junit:junit-bom:5.7.2"))

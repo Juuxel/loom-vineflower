@@ -34,6 +34,7 @@ class BasicProjectTest extends ProjectTest {
             .withProjectDir(projectDirectory)
             .withArguments("genSourcesWithQuiltflower", "--stacktrace")
             .forwardOutput()
+            .withDebug(true)
             .build();
 
         assertThat(result.task(":genSourcesWithQuiltflower").getOutcome()).isEqualTo(TaskOutcome.SUCCESS);
