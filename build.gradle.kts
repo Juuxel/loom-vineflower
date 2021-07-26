@@ -74,7 +74,8 @@ dependencies {
     compileOnly("net.fabricmc:fabric-loom:${property("loom-version")}")
     compileOnly("net.fabricmc:fabric-fernflower:${property("fabric-fernflower-version")}")
     compileOnly("net.fabricmc:tiny-mappings-parser:${property("tiny-mappings-parser-version")}")
-    compileOnly("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
+    // this one has to be implementation since arch loom uses a repackaged one
+    implementation("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
     compileOnly("org.ow2.asm:asm:${property("asm-version")}")
     compileOnly("org.ow2.asm:asm-commons:${property("asm-version")}")
 
