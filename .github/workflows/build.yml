@@ -8,7 +8,7 @@ jobs:
         java: [
           11, # Minimum
           16  # Current
-        ],
+        ]
         loom: [
           # Upstream
           fabric0_8, # Minimum
@@ -19,7 +19,7 @@ jobs:
           arch0_8_0, # Supported
           arch0_7_3, # Experimental
           arch0_9_0  # Experimental
-        ],
+        ]
         exclude:
           - java: 11
             loom: fabric0_8
