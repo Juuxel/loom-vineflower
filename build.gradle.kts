@@ -113,6 +113,13 @@ tasks {
             "loomId" to loomId,
             "fabric.loom.test" to "surely",
         )
+
+        testLogging {
+            showStackTraces = true
+            showExceptions = true
+            showCauses = true
+            showStandardStreams = true
+        }
     }
 }
 
