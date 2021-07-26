@@ -17,10 +17,32 @@ val shade by configurations.creating {
     isTransitive = false
 }
 
+configurations {
+    compileClasspath {
+        extendsFrom(shade)
+    }
+
+    runtimeClasspath {
+        extendsFrom(shade)
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
 }
+
+val testLoomVariant = System.getenv("TEST_LOOM_VARIANT") ?: "fabric0_9"
+val loomEntry: Pair<String, String> = when (testLoomVariant) {
+    "fabric0_8" -> "fabric-loom" to "0.8-SNAPSHOT"
+    "fabric0_9" -> "fabric-loom" to "0.9-SNAPSHOT"
+    "arch0_7_2" -> "dev.architectury.loom" to "0.7.2-SNAPSHOT"
+    "arch0_7_3" -> "dev.architectury.loom" to "0.7.3-SNAPSHOT"
+    "arch0_8_0" -> "dev.architectury.loom" to "0.8.0-SNAPSHOT"
+    "arch0_9_0" -> "dev.architectury.loom" to "0.9.0-SNAPSHOT"
+    else -> error("unknown loom variant: $testLoomVariant")
+}
+val (loomId, loomVersion) = loomEntry
 
 repositories {
     mavenCentral()
@@ -28,6 +50,11 @@ repositories {
     maven {
         name = "Fabric"
         url = uri("https://maven.fabricmc.net")
+    }
+
+    maven {
+        name = "Arch"
+        url = uri("https://maven.architectury.dev")
     }
 
     maven {
@@ -48,8 +75,14 @@ dependencies {
 
     // Only needed for providing the classes to compile against, it is downloaded at runtime
     compileOnly(loomQuiltflowerLogic.quiltflower())
-    compileOnly("io.github.juuxel:loom-quiltflower-core")
     shade("io.github.juuxel:loom-quiltflower-core")
+
+    // Tests
+    testImplementation(platform("org.junit:junit-bom:5.7.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.assertj:assertj-core:3.20.2")
+    // This has to be a runtimeOnly because gradle's test kit classpath stuff is really dumb.
+    runtimeOnly("$loomId:$loomId.gradle.plugin:$loomVersion")
 }
 
 blossom {
@@ -74,6 +107,14 @@ tasks {
 
     assemble {
         dependsOn(shadowJar)
+    }
+
+    test {
+        useJUnitPlatform()
+        systemProperties(
+            "loomId" to loomId,
+            "fabric.loom.test" to "surely",
+        )
     }
 }
 
