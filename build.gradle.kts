@@ -30,6 +30,8 @@ configurations {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+
+    withSourcesJar()
 }
 
 val (loomId, loomVersion) = (System.getenv("TEST_LOOM_VARIANT") ?: "fabric-loom:0.8-SNAPSHOT").split(":")
