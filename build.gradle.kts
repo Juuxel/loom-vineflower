@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.juuxel"
-version = "1.2.0-beta.1"
+version = "1.2.0"
 
 if (file("private.gradle").exists()) {
     apply(from = "private.gradle")
