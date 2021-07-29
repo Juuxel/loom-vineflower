@@ -12,6 +12,8 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
   - [Fabric projects](#fabric-projects)
   - [Architectury projects](#architectury-projects)
 - [Configuration](#configuration)
+  - [Quiltflower version](#quiltflower-version)
+  - [Decompilation preferences](#decompilation-preferences)
 
 ## Version compatibility
 
@@ -95,11 +97,46 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 
 ## Configuration
 
-You can configure the used version of Quiltflower with the `quiltflower` extension:
+### Quiltflower version
+
+You can configure the used version of Quiltflower with the `quiltflower` extension (called `loomQuiltflower` before 2.0.0):
 
 ```groovy
 quiltflower {
     // This is the default; 1.4.0 and above should work
     quiltflowerVersion.set("1.5.0")
+  
+    // If you're using Groovy DSL, you can also specify the version like this:
+    quiltflowerVersion = '1.5.0'
+}
+```
+
+### Decompilation preferences
+
+> Added in LQF 2.0.0.
+
+You can also change the preferences used to decompile the game.
+As of 2.0.0, there are no preset methods for specific preferences,
+but you can use their 3-letter names.
+
+### Groovy DSL
+```groovy
+quiltflower {
+    preferences {
+        // fake options: don't try at home
+        abc = true
+        ghi = 2
+    }
+}
+```
+
+### Kotlin DSL
+```kotlin
+quiltflower {
+    preferences(
+        // fake options: don't try at home
+        "abc" to true,
+        "ghi" to 2,
+    )
 }
 ```

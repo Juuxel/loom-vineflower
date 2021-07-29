@@ -1,9 +1,12 @@
 package juuxel.loomquiltflower.api;
 
+import kotlin.Pair;
 import org.gradle.api.Action;
 import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.ApiStatus;
+
+import java.util.Map;
 
 @ApiStatus.NonExtendable
 public interface QuiltflowerExtension {
@@ -42,6 +45,30 @@ public interface QuiltflowerExtension {
     @ApiStatus.Experimental
     default void preferences(Action<QuiltflowerPreferences> action) {
         action.execute(getPreferences());
+    }
+
+    /**
+     * Adds Quiltflower decompilation preferences.
+     *
+     * <p>This method is experimental and may be removed in a minor release.
+     *
+     * @param preferences the preferences as a map
+     */
+    @ApiStatus.Experimental
+    default void preferences(Map<String, ?> preferences) {
+        preferences(p -> p.put(preferences));
+    }
+
+    /**
+     * Adds Quiltflower decompilation preferences.
+     *
+     * <p>This method is experimental and may be removed in a minor release.
+     *
+     * @param preferences the preferences as an array of key-value pairs
+     */
+    @ApiStatus.Experimental
+    default void preferences(Pair<String, ?>... preferences) {
+        preferences(p -> p.put(preferences));
     }
 
     /**

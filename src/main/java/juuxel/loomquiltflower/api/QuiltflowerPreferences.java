@@ -50,7 +50,7 @@ public interface QuiltflowerPreferences {
      *
      * @param preferences the preferences as a map
      */
-    default void set(Map<String, Object> preferences) {
+    default void put(Map<String, ?> preferences) {
         asMap().putAll(preferences);
     }
 
@@ -61,7 +61,7 @@ public interface QuiltflowerPreferences {
      *
      * @param preferences the preferences as an array of key-value pairs
      */
-    default void set(Pair<String, Object>... preferences) {
-        set(MapsKt.mapOf(preferences));
+    default void put(Pair<String, ?>... preferences) {
+        put(MapsKt.mapOf(preferences));
     }
 }
