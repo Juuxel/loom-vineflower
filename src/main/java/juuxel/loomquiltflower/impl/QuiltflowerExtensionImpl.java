@@ -14,12 +14,12 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
     private static final String DEFAULT_QUILTFLOWER_VERSION = "CURRENT_QUILTFLOWER_VERSION";
     private final Project project;
     private final Property<String> quiltflowerVersion;
-    private final Property<QuiltflowerSource> quiltflowerSource;
+    private final Property<QuiltflowerSource> source;
 
     public QuiltflowerExtensionImpl(Project project) {
         this.project = project;
         quiltflowerVersion = project.getObjects().property(String.class).convention(DEFAULT_QUILTFLOWER_VERSION);
-        quiltflowerSource = project.getObjects().property(QuiltflowerSource.class).convention(fromQuiltMaven());
+        source = project.getObjects().property(QuiltflowerSource.class).convention(fromQuiltMaven());
     }
 
     @Override
@@ -28,8 +28,8 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
     }
 
     @Override
-    public Property<QuiltflowerSource> getQuiltflowerSource() {
-        return quiltflowerSource;
+    public Property<QuiltflowerSource> getSource() {
+        return source;
     }
 
     @Override

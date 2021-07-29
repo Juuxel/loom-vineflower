@@ -1,6 +1,7 @@
 package juuxel.loomquiltflower.impl.source;
 
 import juuxel.loomquiltflower.api.QuiltflowerSource;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,5 +17,15 @@ public final class ConstantUrlQuiltflowerSource implements QuiltflowerSource {
     @Override
     public InputStream open() throws IOException {
         return url.openStream();
+    }
+
+    @Override
+    public @Nullable String getProvidedVersion() {
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "fromUrl(" + url + ")";
     }
 }

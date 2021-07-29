@@ -20,4 +20,14 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
         URL url = new URL(String.format("https://maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/%s/quiltflower-%s.jar", v, v));
         return url.openStream();
     }
+
+    @Override
+    public String getProvidedVersion() {
+        return version.get();
+    }
+
+    @Override
+    public String toString() {
+        return "fromQuiltMaven";
+    }
 }

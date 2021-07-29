@@ -1,17 +1,20 @@
 package juuxel.loomquiltflower.impl;
 
+import com.google.common.hash.Hashing;
+import com.google.common.io.MoreFiles;
 import juuxel.loomquiltflower.api.QuiltflowerExtension;
+import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.loomquiltflower.core.Remapping;
 import juuxel.loomquiltflower.impl.loom.AbstractFernFlowerDecompiler;
 import net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor;
 import org.gradle.api.Project;
 import org.gradle.process.JavaExecSpec;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
@@ -54,18 +57,23 @@ public final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
         }
 
         boolean refresh = project.getGradle().getStartParameter().isRefreshDependencies() || Boolean.getBoolean("loom-quiltflower.refresh");
-        String version = extension.getQuiltflowerVersion().get();
-        Path qfJar = cache.resolve("quiltflower-" + version + "-remapped.jar");
+        QuiltflowerSource source = extension.getSource().get();
+        @Nullable String version = source.getProvidedVersion();
+        @Nullable Path qfJar = version != null ? cache.resolve("quiltflower-" + version + "-remapped.jar") : null;
 
-        if (Files.notExists(qfJar) || refresh) {
-            Path baseQfJar = cache.resolve("quiltflower-" + version + ".jar");
+        if (qfJar == null || Files.notExists(qfJar) || refresh) {
+            Path baseQfJar = cache.resolve("quiltflower-unprocessed.jar");
+            Files.deleteIfExists(baseQfJar);
 
-            if (Files.notExists(baseQfJar) || refresh) {
-                URL url = new URL(String.format("https://maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/%s/quiltflower-%s.jar", version, version));
+            try (InputStream in = source.open()) {
+                Files.copy(in, baseQfJar);
+            } catch (Exception e) {
+                throw new IOException("Source " + source + " could not resolve Quiltflower", e);
+            }
 
-                try (InputStream in = url.openStream()) {
-                    Files.copy(in, baseQfJar);
-                }
+            if (version == null) {
+                version = MoreFiles.asByteSource(baseQfJar).hash(Hashing.sha256()).toString().substring(0, 16);
+                qfJar = cache.resolve("quiltflower-" + version + "-remapped.jar");
             }
 
             Remapping.remapQuiltflower(baseQfJar.toFile(), qfJar.toFile(), Collections.emptySet());

@@ -7,6 +7,7 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.artifacts.Dependency;
 import org.gradle.api.artifacts.SelfResolvingDependency;
 import org.gradle.api.provider.Provider;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,23 +19,32 @@ import java.util.stream.Collectors;
 public final class RepositoryQuiltflowerSource implements QuiltflowerSource {
     private static final String DEPENDENCY_BASE = "org.quiltmc:quiltflower:";
     private final Project project;
-    private final Object dependency;
-    private File quiltflowerFile = null;
+    private final Object dependencyNotation;
+    private @Nullable Dependency dependency = null;
+    private @Nullable File quiltflowerFile = null;
 
     public RepositoryQuiltflowerSource(Project project, Provider<String> version) {
         this.project = project;
-        this.dependency = version.map(it -> DEPENDENCY_BASE + it);
+        this.dependencyNotation = version.map(it -> DEPENDENCY_BASE + it);
     }
 
     public RepositoryQuiltflowerSource(Project project, Object dependencyNotation) {
         this.project = project;
-        this.dependency = dependencyNotation;
+        this.dependencyNotation = dependencyNotation;
+    }
+
+    private Dependency getDependency() {
+        if (dependency == null) {
+            dependency = project.getDependencies().create(dependencyNotation);
+        }
+
+        return dependency;
     }
 
     @Override
     public InputStream open() throws IOException {
         if (quiltflowerFile == null) {
-            Dependency dependency = project.getDependencies().create(this.dependency);
+            Dependency dependency = getDependency();
             Set<File> files;
 
             if (dependency instanceof SelfResolvingDependency) {
@@ -54,5 +64,15 @@ public final class RepositoryQuiltflowerSource implements QuiltflowerSource {
         }
 
         return new FileInputStream(quiltflowerFile);
+    }
+
+    @Override
+    public @Nullable String getProvidedVersion() {
+        return getDependency().getVersion();
+    }
+
+    @Override
+    public String toString() {
+        return "fromDependency(" + dependencyNotation + ")";
     }
 }

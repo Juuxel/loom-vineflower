@@ -17,8 +17,8 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project target) {
-        QuiltflowerExtensionImpl extension = new QuiltflowerExtensionImpl(target);
-        target.getExtensions().add(QuiltflowerExtension.class, "quiltflower", extension);
+        // Use create to allow Gradle to decorate our extension
+        var extension = target.getExtensions().create(QuiltflowerExtension.class, "quiltflower", QuiltflowerExtensionImpl.class, target);
 
         for (String loomId : LOOMS) {
             target.getPluginManager().withPlugin(loomId, p -> {

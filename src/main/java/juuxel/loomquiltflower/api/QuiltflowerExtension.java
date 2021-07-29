@@ -6,7 +6,7 @@ import org.jetbrains.annotations.ApiStatus;
 @ApiStatus.NonExtendable
 public interface QuiltflowerExtension {
     Property<String> getQuiltflowerVersion();
-    Property<QuiltflowerSource> getQuiltflowerSource();
+    Property<QuiltflowerSource> getSource();
 
     QuiltflowerSource fromFile(Object path);
     QuiltflowerSource fromUrl(Object url);
