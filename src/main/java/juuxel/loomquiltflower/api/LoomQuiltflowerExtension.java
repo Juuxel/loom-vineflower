@@ -31,7 +31,7 @@ public class LoomQuiltflowerExtension {
     }
 
     public QuiltflowerSource fromFile(Object path) {
-        return fromUrl(path);
+        return fromUrl(project.file(path));
     }
 
     public QuiltflowerSource fromUrl(Object url) {
