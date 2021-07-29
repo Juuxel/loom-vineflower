@@ -111,6 +111,34 @@ quiltflower {
 }
 ```
 
+### Quiltflower sources
+
+> Added in LQF 1.2.0.
+
+In addition to specifying a version, you can also use a completely different *Quiltflower source*.
+They are configured with the `quiltflower.source` property.
+
+```kotlin
+quiltflower {
+    // Downloads the wanted QF version from the QuiltMC Maven repo.
+    // This is the default behaviour.
+    fromQuiltMaven()
+
+    // Downloads the wanted QF version from the project repositories.
+    fromProjectRepositories()
+
+    // Resolves QF using a Gradle dependency.
+    // The parameter can be any dependency notation supported by Gradle.
+    fromDependency("a:b:1.2.3")
+
+    // Downloads or copies the wanted QF version from a URL.
+    fromUrl("https://address.to/the/quiltflower.jar")
+
+    // Uses a local QF file
+    fromFile("my-quiltflower.jar")
+}
+```
+
 ### Decompilation preferences
 
 > Added in LQF 1.2.0.
