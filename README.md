@@ -118,20 +118,23 @@ quiltflower {
 You can also change the preferences used to decompile the game.
 For changing the properties, you can either use their 3-letter names or, with some properties, a preset method.
 
+Note that you cannot use booleans as values for most properties.
+Instead, you have to use 1 for `true` and 0 for `false`.
+
 Preset methods as of 1.2.0:
 
-- `inlineSimpleLambdas` for `isl`
-- `useJadVarnaming` for `jvn`
+- `inlineSimpleLambdas` for `isl`: collapse single-line lambdas (default: 1)
+- `useJadVarnaming` for `jvn`: use JAD-style local variable naming from ForgeFlower (default: 0)
 
 #### Groovy DSL
 ```groovy
 quiltflower {
     preferences {
         // fake options: don't try at home
-        abc = true
-        ghi = 2
+        abc = 1
+        ghi = 'thing'
 
-        inlineSimpleLambdas '0'
+        inlineSimpleLambdas 0
     }
 }
 ```
@@ -141,10 +144,10 @@ quiltflower {
 quiltflower {
     preferences(
         // fake options: don't try at home
-        "abc" to true,
-        "ghi" to 2,
+        "abc" to 1,
+        "ghi" to "thing",
     )
 
-    preferences.inlineSimpleLambdas("0")
+    preferences.inlineSimpleLambdas(0)
 }
 ```
