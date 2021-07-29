@@ -15,11 +15,9 @@ public class LoomQuiltflowerExtension {
     private final Property<QuiltflowerSource> quiltflowerSource;
 
     public LoomQuiltflowerExtension(Project project) {
-        quiltflowerVersion = project.getObjects().property(String.class);
         this.project = project;
-        quiltflowerVersion.set(DEFAULT_QUILTFLOWER_VERSION);
-        quiltflowerSource = project.getObjects().property(QuiltflowerSource.class);
-        quiltflowerSource.set(project.provider(() -> new QuiltMavenQuiltflowerSource(quiltflowerVersion)));
+        quiltflowerVersion = project.getObjects().property(String.class).convention(DEFAULT_QUILTFLOWER_VERSION);
+        quiltflowerSource = project.getObjects().property(QuiltflowerSource.class).convention(fromQuiltMaven());
     }
 
     public Property<String> getQuiltflowerVersion() {
