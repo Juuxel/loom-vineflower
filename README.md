@@ -99,7 +99,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 
 ### Quiltflower version
 
-You can configure the used version of Quiltflower with the `quiltflower` extension (called `loomQuiltflower` before 2.0.0):
+You can configure the used version of Quiltflower with the `quiltflower` extenion (called `loomQuiltflower` before 1.2.0):
 
 ```groovy
 quiltflower {
@@ -113,11 +113,15 @@ quiltflower {
 
 ### Decompilation preferences
 
-> Added in LQF 2.0.0.
+> Added in LQF 1.2.0.
 
 You can also change the preferences used to decompile the game.
-As of 2.0.0, there are no preset methods for specific preferences,
-but you can use their 3-letter names.
+For changing the properties, you can either use their 3-letter names or, with some properties, a preset method.
+
+Preset methods as of 1.2.0:
+
+- `inlineSimpleLambdas` for `isl`
+- `useJadVarnaming` for `jvn`
 
 #### Groovy DSL
 ```groovy
@@ -126,6 +130,8 @@ quiltflower {
         // fake options: don't try at home
         abc = true
         ghi = 2
+
+        inlineSimpleLambdas '0'
     }
 }
 ```
@@ -138,5 +144,7 @@ quiltflower {
         "abc" to true,
         "ghi" to 2,
     )
+
+    preferences.inlineSimpleLambdas("0")
 }
 ```

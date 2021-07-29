@@ -1,5 +1,6 @@
 package juuxel.loomquiltflower.api;
 
+import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
 import kotlin.Pair;
 import kotlin.collections.MapsKt;
 import org.gradle.api.provider.MapProperty;
@@ -63,5 +64,25 @@ public interface QuiltflowerPreferences {
      */
     default void put(Pair<String, ?>... preferences) {
         put(MapsKt.mapOf(preferences));
+    }
+
+    // Specific preferences
+
+    /**
+     * Sets the value of the {@code USE_JAD_VARNAMING} preference ({@code isl}).
+     *
+     * @param inlineSimpleLambdas the new value
+     */
+    default void inlineSimpleLambdas(Object inlineSimpleLambdas) {
+        set(IFernflowerPreferences.INLINE_SIMPLE_LAMBDAS, inlineSimpleLambdas);
+    }
+
+    /**
+     * Sets the value of the {@code USE_JAD_VARNAMING} preference ({@code jvn}).
+     *
+     * @param useJadVarnaming the new value
+     */
+    default void useJadVarnaming(Object useJadVarnaming) {
+        set(IFernflowerPreferences.USE_JAD_VARNAMING, useJadVarnaming);
     }
 }
