@@ -61,6 +61,7 @@ repositories {
 dependencies {
     implementation(gradleApi())
 
+    // Loom dependencies
     compileOnly("net.fabricmc:fabric-loom:${property("loom-version")}")
     compileOnly("net.fabricmc:fabric-fernflower:${property("fabric-fernflower-version")}")
     compileOnly("net.fabricmc:tiny-mappings-parser:${property("tiny-mappings-parser-version")}")
@@ -74,6 +75,8 @@ dependencies {
     shade("io.github.juuxel:loom-quiltflower-core") {
         isTransitive = false
     }
+    shade("com.google.guava:guava:30.1.1-jre")
+    compileOnly("org.jetbrains:annotations:21.0.1")
 
     // Tests
     testImplementation(platform("org.junit:junit-bom:5.7.2"))

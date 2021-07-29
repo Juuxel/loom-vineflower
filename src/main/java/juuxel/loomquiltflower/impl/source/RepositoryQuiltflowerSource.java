@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public final class RepositoryQuiltflowerSource implements QuiltflowerSource {
     private static final String DEPENDENCY_BASE = "org.quiltmc:quiltflower:";
     private final Project project;
-    private final Provider<String> dependency;
+    private final Object dependency;
     private File quiltflowerFile = null;
 
     public RepositoryQuiltflowerSource(Project project, Provider<String> version) {
@@ -26,10 +26,15 @@ public final class RepositoryQuiltflowerSource implements QuiltflowerSource {
         this.dependency = version.map(it -> DEPENDENCY_BASE + it);
     }
 
+    public RepositoryQuiltflowerSource(Project project, Object dependencyNotation) {
+        this.project = project;
+        this.dependency = dependencyNotation;
+    }
+
     @Override
     public InputStream open() throws IOException {
         if (quiltflowerFile == null) {
-            Dependency dependency = project.getDependencies().create(this.dependency.get());
+            Dependency dependency = project.getDependencies().create(this.dependency);
             Set<File> files;
 
             if (dependency instanceof SelfResolvingDependency) {

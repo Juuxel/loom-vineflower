@@ -1,5 +1,6 @@
 package juuxel.loomquiltflower.api;
 
+import juuxel.loomquiltflower.impl.QuiltflowerExtensionImpl;
 import juuxel.loomquiltflower.impl.QuiltflowerDecompiler;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 import org.gradle.api.GradleException;
@@ -16,8 +17,8 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project target) {
-        LoomQuiltflowerExtension extension = new LoomQuiltflowerExtension(target);
-        target.getExtensions().add("quiltflower", extension);
+        QuiltflowerExtensionImpl extension = new QuiltflowerExtensionImpl(target);
+        target.getExtensions().add(QuiltflowerExtension.class, "quiltflower", extension);
 
         for (String loomId : LOOMS) {
             target.getPluginManager().withPlugin(loomId, p -> {

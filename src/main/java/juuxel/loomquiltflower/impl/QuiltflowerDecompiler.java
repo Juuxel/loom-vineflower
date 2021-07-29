@@ -1,6 +1,6 @@
 package juuxel.loomquiltflower.impl;
 
-import juuxel.loomquiltflower.api.LoomQuiltflowerExtension;
+import juuxel.loomquiltflower.api.QuiltflowerExtension;
 import juuxel.loomquiltflower.core.Remapping;
 import juuxel.loomquiltflower.impl.loom.AbstractFernFlowerDecompiler;
 import net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor;
@@ -18,9 +18,9 @@ import java.util.Collections;
 
 public final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
     private final Project project;
-    private final LoomQuiltflowerExtension extension;
+    private final QuiltflowerExtension extension;
 
-    public QuiltflowerDecompiler(Project project, LoomQuiltflowerExtension extension) {
+    public QuiltflowerDecompiler(Project project, QuiltflowerExtension extension) {
         super(project);
         this.project = project;
         this.extension = extension;
@@ -46,7 +46,7 @@ public final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
         }
     }
 
-    private static File resolveQuiltflower(Project project, LoomQuiltflowerExtension extension) throws IOException {
+    private static File resolveQuiltflower(Project project, QuiltflowerExtension extension) throws IOException {
         Path cache = project.getRootProject().getProjectDir().toPath().resolve(".gradle").resolve("loom-quiltflower-cache");
 
         if (Files.notExists(cache)) {
