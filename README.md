@@ -95,10 +95,10 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 
 ## Configuration
 
-You can configure the used version of Quiltflower with the `loomQuiltflower` extension:
+You can configure the used version of Quiltflower with the `quiltflower` extension:
 
 ```groovy
-loomQuiltflower {
+quiltflower {
     // This is the default; 1.4.0 and above should work
     quiltflowerVersion.set("1.5.0")
 }

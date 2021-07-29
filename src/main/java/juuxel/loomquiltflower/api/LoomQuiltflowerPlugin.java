@@ -17,7 +17,7 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
     @Override
     public void apply(Project target) {
         LoomQuiltflowerExtension extension = new LoomQuiltflowerExtension(target);
-        target.getExtensions().add("loomQuiltflower", extension);
+        target.getExtensions().add("quiltflower", extension);
 
         for (String loomId : LOOMS) {
             target.getPluginManager().withPlugin(loomId, p -> {
