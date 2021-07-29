@@ -6,6 +6,7 @@ import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.artifacts.Dependency;
 import org.gradle.api.artifacts.SelfResolvingDependency;
+import org.gradle.api.provider.Provider;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,18 +18,18 @@ import java.util.stream.Collectors;
 public final class RepositoryQuiltflowerSource implements QuiltflowerSource {
     private static final String DEPENDENCY_BASE = "org.quiltmc:quiltflower:";
     private final Project project;
-    private final String dependency;
+    private final Provider<String> dependency;
     private File quiltflowerFile = null;
 
-    public RepositoryQuiltflowerSource(Project project, String version) {
+    public RepositoryQuiltflowerSource(Project project, Provider<String> version) {
         this.project = project;
-        this.dependency = DEPENDENCY_BASE + version;
+        this.dependency = version.map(it -> DEPENDENCY_BASE + it);
     }
 
     @Override
     public InputStream open() throws IOException {
         if (quiltflowerFile == null) {
-            Dependency dependency = project.getDependencies().create(this.dependency);
+            Dependency dependency = project.getDependencies().create(this.dependency.get());
             Set<File> files;
 
             if (dependency instanceof SelfResolvingDependency) {
