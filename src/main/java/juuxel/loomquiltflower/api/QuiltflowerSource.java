@@ -5,7 +5,20 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * A Quiltflower source provides a Quiltflower jar from an arbitrary location.
+ *
+ * @see SourceFactory default source types *
+ * @since 2.0.0
+ */
 public interface QuiltflowerSource {
+    /**
+     * Opens an input stream to the provided Quiltflower jar file.
+     * Closing the stream is the responsibility of the caller.
+     *
+     * @return the opened input stream
+     * @throws IOException if an IO error occurred
+     */
     InputStream open() throws IOException;
 
     /**
