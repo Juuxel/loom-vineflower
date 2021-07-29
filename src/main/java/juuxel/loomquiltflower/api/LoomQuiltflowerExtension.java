@@ -5,9 +5,8 @@ import juuxel.loomquiltflower.impl.source.QuiltMavenQuiltflowerSource;
 import juuxel.loomquiltflower.impl.source.RepositoryQuiltflowerSource;
 import org.gradle.api.Project;
 import org.gradle.api.provider.Property;
-import org.gradle.api.provider.Provider;
 
-import java.net.URL;
+import java.net.MalformedURLException;
 
 public class LoomQuiltflowerExtension {
     private static final String DEFAULT_QUILTFLOWER_VERSION = "CURRENT_QUILTFLOWER_VERSION";
@@ -31,15 +30,19 @@ public class LoomQuiltflowerExtension {
         return quiltflowerSource;
     }
 
-    public Provider<QuiltflowerSource> fromFile(Object path) {
-        return project.provider(() -> new ConstantUrlQuiltflowerSource(project.file(path).toURI().toURL()));
+    public QuiltflowerSource fromFile(Object path) {
+        return fromUrl(path);
     }
 
-    public Provider<QuiltflowerSource> fromUrl(URL url) {
-        return project.provider(() -> new ConstantUrlQuiltflowerSource(url));
+    public QuiltflowerSource fromUrl(Object url) {
+        try {
+            return new ConstantUrlQuiltflowerSource(project.uri(url).toURL());
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("Malformed url: " + url, e);
+        }
     }
 
-    public Provider<QuiltflowerSource> fromProjectRepositories() {
-        return project.provider(() -> new RepositoryQuiltflowerSource(project, quiltflowerVersion.get()));
+    public QuiltflowerSource fromProjectRepositories() {
+        return new RepositoryQuiltflowerSource(project, quiltflowerVersion.get());
     }
 }
