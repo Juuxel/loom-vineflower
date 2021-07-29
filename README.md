@@ -119,7 +119,7 @@ You can also change the preferences used to decompile the game.
 As of 2.0.0, there are no preset methods for specific preferences,
 but you can use their 3-letter names.
 
-### Groovy DSL
+#### Groovy DSL
 ```groovy
 quiltflower {
     preferences {
@@ -130,7 +130,7 @@ quiltflower {
 }
 ```
 
-### Kotlin DSL
+#### Kotlin DSL
 ```kotlin
 quiltflower {
     preferences(
