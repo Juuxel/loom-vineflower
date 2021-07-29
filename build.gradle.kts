@@ -14,6 +14,7 @@ if (file("private.gradle").exists()) {
 }
 
 val shade by configurations.creating
+val loomRuntime by configurations.creating
 
 configurations {
     compileClasspath {
@@ -22,6 +23,7 @@ configurations {
 
     runtimeClasspath {
         extendsFrom(shade)
+        extendsFrom(loomRuntime)
     }
 }
 
@@ -84,8 +86,8 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.20.2")
-    // This has to be a runtimeOnly because gradle's test kit classpath stuff is really dumb.
-    runtimeOnly("$loomId:$loomId.gradle.plugin:$loomVersion")
+    // This has to be a runtimeClasspath dep because gradle's test kit classpath stuff is really dumb.
+    loomRuntime("$loomId:$loomId.gradle.plugin:$loomVersion")
 }
 
 blossom {
