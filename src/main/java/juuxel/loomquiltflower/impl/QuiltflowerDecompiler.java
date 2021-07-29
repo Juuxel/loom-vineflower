@@ -18,6 +18,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.Map;
 
 public final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
     private final Project project;
@@ -80,5 +81,10 @@ public final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
         }
 
         return qfJar.toFile();
+    }
+
+    @Override
+    protected void configureOptions(Map<String, Object> options) {
+        options.putAll(extension.getPreferences().asMap().get());
     }
 }

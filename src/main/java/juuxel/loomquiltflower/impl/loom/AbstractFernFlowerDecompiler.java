@@ -70,6 +70,14 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 	protected void configureJavaExec(JavaExecSpec spec) {
 	}
 
+	/**
+	 * Configures the Fernflower options.
+	 *
+	 * @param options the option map to modify
+	 */
+	protected void configureOptions(Map<String, Object> options) {
+	}
+
 	@Override
 	public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
 		if (!OperatingSystem.is64Bit()) {
@@ -78,14 +86,14 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 
 		project.getLogging().captureStandardOutput(LogLevel.LIFECYCLE);
 
-		Map<String, Object> options = new HashMap<>() {{
-				put(IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1");
-				put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
-				put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
-				put(IFernflowerPreferences.LOG_LEVEL, "trace");
-				put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metaData, "numberOfThreads"));
-				put(IFernflowerPreferences.INDENT_STRING, "\t");
-			}};
+		Map<String, Object> options = new HashMap<>();
+		configureOptions(options);
+		options.put(IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1");
+		options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
+		options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
+		options.put(IFernflowerPreferences.LOG_LEVEL, "trace");
+		options.put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metaData, "numberOfThreads"));
+		options.put(IFernflowerPreferences.INDENT_STRING, "\t");
 
 		List<String> args = new ArrayList<>();
 

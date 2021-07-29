@@ -1,5 +1,6 @@
 package juuxel.loomquiltflower.api;
 
+import org.gradle.api.Action;
 import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.ApiStatus;
@@ -22,6 +23,26 @@ public interface QuiltflowerExtension {
      * {@return a factory creating various {@linkplain QuiltflowerSource Quiltflower sources}}
      */
     SourceFactory getSourceFactory();
+
+    /**
+     * {@return the Quiltflower decompilation preferences}
+     *
+     * <p>This method is experimental and may be removed in a minor release.
+     */
+    @ApiStatus.Experimental
+    QuiltflowerPreferences getPreferences();
+
+    /**
+     * Configures Quiltflower decompilation preferences.
+     *
+     * <p>This method is experimental and may be removed in a minor release.
+     *
+     * @param action the configuration action
+     */
+    @ApiStatus.Experimental
+    default void preferences(Action<QuiltflowerPreferences> action) {
+        action.execute(getPreferences());
+    }
 
     /**
      * Sets the Quiltflower source to read from the specified file.
