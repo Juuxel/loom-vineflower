@@ -1,7 +1,7 @@
 /*
- * This file is part of fabric-loom, licensed under the MIT License (MIT).
+ * This file is part of loom-quiltflower, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2016, 2017, 2018 FabricMC
+ * Copyright (c) 2019-2021 FabricMC, 2021 Juuz
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,9 @@ import java.util.function.Supplier;
 
 import static java.text.MessageFormat.format;
 
-// From Fabric Loom 0.9, modified by Juuxel (Juuxel/fabric-loom, commit ccbda55).
+// Introduces some QoL changes to the original.
+// - configureJavaExec and configureOptions
+// - boolean options are replaced by 1 and 0
 public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 	private final Project project;
 
@@ -94,6 +96,13 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		options.put(IFernflowerPreferences.LOG_LEVEL, "trace");
 		options.put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metaData, "numberOfThreads"));
 		options.put(IFernflowerPreferences.INDENT_STRING, "\t");
+
+		// LQF: replace booleans with 1 and 0
+		for (Map.Entry<String, Object> entry : options.entrySet()) {
+			if (entry.getValue() instanceof Boolean) {
+				entry.setValue(((Boolean) entry.getValue()) ? "1" : "0");
+			}
+		}
 
 		List<String> args = new ArrayList<>();
 
