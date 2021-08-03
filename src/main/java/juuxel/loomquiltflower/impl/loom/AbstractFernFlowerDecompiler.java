@@ -89,13 +89,13 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		project.getLogging().captureStandardOutput(LogLevel.LIFECYCLE);
 
 		Map<String, Object> options = new HashMap<>();
+		options.put(IFernflowerPreferences.INDENT_STRING, "\t");
 		configureOptions(options);
 		options.put(IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1");
 		options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
 		options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
 		options.put(IFernflowerPreferences.LOG_LEVEL, "trace");
 		options.put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metaData, "numberOfThreads"));
-		options.put(IFernflowerPreferences.INDENT_STRING, "\t");
 
 		// LQF: replace booleans with 1 and 0
 		for (Map.Entry<String, Object> entry : options.entrySet()) {
