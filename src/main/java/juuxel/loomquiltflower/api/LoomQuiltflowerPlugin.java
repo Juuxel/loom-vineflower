@@ -1,6 +1,7 @@
 package juuxel.loomquiltflower.api;
 
 import juuxel.loomquiltflower.impl.DeprecatedQuiltflowerExtension;
+import juuxel.loomquiltflower.impl.PreferenceScanner;
 import juuxel.loomquiltflower.impl.QuiltflowerExtensionImpl;
 import juuxel.loomquiltflower.impl.QuiltflowerDecompiler;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
@@ -22,6 +23,9 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
         var extension = target.getExtensions().create(QuiltflowerExtension.class, "quiltflower", QuiltflowerExtensionImpl.class, target);
         // Add the deprecated 'loomQuiltflower' extension
         target.getExtensions().create(QuiltflowerExtension.class, "loomQuiltflower", DeprecatedQuiltflowerExtension.class, target, extension);
+
+        // Scan for preferences declared in gradle.properties
+        PreferenceScanner.scan(target, extension);
 
         for (String loomId : LOOMS) {
             target.getPluginManager().withPlugin(loomId, p -> {

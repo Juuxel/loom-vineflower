@@ -177,3 +177,18 @@ quiltflower {
     preferences.inlineSimpleLambdas(0)
 }
 ```
+
+#### gradle.properties
+
+> Added in LQF 1.3.0.
+
+Preferences can also be declared in gradle.properties files using their 3-letter names, prefixed
+with `loom-quiltflower.preference.`.
+
+```properties
+# Fake option here too :^)
+loom-quiltflower.preference.abc = 1
+```
+
+You can use the global gradle.properties file in the Gradle user home directory to set your
+wanted properties, like the indentation string, for each project that uses LQF.

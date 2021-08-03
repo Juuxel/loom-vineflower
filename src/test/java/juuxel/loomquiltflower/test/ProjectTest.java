@@ -54,7 +54,7 @@ abstract class ProjectTest {
         if (replacements.containsKey(from)) {
             String text = getProjectFileText(projectName, from);
 
-            for (var entry : replacements.get(text).entrySet()) {
+            for (var entry : replacements.get(from).entrySet()) {
                 text = text.replace('@' + entry.getKey() + '@', entry.getValue());
             }
 
