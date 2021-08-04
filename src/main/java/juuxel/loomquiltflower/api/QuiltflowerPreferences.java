@@ -69,7 +69,7 @@ public interface QuiltflowerPreferences {
     // Specific preferences
 
     /**
-     * Sets the value of the {@code USE_JAD_VARNAMING} preference ({@code isl}).
+     * Sets the value of the {@code INLINE_SIMPLE_LAMBDAS} preference ({@code isl}).
      *
      * @param inlineSimpleLambdas the new value
      */
