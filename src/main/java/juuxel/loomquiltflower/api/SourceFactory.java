@@ -6,7 +6,7 @@ import org.jetbrains.annotations.ApiStatus;
 /**
  * Creates various {@linkplain QuiltflowerSource Quiltflower sources}.
  *
- * @since 2.0.0
+ * @since 1.2.0
  */
 @ApiStatus.NonExtendable
 public interface SourceFactory {

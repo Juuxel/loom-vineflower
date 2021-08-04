@@ -14,19 +14,21 @@ import java.util.Map;
  *
  * <p>This interface is experimental, and it or any contained methods may be removed in a minor release.
  *
- * @since 2.0.0
+ * @since 1.2.0
  */
 @ApiStatus.Experimental
 @ApiStatus.NonExtendable
 public interface QuiltflowerPreferences {
     /**
      * {@return a map property containing the preferences}
-     * Any changes made with this interface will be reflected in the property.
+     * Any changes made with this interface will be reflected in the property, and vice versa.
      */
     MapProperty<String, Object> asMap();
 
     /**
      * Gets the value for a key from the underlying preference map.
+     *
+     * <p>Calling this method resolves the {@link #asMap()} property.
      *
      * @param key the key
      * @return the value for the key, or null if not found
