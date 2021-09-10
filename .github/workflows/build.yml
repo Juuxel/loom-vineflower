@@ -18,7 +18,7 @@ jobs:
           # Arch
           "dev.architectury.loom:0.7.2-SNAPSHOT", # Minimum
           "dev.architectury.loom:0.7.4-SNAPSHOT", # Stable-ish, maybe?
-          "dev.architectury.loom:0.10.0-SNAPSHOT" # Experimental
+          #"dev.architectury.loom:0.10.0-SNAPSHOT" # Experimental
         ]
         exclude:
           - java: 11
