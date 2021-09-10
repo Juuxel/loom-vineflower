@@ -26,9 +26,7 @@ jobs:
           - java: 11
             loom: "fabric-loom:0.9-SNAPSHOT"
           - java: 11
-            loom: "dev.architectury.loom:0.8.0-SNAPSHOT"
-          - java: 11
-            loom: "dev.architectury.loom:0.9.0-SNAPSHOT"
+            loom: "fabric-loom:0.10-SNAPSHOT"
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
