@@ -6,8 +6,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         java: [
-          11, # Minimum
-          16  # Current
+          11, # Minimum (0.7)
+          16, # Minimum (0.8+)
+          17  # Current
         ]
         loom: [
           # Upstream
@@ -18,7 +19,7 @@ jobs:
           # Arch
           "dev.architectury.loom:0.7.2-SNAPSHOT", # Minimum
           "dev.architectury.loom:0.7.4-SNAPSHOT", # Stable-ish, maybe?
-          #"dev.architectury.loom:0.10.0-SNAPSHOT" # Experimental
+          "dev.architectury.loom:0.10.0-SNAPSHOT" # Experimental
         ]
         exclude:
           - java: 11
@@ -27,14 +28,17 @@ jobs:
             loom: "fabric-loom:0.9-SNAPSHOT"
           - java: 11
             loom: "fabric-loom:0.10-SNAPSHOT"
+          - java: 11
+            loom: "dev.architectury.loom:0.10.0-SNAPSHOT"
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - uses: gradle/wrapper-validation-action@v1
       - name: Set up JDK ${{ matrix.java }}
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: ${{ matrix.java }}
       - name: Grant execute permission for gradlew
         if: ${{ runner.os != 'Windows' }}
