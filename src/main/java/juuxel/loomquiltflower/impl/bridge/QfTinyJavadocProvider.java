@@ -153,7 +153,7 @@ public class QfTinyJavadocProvider implements IFabricJavadocProvider {
                         addedParam = true;
                     }
 
-                    parts.add(String.format("@param %s %s", methodMapping.getName(namespace), comment));
+                    parts.add(String.format("@param %s %s", argMapping.getName(namespace), comment));
                 }
             }
 
