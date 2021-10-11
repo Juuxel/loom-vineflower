@@ -23,7 +23,7 @@ public class QuiltflowerExecutor extends AbstractForkedFFExecutor {
     public void runFF(Map<String, Object> options, List<File> libraries, File input, File output, File lineMap, File mappings) {
         options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(mappings));
 
-        Fernflower ff = new Fernflower(FernFlowerUtils::getBytecode, new QfResultSaver(() -> output, () -> lineMap), options, new QfThreadIdLogger(new ThreadIDFFLogger()));
+        Fernflower ff = new Fernflower(FernFlowerUtils::getBytecode, new QfResultSaver(() -> output, () -> lineMap), options, new QfThreadIdLogger());
 
         for (File library : libraries) {
             ff.addLibrary(library);
