@@ -100,7 +100,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 
 ### Quiltflower version
 
-You can configure the used version of Quiltflower with the `quiltflower` extenion (called `loomQuiltflower` before 1.2.0):
+You can configure the used version of Quiltflower with the `quiltflower` extension (called `loomQuiltflower` before 1.2.0):
 
 ```groovy
 quiltflower {

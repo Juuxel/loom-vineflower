@@ -8,7 +8,7 @@ import java.io.InputStream;
 /**
  * A Quiltflower source provides a Quiltflower jar from an arbitrary location.
  *
- * @see SourceFactory default source types *
+ * @see SourceFactory default source types
  * @since 1.2.0
  */
 public interface QuiltflowerSource {
