@@ -5,7 +5,6 @@ import juuxel.loomquiltflower.impl.PreferenceScanner;
 import juuxel.loomquiltflower.impl.QuiltflowerExtensionImpl;
 import juuxel.loomquiltflower.impl.ReflectionUtil;
 import juuxel.loomquiltflower.impl.legacy.LegacyQuiltflowerDecompiler;
-import juuxel.loomquiltflower.impl.modern.QuiltflowerDecompiler;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
