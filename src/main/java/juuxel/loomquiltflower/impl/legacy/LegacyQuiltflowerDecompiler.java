@@ -1,12 +1,10 @@
-package juuxel.loomquiltflower.impl;
+package juuxel.loomquiltflower.impl.legacy;
 
 import com.google.common.hash.Hashing;
 import com.google.common.io.MoreFiles;
 import juuxel.loomquiltflower.api.QuiltflowerExtension;
 import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.loomquiltflower.core.Remapping;
-import juuxel.loomquiltflower.impl.legacy.AbstractForkedFFExecutor;
-import juuxel.loomquiltflower.impl.loom.AbstractFernFlowerDecompiler;
 import org.gradle.api.Project;
 import org.gradle.process.JavaExecSpec;
 import org.jetbrains.annotations.Nullable;
@@ -20,11 +18,11 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Map;
 
-public final class QuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
+public final class LegacyQuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
     private final Project project;
     private final QuiltflowerExtension extension;
 
-    public QuiltflowerDecompiler(Project project, QuiltflowerExtension extension) {
+    public LegacyQuiltflowerDecompiler(Project project, QuiltflowerExtension extension) {
         super(project);
         this.project = project;
         this.extension = extension;

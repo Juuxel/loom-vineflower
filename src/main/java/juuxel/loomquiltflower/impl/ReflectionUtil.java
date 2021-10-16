@@ -20,4 +20,13 @@ public final class ReflectionUtil {
             throw new RuntimeException("Could not find property " + name + " in " + c, e);
         }
     }
+
+    public static boolean classExists(String fqn) {
+        try {
+            Class.forName(fqn);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
 }

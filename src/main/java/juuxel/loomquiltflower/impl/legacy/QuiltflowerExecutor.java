@@ -1,9 +1,9 @@
-package juuxel.loomquiltflower.impl;
+package juuxel.loomquiltflower.impl.legacy;
 
+import juuxel.loomquiltflower.impl.Zips;
 import juuxel.loomquiltflower.impl.bridge.QfResultSaver;
 import juuxel.loomquiltflower.impl.bridge.QfTinyJavadocProvider;
 import juuxel.loomquiltflower.impl.bridge.QfThreadIdLogger;
-import juuxel.loomquiltflower.impl.legacy.AbstractForkedFFExecutor;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.Fernflower;
 import net.fabricmc.fernflower.api.IFabricJavadocProvider;
 

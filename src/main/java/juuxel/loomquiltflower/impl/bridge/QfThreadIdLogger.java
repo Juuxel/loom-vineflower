@@ -36,6 +36,7 @@ import java.util.Stack;
  *
  * <p>Created by covers1624 on 11/02/19.
  */
+// TODO: Make this simpler (see FernflowerLogger in Loom 0.10)
 public class QfThreadIdLogger extends IFernflowerLogger {
     public final PrintStream stdOut;
     public final PrintStream stdErr;

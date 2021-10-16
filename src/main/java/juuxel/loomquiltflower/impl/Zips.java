@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-final class Zips {
-    static byte[] getBytes(String outerPath, @Nullable String innerPath) throws IOException {
+public final class Zips {
+    public static byte[] getBytes(String outerPath, @Nullable String innerPath) throws IOException {
         if (innerPath == null) {
             return Files.readAllBytes(Path.of(outerPath));
         }

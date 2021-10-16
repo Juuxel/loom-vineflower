@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package juuxel.loomquiltflower.impl.loom;
+package juuxel.loomquiltflower.impl.legacy;
 
 import juuxel.loomquiltflower.impl.ReflectionUtil;
 import juuxel.loomquiltflower.impl.legacy.AbstractForkedFFExecutor;
