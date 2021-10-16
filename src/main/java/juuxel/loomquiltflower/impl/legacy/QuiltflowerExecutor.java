@@ -5,7 +5,7 @@ import juuxel.loomquiltflower.impl.bridge.QfResultSaver;
 import juuxel.loomquiltflower.impl.bridge.QfTinyJavadocProvider;
 import juuxel.loomquiltflower.impl.bridge.QfThreadIdLogger;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.Fernflower;
-import net.fabricmc.fernflower.api.IFabricJavadocProvider;
+import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricJavadocProvider;
 
 import java.io.File;
 import java.util.List;

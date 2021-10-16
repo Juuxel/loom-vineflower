@@ -6,10 +6,10 @@ import juuxel.loomquiltflower.impl.bridge.QfResultSaver;
 import juuxel.loomquiltflower.impl.bridge.QfThreadIdLogger;
 import juuxel.loomquiltflower.impl.bridge.QfTinyJavadocProvider;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.Fernflower;
-import net.fabricmc.fernflower.api.IFabricJavadocProvider;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
+import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricJavadocProvider;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
-import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
 
 import java.nio.file.Path;
 import java.util.HashMap;

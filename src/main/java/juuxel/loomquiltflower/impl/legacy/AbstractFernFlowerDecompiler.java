@@ -27,6 +27,7 @@ package juuxel.loomquiltflower.impl.legacy;
 import juuxel.loomquiltflower.impl.ReflectionUtil;
 import juuxel.loomquiltflower.impl.legacy.AbstractForkedFFExecutor;
 import juuxel.loomquiltflower.impl.legacy.ForkingJavaExec;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 import net.fabricmc.loom.util.ConsumingOutputStream;
@@ -39,7 +40,6 @@ import org.gradle.internal.logging.progress.ProgressLoggerFactory;
 import org.gradle.internal.service.ServiceRegistry;
 import org.gradle.process.ExecResult;
 import org.gradle.process.JavaExecSpec;
-import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

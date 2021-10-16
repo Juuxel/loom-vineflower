@@ -13,8 +13,17 @@ if (file("private.gradle").exists()) {
     apply(from = "private.gradle")
 }
 
-val shade by configurations.creating
-val loomRuntime by configurations.creating
+val shade by configurations.creating {
+    isTransitive = false // don't include the unnecessary outside deps
+
+    isCanBeConsumed = false
+    isCanBeResolved = true
+}
+
+val loomRuntime by configurations.creating {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+}
 
 configurations {
     compileClasspath {
@@ -67,11 +76,9 @@ dependencies {
 
     // Loom dependencies
     compileOnly("net.fabricmc:fabric-loom:${property("loom-version")}")
-    compileOnly("net.fabricmc:fabric-fernflower:${property("fabric-fernflower-version")}")
-    compileOnly("net.fabricmc:mapping-io:+")
-    compileOnly("net.fabricmc:stitch:+") // TODO: shade this, MIO and TR
-    // this one has to be implementation since arch loom uses a repackaged one
-    implementation("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
+    shade("net.fabricmc:mapping-io:${property("mapping-io-version")}")
+    shade("net.fabricmc:stitch:${property("stitch-version")}")
+    shade("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
     compileOnly("org.ow2.asm:asm:${property("asm-version")}")
     compileOnly("org.ow2.asm:asm-commons:${property("asm-version")}")
 
@@ -111,6 +118,10 @@ tasks {
     shadowJar {
         archiveClassifier.set("")
         configurations = listOf(shade)
+
+        relocate("net.fabricmc.mappingio", "juuxel.loomquiltflower.impl.relocated.mappingio")
+        relocate("net.fabricmc.tinyremapper", "juuxel.loomquiltflower.impl.relocated.tinyremapper")
+        relocate("net.fabricmc.stitch", "juuxel.loomquiltflower.impl.relocated.stitch")
     }
 
     assemble {
