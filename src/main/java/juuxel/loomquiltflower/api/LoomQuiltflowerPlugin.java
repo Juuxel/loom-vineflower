@@ -57,6 +57,6 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
     }
 
     private static boolean isOldLoom() {
-        return ReflectionUtil.classExists("net.fabricmc.loom.decompilers.AbstractForkedFFExecutor");
+        return ReflectionUtil.classExists("net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor");
     }
 }
