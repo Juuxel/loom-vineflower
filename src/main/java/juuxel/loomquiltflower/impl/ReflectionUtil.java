@@ -29,4 +29,10 @@ public final class ReflectionUtil {
             return false;
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T create(String fqn) throws ReflectiveOperationException {
+        Class<?> c = Class.forName(fqn);
+        return (T) c.getConstructor().newInstance();
+    }
 }

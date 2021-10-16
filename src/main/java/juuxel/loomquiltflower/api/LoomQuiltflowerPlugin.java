@@ -39,7 +39,8 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
                         addDecompiler.invoke(loom, new LegacyQuiltflowerDecompiler(target, extension));
                     } else {
                         target.getLogger().warn(":using experimental Quiltflower decompiler for Loom 0.10 - all features might not work");
-                        addDecompiler.invoke(loom, new QuiltflowerDecompiler());
+                        // needs to be done lazily to not break 0.9
+                        addDecompiler.invoke(loom, ReflectionUtil.create("juuxel.loomquiltflower.impl.modern.QuiltflowerDecompiler"));
                     }
 
                     applied = true;
