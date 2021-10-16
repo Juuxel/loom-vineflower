@@ -25,10 +25,10 @@
 package juuxel.loomquiltflower.impl.loom;
 
 import juuxel.loomquiltflower.impl.ReflectionUtil;
+import juuxel.loomquiltflower.impl.legacy.AbstractForkedFFExecutor;
+import juuxel.loomquiltflower.impl.legacy.ForkingJavaExec;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
-import net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor; // TODO: replace
-import net.fabricmc.loom.decompilers.fernflower.ForkingJavaExec; // TODO: replace
 import net.fabricmc.loom.util.ConsumingOutputStream;
 import net.fabricmc.loom.util.OperatingSystem;
 import org.gradle.api.Project;
