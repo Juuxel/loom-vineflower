@@ -12,6 +12,7 @@ import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,11 +32,11 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
         options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
         options.put(IFernflowerPreferences.LOG_LEVEL, "trace");
         options.put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metaData, "numberOfThreads"));
-        options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(metaData.javaDocs.toFile()));
+        options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(ReflectionUtil.<Path>getFieldOrRecordComponent(metaData, "javaDocs").toFile()));
 
         Fernflower ff = new Fernflower(Zips::getBytes, new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new QfThreadIdLogger());
 
-        for (Path library : metaData.libraries) {
+        for (Path library : ReflectionUtil.<Collection<Path>>getFieldOrRecordComponent(metaData, "libraries")) {
             ff.addLibrary(library.toFile());
         }
 
