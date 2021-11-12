@@ -13,22 +13,22 @@ jobs:
           # Upstream
           "fabric-loom:0.8-SNAPSHOT",  # Minimum
           "fabric-loom:0.9-SNAPSHOT",  # Stable
-          "fabric-loom:0.10-SNAPSHOT", # Experimental
+          #"fabric-loom:0.10-SNAPSHOT", # Experimental
 
           # Arch
           "dev.architectury.loom:0.7.2-SNAPSHOT", # Minimum
           "dev.architectury.loom:0.7.4-SNAPSHOT", # Stable-ish, maybe?
-          "dev.architectury.loom:0.10.0-SNAPSHOT" # Experimental
+          #"dev.architectury.loom:0.10.0-SNAPSHOT" # Experimental
         ]
         exclude:
           - java: 11
             loom: "fabric-loom:0.8-SNAPSHOT"
           - java: 11
             loom: "fabric-loom:0.9-SNAPSHOT"
-          - java: 11
-            loom: "fabric-loom:0.10-SNAPSHOT"
-          - java: 11
-            loom: "dev.architectury.loom:0.10.0-SNAPSHOT"
+          #- java: 11
+          #  loom: "fabric-loom:0.10-SNAPSHOT"
+          #- java: 11
+          #  loom: "dev.architectury.loom:0.10.0-SNAPSHOT"
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
