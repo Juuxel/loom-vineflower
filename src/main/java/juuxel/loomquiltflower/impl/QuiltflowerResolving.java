@@ -6,6 +6,7 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.plugins.JavaPlugin;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public final class QuiltflowerResolving {
     private static final String TASK_NAME = "resolveQuiltflower";
@@ -18,7 +19,12 @@ public final class QuiltflowerResolving {
     public static void setup(Project project, QuiltflowerExtensionImpl extension) {
         var resolveQuiltflower = project.getTasks().register(TASK_NAME, ResolveQuiltflower.class, task -> {
             task.getSource().set(extension.getSource());
-            task.getOutput().set(project.getLayout().file(project.provider(() -> extension.getCache().resolve("quiltflower-remapped.jar").toFile())));
+            task.getOutput().set(project.getLayout().file(project.provider(() -> {
+                extension.getSource().finalizeValue();
+                String version = extension.getSource().get().getProvidedVersion();
+                String fileName = String.format("quiltflower-remapped%s.jar", version != null ? "-" + version : "");
+                return extension.getCache().resolve(fileName);
+            }).map(Path::toFile)));
         });
 
         project.afterEvaluate(p -> {
