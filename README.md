@@ -56,7 +56,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 ```diff
   plugins {
       id 'fabric-loom' version '0.8-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.3.0'
++     id 'io.github.juuxel.loom-quiltflower' version '1.4.0'
       id 'maven-publish'
   }
 ```
@@ -86,7 +86,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
   plugins {
       id "architectury-plugin" version "3.1-SNAPSHOT"
       id "dev.architectury.loom" version "0.7.2-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.3.0' apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.4.0' apply false
   }
 ```
 
