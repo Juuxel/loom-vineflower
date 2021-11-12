@@ -14,7 +14,11 @@ import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.Nullable;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
     private static final String DEFAULT_QUILTFLOWER_VERSION = "CURRENT_QUILTFLOWER_VERSION";
@@ -24,6 +28,8 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
     private final SourceFactory sourceFactory = new SourceFactoryImpl();
     private final MapProperty<String, Object> preferenceMap;
     private final QuiltflowerPreferences preferences;
+    private final Property<Boolean> addToRuntimeClasspath;
+    private final Path cache;
 
     public QuiltflowerExtensionImpl(Project project) {
         this.project = project;
@@ -31,6 +37,20 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
         source = project.getObjects().property(QuiltflowerSource.class).convention(sourceFactory.fromQuiltMaven(quiltflowerVersion));
         preferenceMap = project.getObjects().mapProperty(String.class, Object.class).empty();
         preferences = project.getObjects().newInstance(PreferencesImpl.class, this);
+        addToRuntimeClasspath = project.getObjects().property(Boolean.class).convention(false);
+        cache = project.getRootProject().getProjectDir().toPath().resolve(".gradle").resolve("loom-quiltflower-cache");
+    }
+
+    public Path getCache() {
+        if (Files.notExists(cache)) {
+            try {
+                Files.createDirectories(cache);
+            } catch (IOException e) {
+                throw new UncheckedIOException("Could not create cache at " + cache.toAbsolutePath(), e);
+            }
+        }
+
+        return cache;
     }
 
     @Override
@@ -51,6 +71,11 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
     @Override
     public QuiltflowerPreferences getPreferences() {
         return preferences;
+    }
+
+    @Override
+    public Property<Boolean> getAddToRuntimeClasspath() {
+        return addToRuntimeClasspath;
     }
 
     private final class SourceFactoryImpl implements SourceFactory {

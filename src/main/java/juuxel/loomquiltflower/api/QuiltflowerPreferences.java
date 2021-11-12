@@ -87,4 +87,24 @@ public interface QuiltflowerPreferences {
     default void useJadVarnaming(Object useJadVarnaming) {
         set(IFernflowerPreferences.USE_JAD_VARNAMING, useJadVarnaming);
     }
+
+    /**
+     * Sets the value of the {@code PATTERN_MATCHING} preference ({@code pam}).
+     *
+     * @param patternMatching the new value
+     * @since 1.4.0
+     */
+    default void patternMatching(Object patternMatching) {
+        set(IFernflowerPreferences.PATTERN_MATCHING, patternMatching);
+    }
+
+    /**
+     * Sets the value of the {@code EXPERIMENTAL_TRY_LOOP_FIX} preference ({@code tlf}).
+     *
+     * @param experimentalTryLoopFix the new value
+     * @since 1.4.0
+     */
+    default void experimentalTryLoopFix(Object experimentalTryLoopFix) {
+        set(IFernflowerPreferences.EXPERIMENTAL_TRY_LOOP_FIX, experimentalTryLoopFix);
+    }
 }

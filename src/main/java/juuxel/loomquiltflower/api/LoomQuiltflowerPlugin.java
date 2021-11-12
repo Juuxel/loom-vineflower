@@ -3,6 +3,7 @@ package juuxel.loomquiltflower.api;
 import juuxel.loomquiltflower.impl.DeprecatedQuiltflowerExtension;
 import juuxel.loomquiltflower.impl.PreferenceScanner;
 import juuxel.loomquiltflower.impl.QuiltflowerExtensionImpl;
+import juuxel.loomquiltflower.impl.QuiltflowerResolving;
 import juuxel.loomquiltflower.impl.ReflectionUtil;
 import juuxel.loomquiltflower.impl.legacy.LegacyQuiltflowerDecompiler;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
@@ -27,6 +28,9 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
 
         // Scan for preferences declared in gradle.properties
         PreferenceScanner.scan(target, extension);
+
+        // Setup resolving and runtime classpath
+        QuiltflowerResolving.setup(target, (QuiltflowerExtensionImpl) extension);
 
         for (String loomId : LOOMS) {
             target.getPluginManager().withPlugin(loomId, p -> {

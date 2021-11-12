@@ -111,10 +111,10 @@ You can configure the used version of Quiltflower with the `quiltflower` extensi
 ```groovy
 quiltflower {
     // This is the default; 1.4.0 and above should work
-    quiltflowerVersion.set("1.5.0")
+    quiltflowerVersion.set("1.6.0")
   
     // If you're using Groovy DSL, you can also specify the version like this:
-    quiltflowerVersion = '1.5.0'
+    quiltflowerVersion = '1.6.0'
 }
 ```
 
@@ -153,10 +153,12 @@ quiltflower {
 You can also change the preferences used to decompile the game.
 For changing the properties, you can either use their 3-letter names or, with some properties, a preset method.
 
-Preset methods as of 1.2.0:
+Preset methods as of 1.4.0:
 
 - `inlineSimpleLambdas` for `isl`: collapse single-line lambdas (default: 1)
 - `useJadVarnaming` for `jvn`: use JAD-style local variable naming from ForgeFlower (default: 0)
+- `patternMatching` for `pam`: experimental pattern matching support (default: 1)
+- `experimentalTryLoopFix` for `tlf`: experimental fix for interactions between `try` and loops
 
 #### Groovy DSL
 ```groovy

@@ -55,4 +55,10 @@ public class DeprecatedQuiltflowerExtension implements QuiltflowerExtension {
         reportDeprecation();
         return parent.getPreferences();
     }
+
+    @Override
+    public Property<Boolean> getAddToRuntimeClasspath() {
+        reportDeprecation();
+        return parent.getAddToRuntimeClasspath();
+    }
 }

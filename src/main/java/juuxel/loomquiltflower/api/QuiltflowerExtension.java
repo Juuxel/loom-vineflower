@@ -123,4 +123,15 @@ public interface QuiltflowerExtension {
     default void fromQuiltMaven() {
         getSource().set(getSourceFactory().fromQuiltMaven(getQuiltflowerVersion()));
     }
+
+    /**
+     * If true, Quiltflower will be added to the runtime classpath.
+     * This is useful for debugging mixins with the {@code mixin.debug.decompile} system property.
+     *
+     * <p>The Quiltflower version will be from {@linkplain #getSource() the current source}.
+     *
+     * @return the property
+     * @since 1.4.0
+     */
+    Property<Boolean> getAddToRuntimeClasspath();
 }
