@@ -36,6 +36,26 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
             target.getPluginManager().withPlugin(loomId, p -> {
                 try {
                     Object loom = target.getExtensions().getByName("loom");
+                    Method addArchDecompiler = Arrays.stream(loom.getClass().getMethods())
+                        .filter(method -> method.getName().equals("addArchDecompiler"))
+                        .findAny()
+                        .orElse(null);
+            
+                    if (addArchDecompiler != null) {
+                        addArchDecompiler.invoke(loom, target.getObjects().newInstance(Class.forName("juuxel.loomquiltflower.impl.modern.architectury.QuiltflowerArchDecompiler"),
+                            target, loomId, extension));
+                        applied = true;
+                    }
+                } catch (ReflectiveOperationException e) {
+                    throw new GradleException("Could not add Quiltflower decompiler", e);
+                }
+            });
+
+            if (applied) return;
+
+            target.getPluginManager().withPlugin(loomId, p -> {
+                try {
+                    Object loom = target.getExtensions().getByName("loom");
                     Method addDecompiler = loom.getClass().getMethod("addDecompiler", LoomDecompiler.class);
 
                     if (isOldLoom()) {

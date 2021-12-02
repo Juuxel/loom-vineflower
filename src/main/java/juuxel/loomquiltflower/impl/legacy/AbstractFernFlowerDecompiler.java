@@ -24,14 +24,10 @@
 
 package juuxel.loomquiltflower.impl.legacy;
 
-import juuxel.loomquiltflower.impl.ReflectionUtil;
-import juuxel.loomquiltflower.impl.legacy.AbstractForkedFFExecutor;
-import juuxel.loomquiltflower.impl.legacy.ForkingJavaExec;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
-import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
-import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 import net.fabricmc.loom.util.ConsumingOutputStream;
 import net.fabricmc.loom.util.OperatingSystem;
+import org.gradle.api.Action;
 import org.gradle.api.Project;
 import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.api.logging.LogLevel;
@@ -43,11 +39,11 @@ import org.gradle.process.JavaExecSpec;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static java.text.MessageFormat.format;
@@ -55,8 +51,8 @@ import static java.text.MessageFormat.format;
 // Introduces some QoL changes to the original.
 // - configureJavaExec and configureOptions
 // - boolean options are replaced by 1 and 0
-public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
-	private final Project project;
+public abstract class AbstractFernFlowerDecompiler {
+	protected final Project project;
 
 	protected AbstractFernFlowerDecompiler(Project project) {
 		this.project = project;
@@ -80,8 +76,8 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 	protected void configureOptions(Map<String, Object> options) {
 	}
 
-	@Override
-	public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
+	public void decompileInternal(Path compiledJar, Path sourcesDestination, Path linemapDestination, int numberOfThreads,
+                                  Path javaDocs, List<Path> libraries) {
 		if (!OperatingSystem.is64Bit()) {
 			throw new UnsupportedOperationException("FernFlower decompiler requires a 64bit JVM to run due to the memory requirements");
 		}
@@ -95,7 +91,7 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
 		options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
 		options.put(IFernflowerPreferences.LOG_LEVEL, "trace");
-		options.put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metaData, "numberOfThreads"));
+		options.put(IFernflowerPreferences.THREADS, numberOfThreads);
 
 		// LQF: replace booleans with 1 and 0
 		for (Map.Entry<String, Object> entry : options.entrySet()) {
@@ -110,10 +106,10 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		args.add(absolutePathOf(compiledJar));
 		args.add("-o=" + absolutePathOf(sourcesDestination));
 		args.add("-l=" + absolutePathOf(linemapDestination));
-		args.add("-m=" + absolutePathOf(ReflectionUtil.getFieldOrRecordComponent(metaData, "javaDocs")));
+		args.add("-m=" + absolutePathOf(javaDocs));
 
 		// TODO, Decompiler breaks on jemalloc, J9 module-info.class?
-		for (Path library : ReflectionUtil.<Collection<Path>>getFieldOrRecordComponent(metaData, "libraries")) {
+		for (Path library : libraries) {
 			args.add("-e=" + absolutePathOf(library));
 		}
 
@@ -130,7 +126,10 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		Map<String, ProgressLogger> inUseLoggers = new HashMap<>();
 
 		progressGroup.started();
-		ExecResult result = ForkingJavaExec.javaexec(
+
+        BiFunction<Project, Action<? super JavaExecSpec>, ExecResult> javaexec = javaexec();
+
+        ExecResult result = javaexec.apply(
 				project,
 				spec -> {
 					spec.getMainClass().set(fernFlowerExecutor().getName());
@@ -188,7 +187,9 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		result.assertNormalExitValue();
 	}
 
-	private static String absolutePathOf(Path path) {
+    protected abstract BiFunction<Project, Action<? super JavaExecSpec>, ExecResult> javaexec();
+
+    private static String absolutePathOf(Path path) {
 		return path.toAbsolutePath().toString();
 	}
 }

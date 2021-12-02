@@ -36,6 +36,15 @@ configurations {
     }
 }
 
+sourceSets {
+    create("modernArchitectury") {
+        compileClasspath += main.get().compileClasspath
+        compileClasspath += main.get().output
+        runtimeClasspath += main.get().runtimeClasspath
+        runtimeClasspath += main.get().output
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -81,6 +90,7 @@ dependencies {
     shade("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
     compileOnly("org.ow2.asm:asm:${property("asm-version")}")
     compileOnly("org.ow2.asm:asm-commons:${property("asm-version")}")
+    "modernArchitecturyCompileOnly"("dev.architectury.loom:dev.architectury.loom.gradle.plugin:0.10.0.9999")
 
     // Only needed for providing the classes to compile against, it is downloaded at runtime
     compileOnly(loomQuiltflowerLogic.quiltflower())
@@ -118,6 +128,7 @@ tasks {
     shadowJar {
         archiveClassifier.set("")
         configurations = listOf(shade)
+        from(sourceSets["modernArchitectury"].output)
 
         relocate("net.fabricmc.mappingio", "juuxel.loomquiltflower.impl.relocated.mappingio")
         relocate("net.fabricmc.tinyremapper", "juuxel.loomquiltflower.impl.relocated.tinyremapper")
