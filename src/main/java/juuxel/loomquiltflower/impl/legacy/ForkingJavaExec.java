@@ -54,7 +54,7 @@ public class ForkingJavaExec {
             return getTestClasspath();
         }
 
-        return getRuntimeClasspath(project.getRootProject().getPlugins().hasPlugin("fabric-loom") ? project.getRootProject() : project);
+        return getRuntimeClasspath(project.getRootProject().getPlugins().hasPlugin("fabric-loom") || project.getRootProject().getPlugins().hasPlugin("dev.architectury.loom") ? project.getRootProject() : project);
     }
 
     private static FileCollection getRuntimeClasspath(Project project) {
