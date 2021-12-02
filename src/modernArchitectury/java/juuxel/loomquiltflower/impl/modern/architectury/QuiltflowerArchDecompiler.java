@@ -7,18 +7,15 @@ import juuxel.loomquiltflower.impl.legacy.AbstractForkedFFExecutor;
 import juuxel.loomquiltflower.impl.legacy.QuiltflowerExecutor;
 import net.fabricmc.loom.api.decompilers.architectury.ArchitecturyLoomDecompiler;
 import net.fabricmc.loom.task.GenerateSourcesTask;
-import org.gradle.api.Action;
 import org.gradle.api.Project;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.logging.Logger;
-import org.gradle.process.ExecResult;
 import org.gradle.process.JavaExecSpec;
 
 import javax.inject.Inject;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public class QuiltflowerArchDecompiler extends AbstractFernFlowerDecompiler implements ArchitecturyLoomDecompiler {
@@ -35,11 +32,6 @@ public class QuiltflowerArchDecompiler extends AbstractFernFlowerDecompiler impl
     @Override
     public String name() {
         return "Quiltflower";
-    }
-
-    @Override
-    protected BiFunction<Project, Action<? super JavaExecSpec>, ExecResult> javaexec() {
-        return ArchitecturyLoomDecompiler::javaexec;
     }
 
     @Override

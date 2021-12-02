@@ -27,7 +27,6 @@ package juuxel.loomquiltflower.impl.legacy;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
 import net.fabricmc.loom.util.ConsumingOutputStream;
 import net.fabricmc.loom.util.OperatingSystem;
-import org.gradle.api.Action;
 import org.gradle.api.Project;
 import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.api.logging.LogLevel;
@@ -43,7 +42,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static java.text.MessageFormat.format;
@@ -127,9 +125,7 @@ public abstract class AbstractFernFlowerDecompiler {
 
 		progressGroup.started();
 
-        BiFunction<Project, Action<? super JavaExecSpec>, ExecResult> javaexec = javaexec();
-
-        ExecResult result = javaexec.apply(
+        ExecResult result = ForkingJavaExec.javaexec(
 				project,
 				spec -> {
 					spec.getMainClass().set(fernFlowerExecutor().getName());
@@ -186,8 +182,6 @@ public abstract class AbstractFernFlowerDecompiler {
 		result.rethrowFailure();
 		result.assertNormalExitValue();
 	}
-
-    protected abstract BiFunction<Project, Action<? super JavaExecSpec>, ExecResult> javaexec();
 
     private static String absolutePathOf(Path path) {
 		return path.toAbsolutePath().toString();
