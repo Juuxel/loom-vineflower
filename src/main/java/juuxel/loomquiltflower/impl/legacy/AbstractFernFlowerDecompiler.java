@@ -90,7 +90,7 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		Map<String, Object> options = new HashMap<>();
 		options.put(IFernflowerPreferences.INDENT_STRING, "\t");
 		configureOptions(options);
-        SharedQfConfig.configureCommonOptions(options, metaData);
+		SharedQfConfig.configureCommonOptions(options, metaData);
 
 		// LQF: replace booleans with 1 and 0
 		for (Map.Entry<String, Object> entry : options.entrySet()) {
