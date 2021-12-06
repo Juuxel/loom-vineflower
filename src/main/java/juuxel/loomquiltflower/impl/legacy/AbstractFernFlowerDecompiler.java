@@ -89,7 +89,7 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		Map<String, Object> options = new HashMap<>();
 		options.put(IFernflowerPreferences.INDENT_STRING, "\t");
 		configureOptions(options);
-        options.putAll(ReflectionUtil.<Map<String, String>>maybeGetFieldOrRecordComponent(metaData, "options").orElse(Map.of()));
+		options.putAll(ReflectionUtil.<Map<String, String>>maybeGetFieldOrRecordComponent(metaData, "options").orElse(Map.of()));
 		options.put(IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1");
 		options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
 		options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
