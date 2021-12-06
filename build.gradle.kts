@@ -36,9 +36,11 @@ configurations {
     }
 }
 
+val arch by sourceSets.registering
+
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
 
     withSourcesJar()
 }
@@ -53,16 +55,14 @@ repositories {
         url = uri("https://maven.fabricmc.net")
     }
 
-    if (loomId == "dev.architectury.loom") {
-        maven {
-            name = "Arch"
-            url = uri("https://maven.architectury.dev")
-        }
+    maven {
+        name = "Arch"
+        url = uri("https://maven.architectury.dev")
+    }
 
-        maven {
-            name = "Forge"
-            url = uri("https://maven.minecraftforge.net")
-        }
+    maven {
+        name = "Forge"
+        url = uri("https://maven.minecraftforge.net")
     }
 
     maven {
@@ -92,12 +92,17 @@ dependencies {
     implementation("com.google.guava:guava:30.1.1-jre")
     compileOnly("org.jetbrains:annotations:21.0.1")
 
+    "archCompileOnly"(gradleApi())
+    "archCompileOnly"("dev.architectury:architectury-loom:0.10.0.206")
+    "archCompileOnly"(sourceSets.main.map { it.output })
+
     // Tests
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.20.2")
     // This has to be a runtimeClasspath dep because gradle's test kit classpath stuff is really dumb.
     loomRuntime("$loomId:$loomId.gradle.plugin:$loomVersion")
+    loomRuntime(arch.map { it.output })
 }
 
 blossom {
@@ -107,17 +112,19 @@ blossom {
 tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.release.set(11)
+        options.release.set(16)
     }
 
     jar {
         archiveClassifier.set("slim")
         from(file("LICENSE"), file("LICENSE.quiltflower.txt"))
+        from(arch.map { it.output })
     }
 
     shadowJar {
         archiveClassifier.set("")
         configurations = listOf(shade)
+        from(arch.map { it.output })
 
         relocate("net.fabricmc.mappingio", "juuxel.loomquiltflower.impl.relocated.mappingio")
         relocate("net.fabricmc.tinyremapper", "juuxel.loomquiltflower.impl.relocated.tinyremapper")

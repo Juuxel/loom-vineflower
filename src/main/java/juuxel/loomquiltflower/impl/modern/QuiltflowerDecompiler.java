@@ -26,7 +26,7 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
     public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
         Map<String, Object> options = new HashMap<>();
         options.put(IFernflowerPreferences.INDENT_STRING, "\t");
-        // FIXME: configureOptions(options);
+        options.putAll(ReflectionUtil.<Map<String, String>>maybeGetFieldOrRecordComponent(metaData, "options").orElse(Map.of()));
         options.put(IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1");
         options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
         options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");

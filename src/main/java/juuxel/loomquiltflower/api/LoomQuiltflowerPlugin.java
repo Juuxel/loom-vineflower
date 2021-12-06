@@ -1,19 +1,20 @@
 package juuxel.loomquiltflower.api;
 
+import juuxel.loomquiltflower.impl.ArchDecompilerSetup;
 import juuxel.loomquiltflower.impl.DeprecatedQuiltflowerExtension;
 import juuxel.loomquiltflower.impl.PreferenceScanner;
 import juuxel.loomquiltflower.impl.QuiltflowerExtensionImpl;
 import juuxel.loomquiltflower.impl.QuiltflowerResolving;
 import juuxel.loomquiltflower.impl.ReflectionUtil;
 import juuxel.loomquiltflower.impl.legacy.LegacyQuiltflowerDecompiler;
-import net.fabricmc.loom.api.decompilers.LoomDecompiler;
+import net.fabricmc.loom.api.LoomGradleExtensionAPI;
 import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ServiceLoader;
 
 public class LoomQuiltflowerPlugin implements Plugin<Project> {
     private static final List<String> LOOMS = Arrays.asList("fabric-loom", "dev.architectury.loom");
@@ -34,22 +35,19 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
 
         for (String loomId : LOOMS) {
             target.getPluginManager().withPlugin(loomId, p -> {
-                try {
-                    Object loom = target.getExtensions().getByName("loom");
-                    Method addDecompiler = loom.getClass().getMethod("addDecompiler", LoomDecompiler.class);
+                var loom = (LoomGradleExtensionAPI) target.getExtensions().getByName("loom");
 
-                    if (isOldLoom()) {
-                        addDecompiler.invoke(loom, new LegacyQuiltflowerDecompiler(target, extension));
-                    } else {
-                        target.getLogger().warn(":using experimental Quiltflower decompiler for Loom 0.10 - all features might not work");
-                        // needs to be done lazily to not break 0.9
-                        addDecompiler.invoke(loom, ReflectionUtil.create("juuxel.loomquiltflower.impl.modern.QuiltflowerDecompiler"));
-                    }
-
-                    applied = true;
-                } catch (ReflectiveOperationException e) {
-                    throw new GradleException("Could not add Quiltflower decompiler", e);
+                if (isNewArchLoom()) {
+                    ServiceLoader.load(ArchDecompilerSetup.class).findFirst().orElseThrow().setup(loom, extension);
+                } else if (isOldLoom()) {
+                    loom.addDecompiler(new LegacyQuiltflowerDecompiler(target, extension));
+                } else {
+                    String message = "loom-quiltflower is not supported on this Loom version!\nReplace with loom-quiltflower-mini: https://github.com/Juuxel/loom-quiltflower-mini";
+                    target.getLogger().error(message);
+                    throw new UnsupportedOperationException(message);
                 }
+
+                applied = true;
             });
         }
 
@@ -62,5 +60,9 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
 
     private static boolean isOldLoom() {
         return ReflectionUtil.classExists("net.fabricmc.loom.decompilers.fernflower.AbstractForkedFFExecutor");
+    }
+
+    private static boolean isNewArchLoom() {
+        return ReflectionUtil.classExists("net.fabricmc.loom.api.decompilers.architectury.ArchitecturyLoomDecompiler");
     }
 }
