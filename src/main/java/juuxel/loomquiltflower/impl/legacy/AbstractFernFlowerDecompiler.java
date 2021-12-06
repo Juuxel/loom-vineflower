@@ -25,8 +25,7 @@
 package juuxel.loomquiltflower.impl.legacy;
 
 import juuxel.loomquiltflower.impl.ReflectionUtil;
-import juuxel.loomquiltflower.impl.legacy.AbstractForkedFFExecutor;
-import juuxel.loomquiltflower.impl.legacy.ForkingJavaExec;
+import juuxel.loomquiltflower.impl.SharedQfConfig;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
@@ -91,11 +90,7 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		Map<String, Object> options = new HashMap<>();
 		options.put(IFernflowerPreferences.INDENT_STRING, "\t");
 		configureOptions(options);
-		options.put(IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1");
-		options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
-		options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
-		options.put(IFernflowerPreferences.LOG_LEVEL, "trace");
-		options.put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metaData, "numberOfThreads"));
+		SharedQfConfig.configureCommonOptions(options, metaData);
 
 		// LQF: replace booleans with 1 and 0
 		for (Map.Entry<String, Object> entry : options.entrySet()) {
