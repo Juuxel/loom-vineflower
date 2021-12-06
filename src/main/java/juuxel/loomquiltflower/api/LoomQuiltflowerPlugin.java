@@ -1,6 +1,5 @@
 package juuxel.loomquiltflower.api;
 
-import juuxel.loomquiltflower.impl.ArchQuiltflowerDecompilerService;
 import juuxel.loomquiltflower.impl.DeprecatedQuiltflowerExtension;
 import juuxel.loomquiltflower.impl.PreferenceScanner;
 import juuxel.loomquiltflower.impl.QuiltflowerExtensionImpl;
@@ -15,7 +14,6 @@ import org.gradle.api.Project;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ServiceLoader;
 
 public class LoomQuiltflowerPlugin implements Plugin<Project> {
     private static final List<String> LOOMS = Arrays.asList("fabric-loom", "dev.architectury.loom");
