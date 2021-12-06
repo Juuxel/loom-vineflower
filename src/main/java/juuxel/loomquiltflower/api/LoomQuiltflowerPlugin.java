@@ -1,5 +1,6 @@
 package juuxel.loomquiltflower.api;
 
+import juuxel.loomquiltflower.impl.ArchQuiltflowerDecompilerService;
 import juuxel.loomquiltflower.impl.DeprecatedQuiltflowerExtension;
 import juuxel.loomquiltflower.impl.PreferenceScanner;
 import juuxel.loomquiltflower.impl.QuiltflowerExtensionImpl;
@@ -14,6 +15,7 @@ import org.gradle.api.Project;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ServiceLoader;
 
 public class LoomQuiltflowerPlugin implements Plugin<Project> {
     private static final List<String> LOOMS = Arrays.asList("fabric-loom", "dev.architectury.loom");
@@ -40,7 +42,8 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
                     try {
                         Class<?> archLoomDecompiler = Class.forName("net.fabricmc.loom.api.decompilers.architectury.ArchitecturyLoomDecompiler");
                         Method addArchDecompiler = LoomGradleExtensionAPI.class.getMethod("addArchDecompiler", archLoomDecompiler);
-                        addArchDecompiler.invoke(loom, archLoomDecompiler.getConstructor(QuiltflowerExtension.class).newInstance(extension));
+                        Object decompiler = Class.forName("juuxel.loomquiltflower.impl.arch.ArchQuiltflowerDecompiler").getConstructor(QuiltflowerExtension.class).newInstance(extension);
+                        addArchDecompiler.invoke(loom, decompiler);
                     } catch (ReflectiveOperationException e) {
                         throw new GradleException("Could not add Quiltflower decompiler", e);
                     }
