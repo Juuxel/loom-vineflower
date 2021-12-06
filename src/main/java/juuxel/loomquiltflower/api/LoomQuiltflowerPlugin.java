@@ -40,12 +40,12 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
                     try {
                         Class<?> archLoomDecompiler = Class.forName("net.fabricmc.loom.api.decompilers.architectury.ArchitecturyLoomDecompiler");
                         Method addArchDecompiler = LoomGradleExtensionAPI.class.getMethod("addArchDecompiler", archLoomDecompiler);
-                        addArchDecompiler.invoke(loom, ReflectionUtil.create("juuxel.loomquiltflower.impl.arch.ArchQuiltflowerDecompiler"));
+                        addArchDecompiler.invoke(loom, archLoomDecompiler.getConstructor(QuiltflowerExtension.class).newInstance(extension));
                     } catch (ReflectiveOperationException e) {
                         throw new GradleException("Could not add Quiltflower decompiler", e);
                     }
                 } else if (isOldLoom()) {
-                    loom.addDecompiler(new LegacyQuiltflowerDecompiler(target));
+                    loom.addDecompiler(new LegacyQuiltflowerDecompiler(target, extension));
                 } else {
                     String message = "loom-quiltflower is not supported on this Loom version!\nReplace with loom-quiltflower-mini: https://github.com/Juuxel/loom-quiltflower-mini";
                     target.getLogger().error(message);

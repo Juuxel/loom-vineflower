@@ -12,10 +12,10 @@ public final class LegacyQuiltflowerDecompiler extends AbstractFernFlowerDecompi
     private final Project project;
     private final QuiltflowerExtension extension;
 
-    public LegacyQuiltflowerDecompiler(Project project) {
+    public LegacyQuiltflowerDecompiler(Project project, QuiltflowerExtension extension) {
         super(project);
         this.project = project;
-        this.extension = project.getExtensions().getByType(QuiltflowerExtension.class);
+        this.extension = extension;
     }
 
     @Override
