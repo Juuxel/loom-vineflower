@@ -45,7 +45,7 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
                         throw new GradleException("Could not add Quiltflower decompiler", e);
                     }
                 } else if (isOldLoom()) {
-                    loom.addDecompiler(new LegacyQuiltflowerDecompiler(target, extension));
+                    loom.addDecompiler(new LegacyQuiltflowerDecompiler(target));
                 } else {
                     String message = "loom-quiltflower is not supported on this Loom version!\nReplace with loom-quiltflower-mini: https://github.com/Juuxel/loom-quiltflower-mini";
                     target.getLogger().error(message);
