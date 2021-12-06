@@ -1,5 +1,6 @@
 package juuxel.loomquiltflower.impl.legacy;
 
+import juuxel.loomquiltflower.api.QuiltflowerExtension;
 import juuxel.loomquiltflower.impl.QuiltflowerResolving;
 import org.gradle.api.Project;
 import org.gradle.process.JavaExecSpec;
@@ -9,10 +10,12 @@ import java.util.Map;
 
 public final class LegacyQuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
     private final Project project;
+    private final QuiltflowerExtension extension;
 
     public LegacyQuiltflowerDecompiler(Project project) {
         super(project);
         this.project = project;
+        this.extension = project.getExtensions().getByType(QuiltflowerExtension.class);
     }
 
     @Override
