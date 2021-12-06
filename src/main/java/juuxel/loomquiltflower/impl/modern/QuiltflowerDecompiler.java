@@ -1,6 +1,7 @@
 package juuxel.loomquiltflower.impl.modern;
 
 import juuxel.loomquiltflower.impl.ReflectionUtil;
+import juuxel.loomquiltflower.impl.SharedQfConfig;
 import juuxel.loomquiltflower.impl.Zips;
 import juuxel.loomquiltflower.impl.bridge.QfResultSaver;
 import juuxel.loomquiltflower.impl.bridge.QfThreadIdLogger;
@@ -26,12 +27,8 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
     public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
         Map<String, Object> options = new HashMap<>();
         options.put(IFernflowerPreferences.INDENT_STRING, "\t");
-        options.putAll(ReflectionUtil.<Map<String, String>>maybeGetFieldOrRecordComponent(metaData, "options").orElse(Map.of()));
-        options.put(IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1");
-        options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
-        options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
-        options.put(IFernflowerPreferences.LOG_LEVEL, "trace");
-        options.put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metaData, "numberOfThreads"));
+        // FIXME: configureOptions(options);
+        SharedQfConfig.configureCommonOptions(options, metaData);
         options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(ReflectionUtil.<Path>getFieldOrRecordComponent(metaData, "javaDocs").toFile()));
 
         Fernflower ff = new Fernflower(Zips::getBytes, new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new QfThreadIdLogger());
