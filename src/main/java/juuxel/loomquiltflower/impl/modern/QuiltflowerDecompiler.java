@@ -1,5 +1,6 @@
 package juuxel.loomquiltflower.impl.modern;
 
+import juuxel.loomquiltflower.impl.ReflectionUtil;
 import juuxel.loomquiltflower.impl.SharedQfConfig;
 import juuxel.loomquiltflower.impl.Zips;
 import juuxel.loomquiltflower.impl.bridge.QfResultSaver;
@@ -12,6 +13,7 @@ import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,11 +29,11 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
         options.put(IFernflowerPreferences.INDENT_STRING, "\t");
         // FIXME: configureOptions(options);
         SharedQfConfig.configureCommonOptions(options, metaData);
-        options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(metaData.javaDocs().toFile()));
+        options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(ReflectionUtil.<Path>getFieldOrRecordComponent(metaData, "javaDocs").toFile()));
 
         Fernflower ff = new Fernflower(Zips::getBytes, new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new QfThreadIdLogger());
 
-        for (Path library : metaData.libraries()) {
+        for (Path library : ReflectionUtil.<Collection<Path>>getFieldOrRecordComponent(metaData, "libraries")) {
             ff.addLibrary(library.toFile());
         }
 

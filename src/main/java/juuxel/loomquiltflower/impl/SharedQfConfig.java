@@ -11,7 +11,7 @@ public final class SharedQfConfig {
         options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");
         options.put(IFernflowerPreferences.REMOVE_SYNTHETIC, "1");
         options.put(IFernflowerPreferences.LOG_LEVEL, "trace");
-        options.put(IFernflowerPreferences.THREADS, Integer.toString(metadata.numberOfThreads()));
-        options.putAll(ReflectionUtil.<Map<String, String>>maybeGetRecordComponent(metadata, "options").orElse(Map.of()));
+        options.put(IFernflowerPreferences.THREADS, ReflectionUtil.getFieldOrRecordComponent(metadata, "numberOfThreads"));
+        options.putAll(ReflectionUtil.<Map<String, String>>maybeGetFieldOrRecordComponent(metadata, "options").orElse(Map.of()));
     }
 }
