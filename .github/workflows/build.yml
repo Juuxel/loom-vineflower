@@ -6,8 +6,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         java: [
-          11, # Minimum (0.7 uses JDK 8, but we need 11)
-          16  # Minimum (0.8+)
+          16  # Minimum (0.8+, and we need it to build arch support)
         ]
         loom: [
           # Upstream
@@ -20,13 +19,6 @@ jobs:
           "dev.architectury.loom:0.7.4-SNAPSHOT", # Barely alive
           "dev.architectury.loom:0.10.0-SNAPSHOT" # Stable
         ]
-        exclude:
-          - java: 11
-            loom: "fabric-loom:0.8-SNAPSHOT"
-          - java: 11
-            loom: "fabric-loom:0.9-SNAPSHOT"
-          - java: 11
-            loom: "dev.architectury.loom:0.10.0-SNAPSHOT"
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
