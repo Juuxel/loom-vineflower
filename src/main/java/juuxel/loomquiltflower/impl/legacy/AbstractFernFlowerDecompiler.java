@@ -24,7 +24,6 @@
 
 package juuxel.loomquiltflower.impl.legacy;
 
-import juuxel.loomquiltflower.impl.ReflectionUtil;
 import juuxel.loomquiltflower.impl.SharedQfConfig;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
@@ -42,7 +41,6 @@ import org.gradle.process.JavaExecSpec;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,10 +103,10 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		args.add(absolutePathOf(compiledJar));
 		args.add("-o=" + absolutePathOf(sourcesDestination));
 		args.add("-l=" + absolutePathOf(linemapDestination));
-		args.add("-m=" + absolutePathOf(ReflectionUtil.getFieldOrRecordComponent(metaData, "javaDocs")));
+		args.add("-m=" + absolutePathOf(metaData.javaDocs()));
 
 		// TODO, Decompiler breaks on jemalloc, J9 module-info.class?
-		for (Path library : ReflectionUtil.<Collection<Path>>getFieldOrRecordComponent(metaData, "libraries")) {
+		for (Path library : metaData.libraries()) {
 			args.add("-e=" + absolutePathOf(library));
 		}
 
