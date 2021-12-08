@@ -18,7 +18,7 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
 
 ## Version compatibility
 
-For the latest Loom 0.10 versions (Fabric 0.10.28+, Architectury 0.10.0.183+),
+For the latest Fabric Loom 0.10 versions (0.10.28+),
 use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) instead.
 
 Loom variant      | Supported versions
@@ -27,7 +27,7 @@ Fabric Loom       | 0.8 - 0.10¹
 Architectury Loom | 0.7.2, 0.7.4, 0.10.0²
 
 ¹ Last supported build: 0.10.27  
-² Last supported build: 0.10.0.182
+² From build 0.10.0.206 onwards
 
 Older versions might be compatible, but using them is unsupported. Bugs caused by outdated Loom versions will not be fixed.
 
@@ -55,8 +55,8 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 2. Add loom-quiltflower to your plugins:
 ```diff
   plugins {
-      id 'fabric-loom' version '0.8-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.4.0'
+      id 'fabric-loom' version '0.9-SNAPSHOT'
++     id 'io.github.juuxel.loom-quiltflower' version '1.5.0'
       id 'maven-publish'
   }
 ```
@@ -84,9 +84,9 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 2. Add loom-quiltflower to your `plugins` block:
 ```diff
   plugins {
-      id "architectury-plugin" version "3.1-SNAPSHOT"
-      id "dev.architectury.loom" version "0.7.2-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.4.0' apply false
+      id "architectury-plugin" version "3.4-SNAPSHOT"
+      id "dev.architectury.loom" version "0.10.0-SNAPSHOT" apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.5.0' apply false
   }
 ```
 
@@ -111,10 +111,10 @@ You can configure the used version of Quiltflower with the `quiltflower` extensi
 ```groovy
 quiltflower {
     // This is the default; 1.4.0 and above should work
-    quiltflowerVersion.set("1.6.0")
+    quiltflowerVersion.set("1.7.0")
   
     // If you're using Groovy DSL, you can also specify the version like this:
-    quiltflowerVersion = '1.6.0'
+    quiltflowerVersion = '1.7.0'
 }
 ```
 
