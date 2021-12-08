@@ -51,4 +51,13 @@ public final class ReflectionUtil {
             return false;
         }
     }
+
+    public static MethodBinding methodFrom(Object instance, String name, Class<?>... parameterTypes) throws NoSuchMethodException {
+        Method method = instance.getClass().getMethod(name, parameterTypes);
+        return args -> method.invoke(instance, args);
+    }
+
+    public interface MethodBinding {
+        void call(Object... args) throws ReflectiveOperationException;
+    }
 }

@@ -39,8 +39,8 @@ configurations {
 val arch by sourceSets.registering
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_16
-    targetCompatibility = JavaVersion.VERSION_16
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
     withSourcesJar()
 }
@@ -112,6 +112,10 @@ blossom {
 tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
+        options.release.set(11)
+    }
+
+    named<JavaCompile>("compileArchJava") {
         options.release.set(16)
     }
 
