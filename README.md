@@ -155,10 +155,14 @@ For changing the properties, you can either use their 3-letter names or, with so
 
 Preset methods as of 1.4.0:
 
-- `inlineSimpleLambdas` for `isl`: collapse single-line lambdas (default: 1)
-- `useJadVarnaming` for `jvn`: use JAD-style local variable naming from ForgeFlower (default: 0)
-- `patternMatching` for `pam`: experimental pattern matching support (default: 1)
-- `experimentalTryLoopFix` for `tlf`: experimental fix for interactions between `try` and loops
+
+
+| Method | ID | Description | Default |
+|--------|----|-------------|----------|
+| `inlineSimpleLambdas` | `isl` | Collapse single-line lambdas | 1 |
+| `useJadVarnaming` | `jvn` | Use JAD-style local variable naming from ForgeFlower | 0 |
+| `patternMatching` | `pam` | Experimental pattern matching support | 1 |
+| `experimentalTryLoopFix` | `tlf` | Experimental fix for interactions between `try` and loops | 1 |
 
 #### Groovy DSL
 ```groovy
