@@ -155,8 +155,6 @@ For changing the properties, you can either use their 3-letter names or, with so
 
 Preset methods as of 1.4.0:
 
-
-
 | Method | ID | Description | Default |
 |--------|----|-------------|----------|
 | `inlineSimpleLambdas` | `isl` | Collapse single-line lambdas | 1 |
@@ -204,3 +202,17 @@ loom-quiltflower.preference.abc = 1
 
 You can use the global gradle.properties file in the Gradle user home directory to set your
 wanted properties, like the indentation string, for each project that uses LQF.
+
+#### Task configuration
+
+> Added in LQF 1.5.0. Requires Loom 0.10!
+
+Yet another way to modify the preferences is by setting them in the `genSourcesWithQuiltflower` task:
+
+##### Groovy DSL
+```groovy
+genSourcesWithQuiltflower {
+    // fake option: don't try at home
+    options.put('abc', '123')
+}
+```
