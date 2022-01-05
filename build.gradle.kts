@@ -38,6 +38,8 @@ configurations {
 }
 
 val arch by sourceSets.registering
+val loom011 by sourceSets.registering
+val secondarySourceSets = listOf(arch, loom011)
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -70,6 +72,8 @@ repositories {
         name = "Quilt"
         url = uri("https://maven.quiltmc.org/repository/release")
     }
+
+    mavenLocal()
 }
 
 dependencies {
@@ -93,9 +97,13 @@ dependencies {
     implementation("com.google.guava:guava:30.1.1-jre")
     compileOnly("org.jetbrains:annotations:21.0.1")
 
-    "archCompileOnly"(gradleApi())
+    for (sourceSet in secondarySourceSets) {
+        val config = "${sourceSet.name}CompileOnly"
+        config(gradleApi())
+        config(sourceSets.main.map { it.output })
+    }
     "archCompileOnly"("dev.architectury:architectury-loom:0.10.0.206")
-    "archCompileOnly"(sourceSets.main.map { it.output })
+    "loom011CompileOnly"("net.fabricmc:fabric-loom:0.11.+")
 
     // Tests
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
@@ -103,7 +111,9 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.20.2")
     // This has to be a runtimeClasspath dep because gradle's test kit classpath stuff is really dumb.
     loomRuntime("$loomId:$loomId.gradle.plugin:$loomVersion")
-    loomRuntime(arch.map { it.output })
+    for (sourceSet in secondarySourceSets) {
+        loomRuntime(sourceSet.map { it.output })
+    }
 }
 
 blossom {
@@ -123,13 +133,17 @@ tasks {
     jar {
         archiveClassifier.set("slim")
         from(file("LICENSE"), file("LICENSE.quiltflower.txt"))
-        from(arch.map { it.output })
+        for (sourceSet in secondarySourceSets) {
+            from(sourceSet.map { it.output })
+        }
     }
 
     shadowJar {
         archiveClassifier.set("")
         configurations = listOf(shade)
-        from(arch.map { it.output })
+        for (sourceSet in secondarySourceSets) {
+            from(sourceSet.map { it.output })
+        }
 
         relocate("net.fabricmc.mappingio", "juuxel.loomquiltflower.impl.relocated.mappingio")
         relocate("net.fabricmc.tinyremapper", "juuxel.loomquiltflower.impl.relocated.tinyremapper")

@@ -3,6 +3,7 @@ package juuxel.loomquiltflower.impl;
 import juuxel.loomquiltflower.impl.task.ResolveQuiltflower;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.plugins.JavaPlugin;
 
 import java.io.File;
@@ -14,6 +15,11 @@ public final class QuiltflowerResolving {
     public static File getQuiltflowerJar(Project project) {
         ResolveQuiltflower task = (ResolveQuiltflower) project.getTasks().getByName(TASK_NAME);
         return task.getOutput().get().getAsFile();
+    }
+
+    public static FileCollection getQuiltflowerJarFiles(Project project) {
+        ResolveQuiltflower task = (ResolveQuiltflower) project.getTasks().getByName(TASK_NAME);
+        return task.getOutputs().getFiles();
     }
 
     public static void setup(Project project, QuiltflowerExtensionImpl extension) {
@@ -28,7 +34,10 @@ public final class QuiltflowerResolving {
         });
 
         project.afterEvaluate(p -> {
-            p.getTasks().named("genSourcesWithQuiltflower", task -> task.dependsOn(resolveQuiltflower));
+            if (extension.getActiveModule().shouldGenSourcesDependOnResolving()) {
+                p.getTasks().named("genSourcesWithQuiltflower", task -> task.dependsOn(resolveQuiltflower));
+            }
+
             extension.getAddToRuntimeClasspath().finalizeValue();
 
             if (extension.getAddToRuntimeClasspath().get()) {

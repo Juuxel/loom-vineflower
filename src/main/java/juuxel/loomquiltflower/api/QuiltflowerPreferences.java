@@ -4,6 +4,7 @@ import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflower
 import kotlin.Pair;
 import kotlin.collections.MapsKt;
 import org.gradle.api.provider.MapProperty;
+import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +25,12 @@ public interface QuiltflowerPreferences {
      * Any changes made with this interface will be reflected in the property, and vice versa.
      */
     MapProperty<String, Object> asMap();
+
+    /**
+     * {@return a provider containing the preferences as a map of strings}
+     * Any changes made with this interface or {@link #asMap()} will be reflected in the provider.
+     */
+    Provider<Map<String, String>> asStringMap();
 
     /**
      * Gets the value for a key from the underlying preference map.
@@ -64,8 +71,9 @@ public interface QuiltflowerPreferences {
      *
      * @param preferences the preferences as an array of key-value pairs
      */
+    @SuppressWarnings("unchecked")
     default void put(Pair<String, ?>... preferences) {
-        put(MapsKt.mapOf(preferences));
+        put((Map<String, ?>) MapsKt.mapOf(preferences));
     }
 
     // Specific preferences

@@ -6,13 +6,13 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         java: [
-          16  # Minimum (0.8+, and we need it to build arch support)
+          17 # Minimum (0.11+)
         ]
         loom: [
           # Upstream
           "fabric-loom:0.8-SNAPSHOT",  # Barely alive
           "fabric-loom:0.9-SNAPSHOT",  # Stable
-          #"fabric-loom:0.10-SNAPSHOT", # Experimental
+          "fabric-loom:0.11-SNAPSHOT", # Stable
 
           # Arch
           "dev.architectury.loom:0.7.2-SNAPSHOT", # Barely alive
