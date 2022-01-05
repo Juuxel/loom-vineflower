@@ -1,5 +1,6 @@
 plugins {
     `java-gradle-plugin`
+    groovy
     `maven-publish`
     id("build-logic")
     id("net.kyori.blossom") version "1.3.0"

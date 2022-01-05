@@ -11,6 +11,11 @@ import java.util.Map;
 @ApiStatus.NonExtendable
 public interface QuiltflowerExtension {
     /**
+     * The name of this extension in {@linkplain org.gradle.api.Project#getExtensions() the extension container}.
+     */
+    String NAME = "quiltflower";
+
+    /**
      * {@return the current Quiltflower version}
      *
      * <p>Only used if the source is {@link #fromProjectRepositories()} or {@link #fromQuiltMaven()}.
