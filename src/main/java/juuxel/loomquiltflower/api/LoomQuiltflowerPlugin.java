@@ -32,12 +32,14 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
 
         for (String loomId : LOOMS) {
             target.getPluginManager().withPlugin(loomId, p -> {
-                String plugin;
+                String moduleClass;
 
                 if (isNewArchLoom()) {
-                    plugin = "juuxel.loomquiltflower.impl.module.ArchLoomSetup";
+                    moduleClass = "juuxel.loomquiltflower.impl.module.ArchLoomSetup";
+                } else if (isNewLoom()) {
+                    moduleClass = "juuxel.loomquiltflower.impl.module.Loom011Setup";
                 } else if (isOldLoom()) {
-                    plugin = "juuxel.loomquiltflower.impl.module.OldLoomSetup";
+                    moduleClass = "juuxel.loomquiltflower.impl.module.OldLoomSetup";
                 } else {
                     String message = "loom-quiltflower is not supported on this Loom version!\nReplace with loom-quiltflower-mini: https://github.com/Juuxel/loom-quiltflower-mini";
                     target.getLogger().error(message);
@@ -45,9 +47,11 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
                 }
 
                 try {
-                    LqfModule.get(plugin).setup(target, extension);
+                    LqfModule module = LqfModule.get(moduleClass);
+                    module.setup(target, extension);
+                    ((QuiltflowerExtensionImpl) extension).setActiveModule(module);
                 } catch (ReflectiveOperationException e) {
-                    throw new GradleException("Could not find Quiltflower module " + plugin + ". Please report this!", e);
+                    throw new GradleException("Could not find Quiltflower module " + moduleClass + ". Please report this!", e);
                 }
 
                 applied = true;
@@ -67,5 +71,9 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
 
     private static boolean isNewArchLoom() {
         return ReflectionUtil.classExists("net.fabricmc.loom.api.decompilers.architectury.ArchitecturyLoomDecompiler");
+    }
+
+    private static boolean isNewLoom() {
+        return ReflectionUtil.classExists("net.fabricmc.loom.api.decompilers.DecompilerOptions");
     }
 }

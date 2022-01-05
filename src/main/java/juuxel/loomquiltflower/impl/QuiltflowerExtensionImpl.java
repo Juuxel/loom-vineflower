@@ -4,6 +4,7 @@ import juuxel.loomquiltflower.api.QuiltflowerExtension;
 import juuxel.loomquiltflower.api.QuiltflowerPreferences;
 import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.loomquiltflower.api.SourceFactory;
+import juuxel.loomquiltflower.impl.module.LqfModule;
 import juuxel.loomquiltflower.impl.source.ConstantUrlQuiltflowerSource;
 import juuxel.loomquiltflower.impl.source.QuiltMavenQuiltflowerSource;
 import juuxel.loomquiltflower.impl.source.RepositoryQuiltflowerSource;
@@ -19,6 +20,8 @@ import java.io.UncheckedIOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
     private static final String DEFAULT_QUILTFLOWER_VERSION = "CURRENT_QUILTFLOWER_VERSION";
@@ -30,6 +33,7 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
     private final QuiltflowerPreferences preferences;
     private final Property<Boolean> addToRuntimeClasspath;
     private final Path cache;
+    private LqfModule activeModule;
 
     public QuiltflowerExtensionImpl(Project project) {
         this.project = project;
@@ -39,6 +43,18 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
         preferences = project.getObjects().newInstance(PreferencesImpl.class, this);
         addToRuntimeClasspath = project.getObjects().property(Boolean.class).convention(false);
         cache = project.getRootProject().getProjectDir().toPath().resolve(".gradle").resolve("loom-quiltflower-cache");
+    }
+
+    public LqfModule getActiveModule() {
+        if (activeModule == null) {
+            throw new IllegalStateException("loom-quiltflower module not initialised. Please report this!");
+        }
+
+        return activeModule;
+    }
+
+    public void setActiveModule(LqfModule activeModule) {
+        this.activeModule = activeModule;
     }
 
     public Path getCache() {
@@ -120,6 +136,24 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
         @Override
         public MapProperty<String, Object> asMap() {
             return extension.preferenceMap;
+        }
+
+        @Override
+        public Provider<Map<String, String>> asStringMap() {
+            return asMap().map(map -> {
+                Map<String, String> output = new HashMap<>();
+
+                map.forEach((key, value) -> {
+                    // convert booleans to strings
+                    if (value instanceof Boolean) {
+                        value = ((Boolean) value) ? "1" : "0";
+                    }
+
+                    output.put(key, String.valueOf(value));
+                });
+
+                return output;
+            });
         }
 
         // For the Groovy DSL
