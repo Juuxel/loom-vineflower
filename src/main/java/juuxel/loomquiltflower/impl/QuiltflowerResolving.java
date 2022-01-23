@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.util.regex.Pattern;
 
 public final class QuiltflowerResolving {
-    private static final String TASK_NAME = "resolveQuiltflower";
+    public static final String TASK_NAME = "resolveQuiltflower";
     private static final Pattern DECOMPILE_TASK_NAME_REGEX = Pattern.compile("^gen(Common|ClientOnly)?SourcesWithQuiltflower$");
 
     public static File getQuiltflowerJar(Project project) {
