@@ -1,6 +1,7 @@
 package juuxel.loomquiltflower.impl;
 
 import juuxel.loomquiltflower.impl.task.ResolveQuiltflower;
+import net.fabricmc.loom.task.GenerateSourcesTask;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.FileCollection;
@@ -34,9 +35,12 @@ public final class QuiltflowerResolving {
         });
 
         project.afterEvaluate(p -> {
-            if (extension.getActiveModule().shouldGenSourcesDependOnResolving()) {
-                p.getTasks().named("genSourcesWithQuiltflower", task -> task.dependsOn(resolveQuiltflower));
-            }
+            p.getTasks().configureEach(task -> {
+                if (task instanceof GenerateSourcesTask && task.getName().endsWith("WithQuiltflower")) {
+                    // TODO: Add a test for 0.11 split jars
+                    task.dependsOn(resolveQuiltflower);
+                }
+            });
 
             extension.getAddToRuntimeClasspath().finalizeValue();
 
