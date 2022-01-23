@@ -7,6 +7,10 @@ import org.gradle.api.Project;
 public interface LqfModule {
     void setup(Project project, QuiltflowerExtension extension);
 
+    default boolean shouldGenSourcesDependOnResolving() {
+        return true;
+    }
+
     default Class<?> getDecompileTaskClass() {
         return GenerateSourcesTask.class;
     }

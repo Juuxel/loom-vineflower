@@ -15,4 +15,9 @@ public final class Loom011Setup implements LqfModule {
             options.getClasspath().from(QuiltflowerResolving.getQuiltflowerJarFiles(project));
         });
     }
+
+    @Override
+    public boolean shouldGenSourcesDependOnResolving() {
+        return false;
+    }
 }

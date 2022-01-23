@@ -1,5 +1,6 @@
 package juuxel.loomquiltflower.impl;
 
+import juuxel.loomquiltflower.impl.module.LqfModule;
 import juuxel.loomquiltflower.impl.task.ResolveQuiltflower;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
@@ -36,14 +37,18 @@ public final class QuiltflowerResolving {
         });
 
         project.afterEvaluate(p -> {
-            p.getTasks().configureEach(task -> {
-                var taskClass = extension.getActiveModule().getDecompileTaskClass();
+            LqfModule module = extension.getActiveModule();
 
-                if (taskClass.isInstance(task) && DECOMPILE_TASK_NAME_REGEX.matcher(task.getName()).matches()) {
-                    // TODO: Add a test for 0.11 split jars
-                    task.dependsOn(resolveQuiltflower);
-                }
-            });
+            if (module.shouldGenSourcesDependOnResolving()) {
+                p.getTasks().configureEach(task -> {
+                    var taskClass = module.getDecompileTaskClass();
+
+                    if (taskClass.isInstance(task) && DECOMPILE_TASK_NAME_REGEX.matcher(task.getName()).matches()) {
+                        // TODO: Add a test for 0.11 split jars
+                        task.dependsOn(resolveQuiltflower);
+                    }
+                });
+            }
 
             extension.getAddToRuntimeClasspath().finalizeValue();
 

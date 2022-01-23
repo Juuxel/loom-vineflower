@@ -103,7 +103,7 @@ dependencies {
         config(sourceSets.main.map { it.output })
     }
     "archCompileOnly"("dev.architectury:architectury-loom:0.10.0.206")
-    "loom011CompileOnly"("net.fabricmc:fabric-loom:0.11.15")
+    "loom011CompileOnly"("net.fabricmc:fabric-loom:0.11.16")
 
     // Tests
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
