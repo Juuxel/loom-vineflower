@@ -27,7 +27,6 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
     public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
         Map<String, Object> options = new HashMap<>();
         options.put(IFernflowerPreferences.INDENT_STRING, "\t");
-        // FIXME: configureOptions(options);
         SharedQfConfig.configureCommonOptions(options, metaData);
         options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(ReflectionUtil.<Path>getFieldOrRecordComponent(metaData, "javaDocs").toFile()));
 

@@ -1,7 +1,6 @@
 package juuxel.loomquiltflower.impl;
 
 import juuxel.loomquiltflower.impl.task.ResolveQuiltflower;
-import net.fabricmc.loom.task.GenerateSourcesTask;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.FileCollection;
@@ -9,9 +8,11 @@ import org.gradle.api.plugins.JavaPlugin;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.regex.Pattern;
 
 public final class QuiltflowerResolving {
     private static final String TASK_NAME = "resolveQuiltflower";
+    private static final Pattern DECOMPILE_TASK_NAME_REGEX = Pattern.compile("^gen(Common|ClientOnly)?SourcesWithQuiltflower$");
 
     public static File getQuiltflowerJar(Project project) {
         ResolveQuiltflower task = (ResolveQuiltflower) project.getTasks().getByName(TASK_NAME);
@@ -36,7 +37,9 @@ public final class QuiltflowerResolving {
 
         project.afterEvaluate(p -> {
             p.getTasks().configureEach(task -> {
-                if (task instanceof GenerateSourcesTask && task.getName().endsWith("WithQuiltflower")) {
+                var taskClass = extension.getActiveModule().getDecompileTaskClass();
+
+                if (taskClass.isInstance(task) && DECOMPILE_TASK_NAME_REGEX.matcher(task.getName()).matches()) {
                     // TODO: Add a test for 0.11 split jars
                     task.dependsOn(resolveQuiltflower);
                 }
