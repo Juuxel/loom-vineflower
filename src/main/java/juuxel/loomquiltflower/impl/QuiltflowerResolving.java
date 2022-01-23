@@ -4,8 +4,8 @@ import juuxel.loomquiltflower.impl.module.LqfModule;
 import juuxel.loomquiltflower.impl.task.ResolveQuiltflower;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
-import org.gradle.api.file.FileCollection;
 import org.gradle.api.plugins.JavaPlugin;
+import org.gradle.api.tasks.TaskProvider;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -16,13 +16,11 @@ public final class QuiltflowerResolving {
     private static final Pattern DECOMPILE_TASK_NAME_REGEX = Pattern.compile("^gen(Common|ClientOnly)?SourcesWithQuiltflower$");
 
     public static File getQuiltflowerJar(Project project) {
-        ResolveQuiltflower task = (ResolveQuiltflower) project.getTasks().getByName(TASK_NAME);
-        return task.getOutput().get().getAsFile();
+        return getResolveQuiltflowerTask(project).get().getOutput().get().getAsFile();
     }
 
-    public static FileCollection getQuiltflowerJarFiles(Project project) {
-        ResolveQuiltflower task = (ResolveQuiltflower) project.getTasks().getByName(TASK_NAME);
-        return task.getOutputs().getFiles();
+    public static TaskProvider<ResolveQuiltflower> getResolveQuiltflowerTask(Project project) {
+        return project.getTasks().named(TASK_NAME, ResolveQuiltflower.class);
     }
 
     public static void setup(Project project, QuiltflowerExtensionImpl extension) {

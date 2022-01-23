@@ -12,8 +12,7 @@ public final class Loom011Setup implements LqfModule {
         loom.getDecompilerOptions().register("quiltflower", options -> {
             options.getDecompilerClassName().set("juuxel.loomquiltflower.impl.modern.QuiltflowerDecompiler");
             options.getOptions().putAll(extension.getPreferences().asStringMap());
-            options.getClasspath().from(QuiltflowerResolving.getQuiltflowerJarFiles(project));
-            options.getClasspath().builtBy(project.getTasks().named(QuiltflowerResolving.TASK_NAME));
+            options.getClasspath().from(QuiltflowerResolving.getResolveQuiltflowerTask(project));
         });
     }
 
