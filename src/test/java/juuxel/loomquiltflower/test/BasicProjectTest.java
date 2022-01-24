@@ -17,7 +17,7 @@ class BasicProjectTest extends ProjectTest {
         BuildResult result = GradleRunner.create()
             .withPluginClasspath()
             .withProjectDir(projectDirectory)
-            .withArguments("genSourcesWithQuiltflower", "--stacktrace")
+            .withArguments("genSourcesWithFernFlower", "--stacktrace")
             .forwardOutput()
             .withDebug(true)
             .build();

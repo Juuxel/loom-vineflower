@@ -2,6 +2,7 @@ package juuxel.loomquiltflower.test;
 
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PreferencesTest extends ProjectTest {
+    @Disabled("you're not needed here")
     @Test
     void test() {
         // Set up
