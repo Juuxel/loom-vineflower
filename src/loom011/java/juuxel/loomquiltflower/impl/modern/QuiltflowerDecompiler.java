@@ -14,7 +14,6 @@ import net.fabricmc.loom.util.IOStringConsumer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -28,19 +27,15 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
         SharedQfConfig.configureCommonOptions(options, metaData);
         options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(metaData.javaDocs().toFile()));
 
-        try (QfResultSaver saver = new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile)) {
-            PrintWriter logger = writerFromLoomLogger(metaData.logger());
-            Fernflower ff = new Fernflower(Zips::getBytes, saver, options, new SimpleLogger(logger));
+        PrintWriter logger = writerFromLoomLogger(metaData.logger());
+        Fernflower ff = new Fernflower(Zips::getBytes, new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new SimpleLogger(logger));
 
-            for (Path library : metaData.libraries()) {
-                ff.addLibrary(library.toFile());
-            }
-
-            ff.addSource(compiledJar.toFile());
-            ff.decompileContext();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+        for (Path library : metaData.libraries()) {
+            ff.addLibrary(library.toFile());
         }
+
+        ff.addSource(compiledJar.toFile());
+        ff.decompileContext();
     }
 
     private static PrintWriter writerFromLoomLogger(IOStringConsumer logger) {

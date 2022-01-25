@@ -27,7 +27,6 @@ package juuxel.loomquiltflower.impl.bridge;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.DecompilerContext;
 import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricResultSaver;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -35,7 +34,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -50,7 +48,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Created by covers1624 on 18/02/19.
  */
-public class QfResultSaver implements IFabricResultSaver, Closeable {
+public class QfResultSaver implements IFabricResultSaver {
     private final Supplier<File> output;
     private final Supplier<File> lineMapFile;
 
@@ -173,29 +171,5 @@ public class QfResultSaver implements IFabricResultSaver, Closeable {
 
     @Override
     public void copyEntry(String source, String path, String archiveName, String entry) {
-    }
-
-    @Override
-    public void close() throws IOException {
-        IOException ex = null;
-
-        Iterator<ZipOutputStream> iterator = outputStreams.values().iterator();
-
-        while (iterator.hasNext()) {
-            ZipOutputStream zos = iterator.next();
-
-            try {
-                zos.close();
-                iterator.remove();
-            } catch (IOException | RuntimeException e) {
-                if (ex == null) {
-                    ex = new IOException("Could not close zip output streams", e);
-                } else {
-                    ex.addSuppressed(e);
-                }
-            }
-        }
-
-        if (ex != null) throw ex;
     }
 }
