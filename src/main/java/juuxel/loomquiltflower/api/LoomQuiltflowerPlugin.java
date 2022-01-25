@@ -34,10 +34,10 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
             target.getPluginManager().withPlugin(loomId, p -> {
                 String moduleClass;
 
-                if (isNewArchLoom()) {
-                    moduleClass = "juuxel.loomquiltflower.impl.module.ArchLoomSetup";
-                } else if (isNewLoom()) {
+                if (isNewLoom()) {
                     moduleClass = "juuxel.loomquiltflower.impl.module.Loom011Setup";
+                } else if (isNewArchLoom()) {
+                    moduleClass = "juuxel.loomquiltflower.impl.module.ArchLoomSetup";
                 } else if (isOldLoom()) {
                     moduleClass = "juuxel.loomquiltflower.impl.module.OldLoomSetup";
                 } else {
