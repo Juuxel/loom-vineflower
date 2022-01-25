@@ -14,7 +14,11 @@ import net.fabricmc.loom.util.IOStringConsumer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UncheckedIOException;
 import java.io.Writer;
+import java.net.URI;
+import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +40,17 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
 
         ff.addSource(compiledJar.toFile());
         ff.decompileContext();
+        closeFs(compiledJar);
+    }
+
+    private void closeFs(Path compiledJar) {
+        try {
+            FileSystems.getFileSystem(URI.create("jar:" + compiledJar.toUri())).close();
+        } catch (FileSystemNotFoundException e) {
+            // Ignore
+        } catch (IOException e) {
+            throw new UncheckedIOException("Could not close file system " + compiledJar.toAbsolutePath(), e);
+        }
     }
 
     private static PrintWriter writerFromLoomLogger(IOStringConsumer logger) {
