@@ -15,9 +15,10 @@ jobs:
           "fabric-loom:0.11-SNAPSHOT", # Stable
 
           # Arch
-          "dev.architectury.loom:0.7.2-SNAPSHOT", # Barely alive
-          "dev.architectury.loom:0.7.4-SNAPSHOT", # Barely alive
-          "dev.architectury.loom:0.10.0-SNAPSHOT" # Stable
+          "dev.architectury.loom:0.7.2-SNAPSHOT",  # Barely alive
+          "dev.architectury.loom:0.7.4-SNAPSHOT",  # Barely alive
+          "dev.architectury.loom:0.10.0-SNAPSHOT", # Stable
+          "dev.architectury.loom:0.11.0-SNAPSHOT", # Experimental, I'd say
         ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
