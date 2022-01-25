@@ -203,16 +203,36 @@ loom-quiltflower.preference.abc = 1
 You can use the global gradle.properties file in the Gradle user home directory to set your
 wanted properties, like the indentation string, for each project that uses LQF.
 
-#### Task configuration
+#### Decompiler options
 
-> Added in LQF 1.5.0. Requires Loom 0.10!
+> Added in LQF 1.6.0. Only works on Fabric Loom 0.11+!
 
-Yet another way to modify the preferences is by setting them in the `genSourcesWithQuiltflower` task:
+You can also configure the options with Loom's new
+decompiler options API:
 
-##### Groovy DSL
+*Groovy DSL*
+
 ```groovy
-genSourcesWithQuiltflower {
-    // fake option: don't try at home
-    options.put('abc', '123')
+loom {
+    decompilers {
+        quiltflower {
+            options += [
+                // optionName: "value"
+                abc: "a"
+            ]
+        }
+    }
+}
+```
+
+*Kotlin DSL*
+
+```kotlin
+loom {
+    decompilers {
+        getByName("quiltflower") {
+            options.put("<option name>", "<value>")
+        }
+    }
 }
 ```
