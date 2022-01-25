@@ -55,8 +55,8 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 2. Add loom-quiltflower to your plugins:
 ```diff
   plugins {
-      id 'fabric-loom' version '0.9-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.5.0'
+      id 'fabric-loom' version '0.11-SNAPSHOT'
++     id 'io.github.juuxel.loom-quiltflower' version '1.6.0'
       id 'maven-publish'
   }
 ```
@@ -85,8 +85,8 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 ```diff
   plugins {
       id "architectury-plugin" version "3.4-SNAPSHOT"
-      id "dev.architectury.loom" version "0.10.0-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.5.0' apply false
+      id "dev.architectury.loom" version "0.11.0-SNAPSHOT" apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.6.0' apply false
   }
 ```
 
