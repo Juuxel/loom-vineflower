@@ -21,10 +21,10 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
 For the latest Fabric Loom 0.10 versions (0.10.28+),
 use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) instead.
 
-Loom variant      | Supported versions
-------------------|-------------------
-Fabric Loom       | 0.8 - 0.10¹
-Architectury Loom | 0.7.2, 0.7.4, 0.10.0²
+| Loom variant      | Supported versions            |
+|-------------------|-------------------------------|
+| Fabric Loom       | 0.8, 0.9, 0.11                |
+| Architectury Loom | 0.7.2, 0.7.4, 0.10.0², 0.11.0 |
 
 ¹ Last supported build: 0.10.27  
 ² From build 0.10.0.206 onwards
