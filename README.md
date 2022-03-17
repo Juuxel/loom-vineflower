@@ -29,6 +29,10 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 ¹ Last supported build: 0.10.27  
 ² From build 0.10.0.206 onwards
 
+In LQF 1.6.1 and newer, Quilt's Loom fork (`org.quiltmc.loom`) is also supported,
+but no specific supported versions are provided. Quilt Loom should be compatible if the corresponding
+Fabric Loom version is compatible.
+
 Older versions might be compatible, but using them is unsupported. Bugs caused by outdated Loom versions will not be fixed.
 
 ## Getting started
@@ -56,7 +60,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 ```diff
   plugins {
       id 'fabric-loom' version '0.11-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.6.0'
++     id 'io.github.juuxel.loom-quiltflower' version '1.6.1'
       id 'maven-publish'
   }
 ```
@@ -86,7 +90,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
   plugins {
       id "architectury-plugin" version "3.4-SNAPSHOT"
       id "dev.architectury.loom" version "0.11.0-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.6.0' apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.6.1' apply false
   }
 ```
 
