@@ -10,11 +10,14 @@ import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class LoomQuiltflowerPlugin implements Plugin<Project> {
-    private static final List<String> LOOMS = Arrays.asList("fabric-loom", "dev.architectury.loom");
+    private static final List<String> LOOMS = List.of(
+        "fabric-loom",
+        "dev.architectury.loom",
+        "org.quiltmc.loom"
+    );
     private boolean applied = false;
 
     @Override
