@@ -35,10 +35,18 @@ public final class RepositoryQuiltflowerSource implements QuiltflowerSource {
 
     private Dependency getDependency() {
         if (dependency == null) {
-            dependency = project.getDependencies().create(dependencyNotation);
+            dependency = project.getDependencies().create(unwrapPossibleProviders(dependencyNotation));
         }
 
         return dependency;
+    }
+
+    private static Object unwrapPossibleProviders(Object o) {
+        while (o instanceof Provider<?>) {
+            o = ((Provider<?>) o).get();
+        }
+
+        return o;
     }
 
     @Override
