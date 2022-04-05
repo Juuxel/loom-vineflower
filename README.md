@@ -60,7 +60,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 ```diff
   plugins {
       id 'fabric-loom' version '0.11-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.6.1'
++     id 'io.github.juuxel.loom-quiltflower' version '1.7.0'
       id 'maven-publish'
   }
 ```
@@ -90,7 +90,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
   plugins {
       id "architectury-plugin" version "3.4-SNAPSHOT"
       id "dev.architectury.loom" version "0.11.0-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.6.1' apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.7.0' apply false
   }
 ```
 
@@ -115,10 +115,10 @@ You can configure the used version of Quiltflower with the `quiltflower` extensi
 ```groovy
 quiltflower {
     // This is the default; 1.4.0 and above should work
-    quiltflowerVersion.set("1.7.0")
+    quiltflowerVersion.set("1.8.0")
   
     // If you're using Groovy DSL, you can also specify the version like this:
-    quiltflowerVersion = '1.7.0'
+    quiltflowerVersion = '1.8.0'
 }
 ```
 
