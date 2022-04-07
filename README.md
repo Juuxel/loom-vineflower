@@ -21,17 +21,13 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
 For the latest Fabric Loom 0.10 versions (0.10.28+),
 use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) instead.
 
-| Loom variant      | Supported versions            |
-|-------------------|-------------------------------|
-| Fabric Loom       | 0.8, 0.9, 0.11                |
-| Architectury Loom | 0.7.2, 0.7.4, 0.10.0², 0.11.0 |
+| Loom variant      | Plugin ID               | Supported versions            |
+|-------------------|-------------------------|-------------------------------|
+| Fabric Loom       | `fabric-loom`           | 0.8, 0.9, 0.11                |
+| Architectury Loom | `dev.architectury.loom` | 0.7.2, 0.7.4, 0.10.0¹, 0.11.0 |
+| Quilt Loom        | `org.quiltmc.loom`      | 0.12                          |
 
-¹ Last supported build: 0.10.27  
-² From build 0.10.0.206 onwards
-
-In LQF 1.6.1 and newer, Quilt's Loom fork (`org.quiltmc.loom`) is also supported,
-but no specific supported versions are provided. Quilt Loom should be compatible if the corresponding
-Fabric Loom version is compatible.
+¹ From build 0.10.0.206 onwards
 
 Older versions might be compatible, but using them is unsupported. Bugs caused by outdated Loom versions will not be fixed.
 
