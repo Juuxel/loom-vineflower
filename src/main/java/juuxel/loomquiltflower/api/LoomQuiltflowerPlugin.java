@@ -35,6 +35,7 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
 
         for (String loomId : LOOMS) {
             target.getPluginManager().withPlugin(loomId, p -> {
+                if (applied) return;
                 String moduleClass;
 
                 if (isNewLoom()) {
