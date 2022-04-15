@@ -43,8 +43,8 @@ val loom011 by sourceSets.registering
 val secondarySourceSets = listOf(arch, loom011)
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
     withSourcesJar()
 }
@@ -125,14 +125,6 @@ blossom {
 tasks {
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.release.set(11)
-    }
-
-    named<JavaCompile>("compileArchJava") {
-        options.release.set(16)
-    }
-
-    named<JavaCompile>("compileLoom011Java") {
         options.release.set(17)
     }
 
