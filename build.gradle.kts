@@ -2,6 +2,7 @@ plugins {
     `java-gradle-plugin`
     groovy
     `maven-publish`
+    id("com.gradle.plugin-publish") version "1.0.0-rc-1"
     id("build-logic")
     id("net.kyori.blossom") version "1.3.0"
     id("com.github.johnrengelman.shadow") version "7.0.0"
@@ -179,9 +180,17 @@ gradlePlugin {
     plugins {
         create("loom-quiltflower") {
             id = "io.github.juuxel.loom-quiltflower"
+            displayName = "loom-quiltflower"
+            description = "Adds the Quiltflower decompiler to projects using Fabric Loom (or its forks) for Minecraft mod development."
             implementationClass = "juuxel.loomquiltflower.api.LoomQuiltflowerPlugin"
         }
     }
+}
+
+pluginBundle {
+    website = "https://github.com/Juuxel/LoomQuiltflower"
+    vcsUrl = "https://github.com/Juuxel/LoomQuiltflower"
+    tags = listOf("decompilers", "minecraft", "fabric-loom")
 }
 
 artifacts.apiElements(tasks.shadowJar)
