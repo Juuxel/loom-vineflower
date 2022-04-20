@@ -35,62 +35,29 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 
 ### Fabric projects
 
-1. Add the Cotton maven repository to settings.gradle:
-```diff
-  pluginManagement {
-      repositories {
-          maven {
-              name = 'Fabric'
-              url = 'https://maven.fabricmc.net/'
-          }
-+         maven {
-+             name = 'Cotton'
-+             url = 'https://server.bbkr.space/artifactory/libs-release/'
-+         }
-          gradlePluginPortal()
-      }
-  }
-```
-
-2. Add loom-quiltflower to your plugins:
+1. Add loom-quiltflower to your plugins:
 ```diff
   plugins {
       id 'fabric-loom' version '0.11-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.7.0'
++     id 'io.github.juuxel.loom-quiltflower' version '1.7.1'
       id 'maven-publish'
   }
 ```
 
-3. Instead of `genSources`, you can now use `genSourcesWithQuiltflower`.
+2. Instead of `genSources`, you can now use `genSourcesWithQuiltflower`.
 
 ### Architectury projects
 
-1. Add the Cotton maven repository to settings.gradle:
-```diff
-  pluginManagement {
-      repositories {
-          maven { url "https://maven.fabricmc.net/" }
-          maven { url "https://maven.architectury.dev/" }
-          maven { url "https://maven.minecraftforge.net/" }
-+         maven {
-+             name = 'Cotton'
-+             url = 'https://server.bbkr.space/artifactory/libs-release/'
-+         }
-          gradlePluginPortal()
-      }
-  }
-```
-
-2. Add loom-quiltflower to your `plugins` block:
+1. Add loom-quiltflower to your `plugins` block:
 ```diff
   plugins {
       id "architectury-plugin" version "3.4-SNAPSHOT"
       id "dev.architectury.loom" version "0.11.0-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.7.0' apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.7.1' apply false
   }
 ```
 
-3. Apply loom-quiltflower to subprojects:
+2. Apply loom-quiltflower to subprojects:
 
 ```diff
   subprojects {
