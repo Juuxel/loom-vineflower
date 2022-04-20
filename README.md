@@ -33,6 +33,10 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 
 ## Getting started
 
+> Note: versions before 1.7.1 required adding Cotton's maven repository,
+> but LQF 1.7.1+ is available on the Gradle Plugin Portal
+> like most other plugins.
+
 ### Fabric projects
 
 1. Add loom-quiltflower to your plugins:
@@ -67,7 +71,7 @@ Older versions might be compatible, but using them is unsupported. Bugs caused b
 
 > Note: this can also be done in the subprojects' `plugins` blocks.
 
-4. Instead of `genSources`, you can now use `genSourcesWithQuiltflower`.
+3. Instead of `genSources`, you can now use `genSourcesWithQuiltflower`.
 
 ## Configuration
 
