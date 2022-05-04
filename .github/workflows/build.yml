@@ -16,7 +16,6 @@ jobs:
           "fabric-loom:0.12-SNAPSHOT", # Future version
 
           # Arch
-          "dev.architectury.loom:0.7.2-SNAPSHOT",  # Barely alive
           "dev.architectury.loom:0.7.4-SNAPSHOT",  # Barely alive
           "dev.architectury.loom:0.10.0-SNAPSHOT", # Stable
           "dev.architectury.loom:0.11.0-SNAPSHOT", # Stable
