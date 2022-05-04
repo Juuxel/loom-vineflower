@@ -13,11 +13,12 @@ import org.gradle.api.Project;
 import java.util.List;
 
 public class LoomQuiltflowerPlugin implements Plugin<Project> {
-    private static final List<String> LOOMS = List.of(
+    private static final List<String> LOOMS = List.of(new String[] {
         "fabric-loom",
         "dev.architectury.loom",
-        "org.quiltmc.loom"
-    );
+        "org.quiltmc.loom",
+        "gg.essential.loom", // https://github.com/Sk1erLLC/architectury-loom
+    });
     private boolean applied = false;
 
     @Override
