@@ -18,6 +18,7 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
         "dev.architectury.loom",
         "org.quiltmc.loom",
         "gg.essential.loom", // https://github.com/Sk1erLLC/architectury-loom
+        "cc.woverlfow.loom" // https://github.com/W-OVERFLOW/Loom
     });
     private boolean applied = false;
 
