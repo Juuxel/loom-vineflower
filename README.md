@@ -27,6 +27,7 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 | Architectury Loom    | `dev.architectury.loom` | 0.7.2, 0.7.4, 0.10.0¹, 0.11.0 |
 | Quilt Loom           | `org.quiltmc.loom`      | 0.12                          |
 | `gg.essential.loom`  | `gg.essential.loom`     | *None*²                       |
+| Babric Loom          | `babric-loom`           | 0.12                          |
 
 ¹ From build 0.10.0.206 onwards  
 ² Completely untested
