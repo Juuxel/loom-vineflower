@@ -62,7 +62,7 @@ tasks.withType(JavaCompile).configureEach {
 
 task verifyRuntimeClasspath {
     doLast {
-        if (!configurations.runtimeClasspath.resolve().any { it.name.contains("quiltflower") }) {
+        if (!configurations.runtimeClasspath.resolve().any { it.name.contains("quiltflower-unprocessed") }) {
             throw new IllegalStateException("Could not find QF on runtime classpath")
         }
     }

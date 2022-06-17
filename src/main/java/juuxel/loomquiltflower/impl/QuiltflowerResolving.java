@@ -4,6 +4,7 @@ import juuxel.loomquiltflower.impl.module.LqfModule;
 import juuxel.loomquiltflower.impl.task.ResolveQuiltflower;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.file.RegularFile;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.provider.Provider;
@@ -62,7 +63,10 @@ public final class QuiltflowerResolving {
                 configuration.setCanBeConsumed(false);
 
                 project.getConfigurations().getByName(JavaPlugin.RUNTIME_CLASSPATH_CONFIGURATION_NAME).extendsFrom(configuration);
-                project.getDependencies().addProvider(configuration.getName(), resolveQuiltflower.flatMap(ResolveQuiltflower::getUnprocessedOutput));
+                ConfigurableFileCollection qfFiles = project.files();
+                qfFiles.builtBy(resolveQuiltflower);
+                qfFiles.from(resolveQuiltflower.flatMap(ResolveQuiltflower::getUnprocessedOutput));
+                project.getDependencies().add(configuration.getName(), qfFiles);
             }
         });
     }
