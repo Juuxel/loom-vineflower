@@ -14,6 +14,7 @@ import java.util.List;
 
 public class LoomQuiltflowerPlugin implements Plugin<Project> {
     private static final List<String> LOOMS = List.of(new String[] {
+        "babric-loom", // https://github.com/babric/fabric-loom
         "fabric-loom",
         "dev.architectury.loom",
         "org.quiltmc.loom",
