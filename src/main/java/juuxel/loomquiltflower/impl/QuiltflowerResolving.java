@@ -4,11 +4,12 @@ import juuxel.loomquiltflower.impl.module.LqfModule;
 import juuxel.loomquiltflower.impl.task.ResolveQuiltflower;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.file.RegularFile;
 import org.gradle.api.plugins.JavaPlugin;
+import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.TaskProvider;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.regex.Pattern;
 
 public final class QuiltflowerResolving {
@@ -16,22 +17,27 @@ public final class QuiltflowerResolving {
     private static final Pattern DECOMPILE_TASK_NAME_REGEX = Pattern.compile("^gen(Common|ClientOnly)?SourcesWithQuiltflower$");
 
     public static File getQuiltflowerJar(Project project) {
-        return getResolveQuiltflowerTask(project).get().getOutput().get().getAsFile();
+        return getResolveQuiltflowerTask(project).get().getRemappedOutput().get().getAsFile();
     }
 
     public static TaskProvider<ResolveQuiltflower> getResolveQuiltflowerTask(Project project) {
         return project.getTasks().named(TASK_NAME, ResolveQuiltflower.class);
     }
 
+    private static Provider<RegularFile> getQuiltflowerJarPath(Project project, QuiltflowerExtensionImpl extension, String suffix) {
+        return project.getLayout().file(project.provider(() -> {
+            extension.getSource().finalizeValue();
+            String version = extension.getSource().get().getProvidedVersion();
+            String fileName = String.format("quiltflower-%s%s.jar", suffix, version != null ? "-" + version : "");
+            return extension.getCache().resolve(fileName).toFile();
+        }));
+    }
+
     public static void setup(Project project, QuiltflowerExtensionImpl extension) {
         var resolveQuiltflower = project.getTasks().register(TASK_NAME, ResolveQuiltflower.class, task -> {
             task.getSource().set(extension.getSource());
-            task.getOutput().set(project.getLayout().file(project.provider(() -> {
-                extension.getSource().finalizeValue();
-                String version = extension.getSource().get().getProvidedVersion();
-                String fileName = String.format("quiltflower-remapped%s.jar", version != null ? "-" + version : "");
-                return extension.getCache().resolve(fileName);
-            }).map(Path::toFile)));
+            task.getUnprocessedOutput().set(getQuiltflowerJarPath(project, extension, "unprocessed"));
+            task.getRemappedOutput().set(getQuiltflowerJarPath(project, extension, "remapped"));
         });
 
         project.afterEvaluate(p -> {
@@ -56,7 +62,7 @@ public final class QuiltflowerResolving {
                 configuration.setCanBeConsumed(false);
 
                 project.getConfigurations().getByName(JavaPlugin.RUNTIME_CLASSPATH_CONFIGURATION_NAME).extendsFrom(configuration);
-                project.getDependencies().addProvider(configuration.getName(), resolveQuiltflower.map(task -> task.getOutputs().getFiles()));
+                project.getDependencies().addProvider(configuration.getName(), resolveQuiltflower.flatMap(ResolveQuiltflower::getUnprocessedOutput));
             }
         });
     }

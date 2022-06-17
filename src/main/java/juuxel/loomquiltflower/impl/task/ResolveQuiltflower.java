@@ -14,11 +14,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 
 public class ResolveQuiltflower extends DefaultTask {
     private final Property<QuiltflowerSource> source = getProject().getObjects().property(QuiltflowerSource.class);
-    private final RegularFileProperty output = getProject().getObjects().fileProperty();
+    private final RegularFileProperty unprocessedOutput = getProject().getObjects().fileProperty();
+    private final RegularFileProperty remappedOutput = getProject().getObjects().fileProperty();
 
     public ResolveQuiltflower() {
         getOutputs().upToDateWhen(t -> !(getProject().getGradle().getStartParameter().isRefreshDependencies() || Boolean.getBoolean("loom-quiltflower.refresh")));
@@ -30,23 +32,27 @@ public class ResolveQuiltflower extends DefaultTask {
     }
 
     @OutputFile
-    public RegularFileProperty getOutput() {
-        return output;
+    public RegularFileProperty getUnprocessedOutput() {
+        return unprocessedOutput;
+    }
+
+    @OutputFile
+    public RegularFileProperty getRemappedOutput() {
+        return remappedOutput;
     }
 
     @TaskAction
     public void resolve() throws IOException {
         QuiltflowerSource source = this.source.get();
-        Path tempDir = Files.createTempDirectory("quiltflower");
-        Path baseQfJar = tempDir.resolve("quiltflower-unprocessed.jar");
+        File unprocessedOutput = this.unprocessedOutput.get().getAsFile();
 
         try (InputStream in = source.open()) {
-            Files.copy(in, baseQfJar);
+            Files.copy(in, unprocessedOutput.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
             throw new IOException("Source " + source + " could not resolve Quiltflower", e);
         }
 
-        File output = this.output.get().getAsFile();
+        File output = this.remappedOutput.get().getAsFile();
         Path outputPath = output.toPath();
         Path parent = outputPath.getParent();
 
@@ -56,6 +62,6 @@ public class ResolveQuiltflower extends DefaultTask {
             Files.deleteIfExists(outputPath);
         }
 
-        Remapping.remapQuiltflower(baseQfJar.toFile(), output, Collections.emptySet());
+        Remapping.remapQuiltflower(unprocessedOutput, output, Collections.emptySet());
     }
 }
