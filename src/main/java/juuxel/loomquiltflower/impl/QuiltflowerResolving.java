@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public final class QuiltflowerResolving {
     public static final String TASK_NAME = "resolveQuiltflower";
-    private static final Pattern DECOMPILE_TASK_NAME_REGEX = Pattern.compile("^gen(Common|ClientOnly)?SourcesWithQuiltflower$");
+    private static final Pattern DECOMPILE_TASK_NAME_REGEX = Pattern.compile("^gen.?SourcesWithQuiltflower$");
 
     public static File getQuiltflowerJar(Project project) {
         return getResolveQuiltflowerTask(project).get().getRemappedOutput().get().getAsFile();
