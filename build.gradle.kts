@@ -83,7 +83,6 @@ dependencies {
     // Loom dependencies
     compileOnly("net.fabricmc:fabric-loom:${property("loom-version")}")
     shade("net.fabricmc:mapping-io:${property("mapping-io-version")}")
-    shade("net.fabricmc:stitch:${property("stitch-version")}")
     shade("net.fabricmc:tiny-remapper:${property("tiny-remapper-version")}")
     compileOnly("org.ow2.asm:asm:${property("asm-version")}")
     compileOnly("org.ow2.asm:asm-commons:${property("asm-version")}")

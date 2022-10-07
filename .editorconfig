@@ -10,6 +10,7 @@ insert_final_newline = true
 [*.java]
 ij_continuation_indent_size = 4
 ij_java_class_count_to_use_import_on_demand = 9999
+ij_java_names_count_to_use_import_on_demand = 9999
 
 [*.{kt,kts}]
 # 2147483647 = some max int (infinity)

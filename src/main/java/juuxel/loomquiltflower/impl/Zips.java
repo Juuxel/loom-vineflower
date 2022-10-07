@@ -1,9 +1,8 @@
 package juuxel.loomquiltflower.impl;
 
-import net.fabricmc.stitch.util.StitchUtil;
+import juuxel.loomquiltflower.impl.util.RcZipFileSystem;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +13,7 @@ public final class Zips {
             return Files.readAllBytes(Path.of(outerPath));
         }
 
-        try (StitchUtil.FileSystemDelegate fs = StitchUtil.getJarFileSystem(new File(outerPath), false)) {
+        try (var fs = RcZipFileSystem.open(Path.of(outerPath))) {
             return Files.readAllBytes(fs.get().getPath(innerPath));
         }
     }
