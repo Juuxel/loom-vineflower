@@ -144,7 +144,6 @@ tasks {
 
         relocate("net.fabricmc.mappingio", "juuxel.loomquiltflower.impl.relocated.mappingio")
         relocate("net.fabricmc.tinyremapper", "juuxel.loomquiltflower.impl.relocated.tinyremapper")
-        relocate("net.fabricmc.stitch", "juuxel.loomquiltflower.impl.relocated.stitch")
     }
 
     assemble {
