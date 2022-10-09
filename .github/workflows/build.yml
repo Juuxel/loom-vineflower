@@ -12,8 +12,9 @@ jobs:
           # Upstream
           "fabric-loom:0.8-SNAPSHOT",  # Barely alive
           "fabric-loom:0.9-SNAPSHOT",  # Barely alive
-          "fabric-loom:0.11-SNAPSHOT", # Stable
+          "fabric-loom:0.11-SNAPSHOT", # Barely alive
           "fabric-loom:0.12-SNAPSHOT", # Stable
+          "fabric-loom:1.0-SNAPSHOT", # Stable
 
           # Arch
           "dev.architectury.loom:0.7.4-SNAPSHOT",  # Barely alive
@@ -21,8 +22,9 @@ jobs:
           "dev.architectury.loom:0.11.0-SNAPSHOT", # Stable
           "dev.architectury.loom:0.12.0-SNAPSHOT", # Stable
 
-          # Quilt (I'd imagine this is temporary since it's their decompiler)
+          # Quilt
           "org.quiltmc.loom:0.12.+", # Experimental
+          "org.quiltmc.loom:1.0.+",  # Stable
         ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
