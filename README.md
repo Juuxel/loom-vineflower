@@ -28,6 +28,7 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 | Quilt Loom           | `org.quiltmc.loom`      | 0.12, 1.0                             |
 | `gg.essential.loom`  | `gg.essential.loom`     | *None*²                               |
 | Babric Loom          | `babric-loom`           | 0.12²                                 |
+| Ornithe Loom         | `ornithe-loom`          | 1.0²                                  |
 
 ¹ From build 0.10.0.206 onwards  
 ² Completely untested
