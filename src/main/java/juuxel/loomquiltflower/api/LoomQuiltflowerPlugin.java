@@ -19,6 +19,7 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
         "org.quiltmc.loom",
         "gg.essential.loom", // https://github.com/Sk1erLLC/architectury-loom
         "babric-loom", // https://github.com/babric/fabric-loom
+        "ornithe-loom", // https://github.com/OrnitheMC/ornithe-loom
     });
     private boolean applied = false;
 
