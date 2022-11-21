@@ -18,9 +18,6 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
 
 ## Version compatibility
 
-For the latest Fabric Loom 0.10 versions (0.10.28+),
-use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) instead.
-
 | Loom variant        | Plugin ID               | Supported versions                         |
 |---------------------|-------------------------|--------------------------------------------|
 | Fabric Loom         | `fabric-loom`           | 0.8, 0.9, 0.11, 0.12, 1.0                  |
@@ -34,6 +31,9 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 ² Completely untested
 
 Older versions might be compatible, but using them is unsupported. Bugs caused by outdated Loom versions will not be fixed.
+
+For the latest Fabric Loom 0.10 versions (0.10.28+),
+use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) instead.
 
 ## Getting started
 
