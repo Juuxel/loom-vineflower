@@ -86,10 +86,10 @@ You can configure the used version of Quiltflower with the `quiltflower` extensi
 ```groovy
 quiltflower {
     // This is the default; 1.4.0 and above should work
-    quiltflowerVersion.set("1.8.0")
-  
+    quiltflowerVersion.set("1.9.0")
+
     // If you're using Groovy DSL, you can also specify the version like this:
-    quiltflowerVersion = '1.8.0'
+    quiltflowerVersion = '1.9.0'
 }
 ```
 
