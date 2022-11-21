@@ -134,8 +134,10 @@ Preset methods as of 1.4.0:
 |--------|----|-------------|----------|
 | `inlineSimpleLambdas` | `isl` | Collapse single-line lambdas | 1 |
 | `useJadVarnaming` | `jvn` | Use JAD-style local variable naming from ForgeFlower | 0 |
-| `patternMatching` | `pam` | Experimental pattern matching support | 1 |
-| `experimentalTryLoopFix` | `tlf` | Experimental fix for interactions between `try` and loops | 1 |
+| `patternMatching` | `pam` | Pattern matching support[^1] | 1 |
+| `experimentalTryLoopFix` | `tlf` | Fix for interactions between `try` and loops[^1] | 1 |
+
+[^1]: Used to be experimental, but considered stable as of Quiltflower 1.9
 
 #### Groovy DSL
 ```groovy
