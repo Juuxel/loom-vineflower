@@ -111,8 +111,10 @@ public interface QuiltflowerPreferences {
      *
      * @param experimentalTryLoopFix the new value
      * @since 1.4.0
+     * @deprecated The fix is no longer experimental so controlling it is likely not needed.
      */
+    @Deprecated
     default void experimentalTryLoopFix(Object experimentalTryLoopFix) {
-        set(IFernflowerPreferences.EXPERIMENTAL_TRY_LOOP_FIX, experimentalTryLoopFix);
+        set(IFernflowerPreferences.TRY_LOOP_FIX, experimentalTryLoopFix);
     }
 }
