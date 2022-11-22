@@ -2,11 +2,13 @@ package juuxel.loomquiltflower.impl.modern;
 
 import juuxel.loomquiltflower.impl.SharedQfConfig;
 import juuxel.loomquiltflower.impl.Zips;
-import juuxel.loomquiltflower.impl.bridge.SimpleLogger;
 import juuxel.loomquiltflower.impl.bridge.QfResultSaver;
 import juuxel.loomquiltflower.impl.bridge.QfTinyJavadocProvider;
+import juuxel.loomquiltflower.impl.bridge.SimpleLogger;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.Fernflower;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerLogger;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
+import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IResultSaver;
 import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricJavadocProvider;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UncheckedIOException;
 import java.io.Writer;
+import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.FileSystems;
@@ -31,8 +34,16 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
         SharedQfConfig.configureCommonOptions(options, metaData);
         options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(metaData.javaDocs().toFile()));
 
-        PrintWriter logger = writerFromLoomLogger(metaData.logger());
-        Fernflower ff = new Fernflower(Zips::getBytes, new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new SimpleLogger(logger));
+        IFernflowerLogger logger = new SimpleLogger(writerFromLoomLogger(metaData.logger()));
+        QfResultSaver resultSaver = new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile);
+        Fernflower ff;
+
+        try {
+            Constructor<Fernflower> ctor = Fernflower.class.getConstructor(IResultSaver.class, Map.class, IFernflowerLogger.class);
+            ff = ctor.newInstance(resultSaver, options, logger);
+        } catch (ReflectiveOperationException e) {
+            ff = new Fernflower(Zips::getBytes, resultSaver, options, logger);
+        }
 
         for (Path library : metaData.libraries()) {
             ff.addLibrary(library.toFile());
