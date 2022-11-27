@@ -27,6 +27,11 @@ public class QuiltflowerExecutor extends AbstractForkedFFExecutor {
         }
 
         ff.addSource(input);
-        ff.decompileContext();
+
+        try {
+            ff.decompileContext();
+        } finally {
+            ff.clearContext();
+        }
     }
 }

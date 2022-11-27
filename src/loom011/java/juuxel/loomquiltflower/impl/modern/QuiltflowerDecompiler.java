@@ -32,6 +32,7 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
         options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(metaData.javaDocs().toFile()));
 
         PrintWriter logger = writerFromLoomLogger(metaData.logger());
+        // Note: We use the deprecated API because this needs to work on QF <1.9.0.
         Fernflower ff = new Fernflower(Zips::getBytes, new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new SimpleLogger(logger));
 
         for (Path library : metaData.libraries()) {
@@ -39,7 +40,13 @@ public final class QuiltflowerDecompiler implements LoomDecompiler {
         }
 
         ff.addSource(compiledJar.toFile());
-        ff.decompileContext();
+
+        try {
+            ff.decompileContext();
+        } finally {
+            ff.clearContext();
+        }
+
         closeFs(compiledJar);
     }
 
