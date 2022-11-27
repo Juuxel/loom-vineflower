@@ -13,11 +13,8 @@ import java.util.Map;
 /**
  * Manages Quiltflower decompilation preferences.
  *
- * <p>This interface is experimental, and it or any contained methods may be removed in a minor release.
- *
  * @since 1.2.0
  */
-@ApiStatus.Experimental
 @ApiStatus.NonExtendable
 public interface QuiltflowerPreferences {
     /**
@@ -66,8 +63,6 @@ public interface QuiltflowerPreferences {
 
     /**
      * Adds Quiltflower decompilation preferences.
-     *
-     * <p>This method is experimental and may be removed in a minor release.
      *
      * @param preferences the preferences as an array of key-value pairs
      */

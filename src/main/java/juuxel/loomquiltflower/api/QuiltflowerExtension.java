@@ -34,20 +34,14 @@ public interface QuiltflowerExtension {
 
     /**
      * {@return the Quiltflower decompilation preferences}
-     *
-     * <p>This method is experimental and may be removed in a minor release.
      */
-    @ApiStatus.Experimental
     QuiltflowerPreferences getPreferences();
 
     /**
      * Configures Quiltflower decompilation preferences.
      *
-     * <p>This method is experimental and may be removed in a minor release.
-     *
      * @param action the configuration action
      */
-    @ApiStatus.Experimental
     default void preferences(Action<QuiltflowerPreferences> action) {
         action.execute(getPreferences());
     }
@@ -55,11 +49,8 @@ public interface QuiltflowerExtension {
     /**
      * Adds Quiltflower decompilation preferences.
      *
-     * <p>This method is experimental and may be removed in a minor release.
-     *
      * @param preferences the preferences as a map
      */
-    @ApiStatus.Experimental
     default void preferences(Map<String, ?> preferences) {
         preferences(p -> p.put(preferences));
     }
@@ -67,11 +58,8 @@ public interface QuiltflowerExtension {
     /**
      * Adds Quiltflower decompilation preferences.
      *
-     * <p>This method is experimental and may be removed in a minor release.
-     *
      * @param preferences the preferences as an array of key-value pairs
      */
-    @ApiStatus.Experimental
     default void preferences(Pair<String, ?>... preferences) {
         preferences(p -> p.put(preferences));
     }
