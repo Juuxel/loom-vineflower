@@ -79,7 +79,7 @@ public interface QuiltflowerPreferences {
     // Specific preferences
 
     /**
-     * Sets the value of the {@code INLINE_SIMPLE_LAMBDAS} preference ({@code isl}).
+     * Sets the value of the <em>Inline Simple Lambdas</em> preference ({@code isl}).
      *
      * @param inlineSimpleLambdas the new value
      */
@@ -88,7 +88,7 @@ public interface QuiltflowerPreferences {
     }
 
     /**
-     * Sets the value of the {@code USE_JAD_VARNAMING} preference ({@code jvn}).
+     * Sets the value of the <em>JAD-Style Variable Naming</em> preference ({@code jvn}).
      *
      * @param useJadVarnaming the new value
      */
@@ -97,7 +97,7 @@ public interface QuiltflowerPreferences {
     }
 
     /**
-     * Sets the value of the {@code PATTERN_MATCHING} preference ({@code pam}).
+     * Sets the value of the <em>Pattern Matching</em> preference ({@code pam}).
      *
      * @param patternMatching the new value
      * @since 1.4.0
@@ -107,7 +107,7 @@ public interface QuiltflowerPreferences {
     }
 
     /**
-     * Sets the value of the {@code TRY_LOOP_FIX} preference ({@code tlf}).
+     * Sets the value of the <em>Try-Loop fix</em> preference ({@code tlf}).
      *
      * @param experimentalTryLoopFix the new value
      * @since 1.4.0
