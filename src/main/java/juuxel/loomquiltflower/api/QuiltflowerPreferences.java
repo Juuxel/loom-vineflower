@@ -107,7 +107,7 @@ public interface QuiltflowerPreferences {
     }
 
     /**
-     * Sets the value of the {@code EXPERIMENTAL_TRY_LOOP_FIX} preference ({@code tlf}).
+     * Sets the value of the {@code TRY_LOOP_FIX} preference ({@code tlf}).
      *
      * @param experimentalTryLoopFix the new value
      * @since 1.4.0
