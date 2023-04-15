@@ -120,7 +120,12 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
 
         @Override
         public QuiltflowerSource fromQuiltMaven(Provider<String> version) {
-            return new QuiltMavenQuiltflowerSource(version);
+            return new QuiltMavenQuiltflowerSource(version, QuiltMavenQuiltflowerSource.Repository.RELEASE);
+        }
+
+        @Override
+        public QuiltflowerSource fromQuiltSnapshotMaven(Provider<String> version) {
+            return new QuiltMavenQuiltflowerSource(version, QuiltMavenQuiltflowerSource.Repository.SNAPSHOT);
         }
     }
 

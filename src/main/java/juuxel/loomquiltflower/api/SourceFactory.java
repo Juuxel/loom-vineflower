@@ -45,10 +45,19 @@ public interface SourceFactory {
     QuiltflowerSource fromDependency(Object dependencyNotation);
 
     /**
-     * Creates a source that downloads Quiltflower from the QuiltMC Maven repository.
+     * Creates a source that downloads Quiltflower from the QuiltMC release Maven repository.
      *
      * @param version the Quiltflower version
      * @return the created source
      */
     QuiltflowerSource fromQuiltMaven(Provider<String> version);
+
+    /**
+     * Creates a source that downloads Quiltflower from the QuiltMC snapshot Maven repository.
+     *
+     * @param version the Quiltflower version
+     * @return the created sources
+     * @since 1.9.0
+     */
+    QuiltflowerSource fromQuiltSnapshotMaven(Provider<String> version);
 }
