@@ -51,6 +51,12 @@ public class DeprecatedQuiltflowerExtension implements QuiltflowerExtension {
     }
 
     @Override
+    public void fromLatestQuiltSnapshot() {
+        reportDeprecation();
+        parent.fromLatestQuiltSnapshot();
+    }
+
+    @Override
     public QuiltflowerPreferences getPreferences() {
         reportDeprecation();
         return parent.getPreferences();

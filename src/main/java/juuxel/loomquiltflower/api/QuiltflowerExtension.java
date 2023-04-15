@@ -118,6 +118,15 @@ public interface QuiltflowerExtension {
     }
 
     /**
+     * Sets the Quiltflower source to download the latest Quiltflower snapshot from the QuiltMC snapshot Maven
+     * repository.
+     *
+     * @see SourceFactory#fromQuiltSnapshotMaven(Provider)
+     * @since 1.9.0
+     */
+    void fromLatestQuiltSnapshot();
+
+    /**
      * If true, Quiltflower will be added to the runtime classpath.
      * This is useful for debugging mixins with the {@code mixin.debug.decompile} system property.
      *

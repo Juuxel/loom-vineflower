@@ -84,6 +84,12 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
     }
 
     @Override
+    public void fromLatestQuiltSnapshot() {
+        Provider<String> latestSnapshotVersion = project.provider(QuiltMavenQuiltflowerSource::findLatestSnapshot);
+        getSource().set(getSourceFactory().fromQuiltSnapshotMaven(latestSnapshotVersion));
+    }
+
+    @Override
     public QuiltflowerPreferences getPreferences() {
         return preferences;
     }
