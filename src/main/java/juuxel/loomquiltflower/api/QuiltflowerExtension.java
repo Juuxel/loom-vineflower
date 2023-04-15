@@ -106,7 +106,7 @@ public interface QuiltflowerExtension {
     }
 
     /**
-     * Sets the Quiltflower source to download Quiltflower from the QuiltMC Maven repository.
+     * Sets the Quiltflower source to download Quiltflower from the QuiltMC release Maven repository.
      * The version is set in {@link #getQuiltflowerVersion()}.
      *
      * <p>This is the default source for downloading Quiltflower.
@@ -118,10 +118,23 @@ public interface QuiltflowerExtension {
     }
 
     /**
+     * Sets the Quiltflower source to download Quiltflower from the QuiltMC snapshot Maven repository.
+     * The version is set in {@link #getQuiltflowerVersion()}.
+     *
+     * @see SourceFactory#fromQuiltSnapshotMaven(Provider)
+     * @see #fromLatestQuiltSnapshot()
+     * @since 1.9.0
+     */
+    default void fromQuiltSnapshotMaven() {
+        getSource().set(getSourceFactory().fromQuiltSnapshotMaven(getQuiltflowerVersion()));
+    }
+
+    /**
      * Sets the Quiltflower source to download the latest Quiltflower snapshot from the QuiltMC snapshot Maven
      * repository.
      *
      * @see SourceFactory#fromQuiltSnapshotMaven(Provider)
+     * @see #fromQuiltSnapshotMaven()
      * @since 1.9.0
      */
     void fromLatestQuiltSnapshot();
