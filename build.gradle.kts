@@ -48,6 +48,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 
     withSourcesJar()
+    withJavadocJar()
 }
 
 val (loomId, loomVersion) = (System.getenv("TEST_LOOM_VARIANT") ?: "fabric-loom:0.8-SNAPSHOT").split(":")
