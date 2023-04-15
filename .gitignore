@@ -4,5 +4,6 @@ build/
 classes/
 out/
 *.iml
+/src/main/generated/
 
 private.gradle

@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
-    private static final String DEFAULT_QUILTFLOWER_VERSION = "CURRENT_QUILTFLOWER_VERSION";
     private final Project project;
     private final Property<String> quiltflowerVersion;
     private final Property<QuiltflowerSource> source;
@@ -37,7 +36,7 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
 
     public QuiltflowerExtensionImpl(Project project) {
         this.project = project;
-        quiltflowerVersion = project.getObjects().property(String.class).convention(DEFAULT_QUILTFLOWER_VERSION);
+        quiltflowerVersion = project.getObjects().property(String.class).convention(QuiltflowerVersion.DEFAULT_VERSION);
         source = project.getObjects().property(QuiltflowerSource.class).convention(sourceFactory.fromQuiltMaven(quiltflowerVersion));
         preferenceMap = project.getObjects().mapProperty(String.class, Object.class).empty();
         preferences = project.getObjects().newInstance(PreferencesImpl.class, this);
