@@ -49,7 +49,6 @@ public final class QuiltflowerResolving {
                     var taskClass = module.getDecompileTaskClass();
 
                     if (taskClass.isInstance(task) && DECOMPILE_TASK_NAME_REGEX.matcher(task.getName()).matches()) {
-                        // TODO: Add a test for 0.11 split jars
                         task.dependsOn(resolveQuiltflower);
                     }
                 });
