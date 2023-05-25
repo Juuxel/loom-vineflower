@@ -46,8 +46,8 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 1. Add loom-quiltflower to your plugins:
 ```diff
   plugins {
-      id 'fabric-loom' version '1.0-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.8.0'
+      id 'fabric-loom' version '1.2-SNAPSHOT'
++     id 'io.github.juuxel.loom-quiltflower' version '1.9.0'
       id 'maven-publish'
   }
 ```
@@ -60,8 +60,8 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 ```diff
   plugins {
       id "architectury-plugin" version "3.4-SNAPSHOT"
-      id "dev.architectury.loom" version "1.0-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.8.0' apply false
+      id "dev.architectury.loom" version "1.2-SNAPSHOT" apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.9.0' apply false
   }
 ```
 
