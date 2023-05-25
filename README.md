@@ -18,14 +18,14 @@ for non-Quilt distributions of Loom (upstream, Architectury etc.).
 
 ## Version compatibility
 
-| Loom variant        | Plugin ID               | Supported versions                         |
-|---------------------|-------------------------|--------------------------------------------|
-| Fabric Loom         | `fabric-loom`           | 0.8, 0.9, 0.11, 0.12, 1.0                  |
-| Architectury Loom   | `dev.architectury.loom` | 0.7.2, 0.7.4, 0.10.0¹, 0.11.0, 0.12.0, 1.0 |
-| Quilt Loom          | `org.quiltmc.loom`      | 0.12, 1.0                                  |
-| `gg.essential.loom` | `gg.essential.loom`     | *None*²                                    |
-| Babric Loom         | `babric-loom`           | 0.12²                                      |
-| Ornithe Loom        | `ornithe-loom`          | 1.0²                                       |
+| Loom variant        | Plugin ID               | Supported versions                                  |
+|---------------------|-------------------------|-----------------------------------------------------|
+| Fabric Loom         | `fabric-loom`           | 0.8, 0.9, 0.11, 0.12, 1.0, 1.1, 1.2                           |
+| Architectury Loom   | `dev.architectury.loom` | 0.7.2, 0.7.4, 0.10.0¹, 0.11.0, 0.12.0, 1.0, 1.1, 1.2 |
+| Quilt Loom          | `org.quiltmc.loom`      | 0.12, 1.0, 1.1, 1.2                                           |
+| `gg.essential.loom` | `gg.essential.loom`     | *None*²                                             |
+| Babric Loom         | `babric-loom`           | 0.12²                                               |
+| Ornithe Loom        | `ornithe-loom`          | 1.0²                                                |
 
 ¹ From build 0.10.0.206 onwards  
 ² Completely untested
