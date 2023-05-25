@@ -4,9 +4,9 @@ plugins {
     `java-gradle-plugin`
     groovy
     `maven-publish`
-    id("com.gradle.plugin-publish") version "1.0.0-rc-1"
+    id("com.gradle.plugin-publish") version "1.2.0"
     id("build-logic")
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "io.github.juuxel"
