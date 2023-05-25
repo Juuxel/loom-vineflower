@@ -1,23 +1,18 @@
 package juuxel.loomquiltflower.impl.source;
 
 import juuxel.loomquiltflower.api.QuiltflowerSource;
+import juuxel.loomquiltflower.impl.util.Streams;
 import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
     private static final String RELEASE_URL = "https://maven.quiltmc.org/repository/release";
@@ -72,36 +67,14 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
 
     @VisibleForTesting
     public static String getLatestVersion(Document document, Object url) {
-        return streamOf(document.getElementsByTagName("metadata"))
-            .flatMap(node -> streamOf(((Element) node).getElementsByTagName("versioning")))
-            .flatMap(node -> streamOf(((Element) node).getElementsByTagName("latest")))
+        return Streams.of(document.getElementsByTagName("metadata"))
+            .flatMap(node -> Streams.of(((Element) node).getElementsByTagName("versioning")))
+            .flatMap(node -> Streams.of(((Element) node).getElementsByTagName("latest")))
             .map(Node::getTextContent)
             .findFirst()
             .orElseThrow(() -> new NoSuchElementException(
                 "Could not find latest version in maven-metadata.xml (" + url + ")"
             ));
-    }
-
-    private static Stream<Node> streamOf(NodeList nodes) {
-        Spliterator<Node> spliterator = Spliterators.spliterator(iteratorOf(nodes), nodes.getLength(), 0);
-        return StreamSupport.stream(spliterator, false);
-    }
-
-    private static Iterator<Node> iteratorOf(NodeList nodes) {
-        return new Iterator<>() {
-            private int index = 0;
-
-            @Override
-            public boolean hasNext() {
-                return index < nodes.getLength();
-            }
-
-            @Override
-            public Node next() {
-                if (!hasNext()) throw new NoSuchElementException();
-                return nodes.item(index++);
-            }
-        };
     }
 
     public enum Repository {
