@@ -41,7 +41,7 @@ public class QuiltflowerExtensionImpl implements QuiltflowerExtension {
         preferenceMap = project.getObjects().mapProperty(String.class, Object.class).empty();
         preferences = project.getObjects().newInstance(PreferencesImpl.class, this);
         addToRuntimeClasspath = project.getObjects().property(Boolean.class).convention(false);
-        cache = project.getRootProject().getProjectDir().toPath().resolve(".gradle").resolve("loom-quiltflower-cache");
+        cache = project.file(".gradle/loom-quiltflower-cache").toPath();
     }
 
     public LqfModule getActiveModule() {
