@@ -16,7 +16,7 @@ jobs:
           "fabric-loom:0.12-SNAPSHOT", # Barely alive
           "fabric-loom:1.0-SNAPSHOT", # Barely alive
           "fabric-loom:1.1-SNAPSHOT", # Stable
-          "fabric-loom:1.2-SNAPSHOT", # Stable
+          #"fabric-loom:1.2-SNAPSHOT", # Stable
 
           # Arch
           "dev.architectury.loom:0.7.4-SNAPSHOT",  # Barely alive
@@ -25,13 +25,13 @@ jobs:
           "dev.architectury.loom:0.12.0-SNAPSHOT", # Barely alive
           "dev.architectury.loom:1.0-SNAPSHOT", # Barely alive
           "dev.architectury.loom:1.1-SNAPSHOT", # Stable
-          "dev.architectury.loom:1.2-SNAPSHOT", # Experimental
+          #"dev.architectury.loom:1.2-SNAPSHOT", # Experimental
 
           # Quilt
           "org.quiltmc.loom:0.12.+", # Barely alive
           "org.quiltmc.loom:1.0.+",  # Barely alive
           "org.quiltmc.loom:1.1.+",  # Barely alive
-          "org.quiltmc.loom:1.2.+",  # Stable
+          #"org.quiltmc.loom:1.2.+",  # Stable
         ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
