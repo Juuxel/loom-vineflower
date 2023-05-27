@@ -2,7 +2,9 @@ package juuxel.loomquiltflower.impl.source;
 
 import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.loomquiltflower.impl.util.Streams;
+import juuxel.loomquiltflower.impl.util.XmlView;
 import org.gradle.api.provider.Provider;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,12 +29,16 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
 
     @Override
     public InputStream open() throws IOException {
-        String repositoryUrl = switch (repository) {
-            case RELEASE -> RELEASE_URL;
-            case SNAPSHOT -> SNAPSHOT_URL;
-        };
-        String v = version.get();
-        URL url = new URL(String.format("%s/org/quiltmc/quiltflower/%s/quiltflower-%s.jar", repositoryUrl, v, v));
+        String baseVersion = version.get();
+        String artifactVersion = baseVersion;
+
+        if (baseVersion.endsWith("-SNAPSHOT")) {
+            @Nullable String snapshot = findLatestSnapshot(repository, baseVersion);
+            if (snapshot != null) artifactVersion = snapshot;
+        }
+
+        URL url = new URL("%s/org/quiltmc/quiltflower/%s/quiltflower-%s.jar"
+            .formatted(repository.url, baseVersion, artifactVersion));
         return url.openStream();
     }
 
@@ -47,21 +53,9 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
     }
 
     public static String findLatestSnapshot() throws Exception {
-        URL url = new URL(
-            "%s/org/quiltmc/quiltflower/maven-metadata.xml"
-                .formatted(QuiltMavenQuiltflowerSource.SNAPSHOT_URL)
-        );
-
-        Document document;
-
-        try (InputStream in = url.openStream()) {
-            document = DocumentBuilderFactory.newDefaultInstance()
-                .newDocumentBuilder()
-                .parse(in);
-        } catch (IOException e) {
-            throw new IOException("Could not read maven-metadata.xml for Quiltflower snapshots (" + url + ")", e);
-        }
-
+        String url = "%s/org/quiltmc/quiltflower/maven-metadata.xml"
+            .formatted(QuiltMavenQuiltflowerSource.SNAPSHOT_URL);
+        Document document = readXmlDocument(url);
         return getLatestVersion(document, url);
     }
 
@@ -77,8 +71,54 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
             ));
     }
 
+    private static Document readXmlDocument(String url) throws IOException {
+        try (InputStream in = new URL(url).openStream()) {
+            return DocumentBuilderFactory.newDefaultInstance()
+                .newDocumentBuilder()
+                .parse(in);
+        } catch (Exception e) {
+            throw new IOException("Could not read maven-metadata.xml for Quiltflower snapshots (" + url + ")", e);
+        }
+    }
+
+    private static @Nullable String findLatestSnapshot(Repository repository, String baseVersion) throws IOException {
+        Document document = readXmlDocument(
+            "%s/org/quiltmc/quiltflower/%s/maven-metadata.xml"
+                .formatted(repository.url, baseVersion)
+        );
+        return findLatestSnapshot(document);
+    }
+
+    /**
+     * Finds the latest snapshot version in a version-level maven-metadata.xml.
+     * This method only considers snapshot versions that have {@code <extension>jar</extension>} and no classifier.
+     *
+     * @param document the maven metadata document
+     * @return the latest snapshot, or null if not found
+     */
+    @VisibleForTesting
+    public static @Nullable String findLatestSnapshot(Document document) {
+        var view = new XmlView(document.getChildNodes());
+
+        return view
+            .get("versioning")
+            .get("snapshotVersions")
+            .get("snapshotVersion")
+            .filter(version -> "jar".equals(version.get("extension").getTextContent().orElse(null)) &&
+                version.get("classifier").getTextContent().isEmpty())
+            .get("value")
+            .getTextContent()
+            .orElse(null);
+    }
+
     public enum Repository {
-        RELEASE,
-        SNAPSHOT
+        RELEASE(RELEASE_URL),
+        SNAPSHOT(SNAPSHOT_URL);
+
+        private final String url;
+
+        Repository(String url) {
+            this.url = url;
+        }
     }
 }

@@ -65,4 +65,69 @@ class SourceTest {
             .isInstanceOf(NoSuchElementException.class)
             .hasMessageContaining(url);
     }
+
+    @Test
+    void resolveSnapshotVersion() throws Exception {
+        String mavenMetadata = """
+            <metadata>
+                <groupId>org.quiltmc</groupId>
+                <artifactId>quiltflower</artifactId>
+                <version>1.2.3-SNAPSHOT</version>
+                <versioning>
+                    <lastUpdated>20230527142100</lastUpdated>
+                    <snapshotVersions>
+                        <snapshotVersion>
+                            <extension>pom</extension>
+                            <value>1.2.3-20230527.142100-3</value>
+                            <updated>20230527142100</updated>
+                        </snapshotVersion>
+                        <snapshotVersion>
+                            <extension>jar</extension>
+                            <value>1.2.3-20230527.142100-2</value>
+                            <updated>20230527142100</updated>
+                        </snapshotVersion>
+                        <snapshotVersion>
+                            <extension>jar</extension>
+                            <classifier>slim</classifier>
+                            <value>1.2.3-20230527.142100-1</value>
+                            <updated>20230527142100</updated>
+                        </snapshotVersion>
+                    </snapshotVersions>
+                </versioning>
+            </metadata>
+            """;
+        var document = readXml(mavenMetadata);
+        assertThat(QuiltMavenQuiltflowerSource.findLatestSnapshot(document))
+            .isEqualTo("1.2.3-20230527.142100-2");
+    }
+
+    @Test
+    void resolveMissingSnapshotVersion() throws Exception {
+        String mavenMetadata = """
+            <metadata>
+                <groupId>org.quiltmc</groupId>
+                <artifactId>quiltflower</artifactId>
+                <version>1.2.3-SNAPSHOT</version>
+                <versioning>
+                    <lastUpdated>20230527142100</lastUpdated>
+                    <snapshotVersions>
+                        <snapshotVersion>
+                            <extension>pom</extension>
+                            <value>1.2.3-20230527.142100-1</value>
+                            <updated>20230527142100</updated>
+                        </snapshotVersion>
+                        <snapshotVersion>
+                            <extension>jar</extension>
+                            <classifier>slim</classifier>
+                            <value>1.2.3-20230527.142100-1</value>
+                            <updated>20230527142100</updated>
+                        </snapshotVersion>
+                    </snapshotVersions>
+                </versioning>
+            </metadata>
+            """;
+        var document = readXml(mavenMetadata);
+        assertThat(QuiltMavenQuiltflowerSource.findLatestSnapshot(document))
+            .isNull();
+    }
 }
