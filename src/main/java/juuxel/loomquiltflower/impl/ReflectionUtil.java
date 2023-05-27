@@ -51,4 +51,13 @@ public final class ReflectionUtil {
             return false;
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Optional<T> maybeInvokeNoArgsMethod(Object o, String name) {
+        try {
+            return Optional.ofNullable((T) o.getClass().getMethod(name).invoke(o));
+        } catch (ReflectiveOperationException e) {
+            return Optional.empty();
+        }
+    }
 }
