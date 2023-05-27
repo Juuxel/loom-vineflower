@@ -30,12 +30,7 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
     @Override
     public InputStream open() throws IOException {
         String baseVersion = version.get();
-        String artifactVersion = baseVersion;
-
-        if (baseVersion.endsWith("-SNAPSHOT")) {
-            @Nullable String snapshot = findLatestSnapshot(repository, baseVersion);
-            if (snapshot != null) artifactVersion = snapshot;
-        }
+        String artifactVersion = getResolvedVersion();
 
         URL url = new URL("%s/org/quiltmc/quiltflower/%s/quiltflower-%s.jar"
             .formatted(repository.url, baseVersion, artifactVersion));
@@ -45,6 +40,18 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
     @Override
     public String getProvidedVersion() {
         return version.get();
+    }
+
+    @Override
+    public String getResolvedVersion() throws IOException {
+        String baseVersion = version.get();
+
+        if (baseVersion.endsWith("-SNAPSHOT")) {
+            @Nullable String snapshot = findLatestSnapshot(repository, baseVersion);
+            if (snapshot != null) return snapshot;
+        }
+
+        return baseVersion;
     }
 
     @Override
