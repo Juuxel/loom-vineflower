@@ -1,16 +1,17 @@
 package juuxel.loomquiltflower.impl.source;
 
 import juuxel.loomquiltflower.api.QuiltflowerSource;
-import juuxel.loomquiltflower.impl.util.Streams;
-import juuxel.loomquiltflower.impl.util.XmlView;
 import org.gradle.api.provider.Provider;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathException;
+import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -19,6 +20,10 @@ import java.util.NoSuchElementException;
 public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
     private static final String RELEASE_URL = "https://maven.quiltmc.org/repository/release";
     private static final String SNAPSHOT_URL = "https://maven.quiltmc.org/repository/snapshot";
+    @Language("XPath")
+    private static final String LATEST_VERSION_XPATH = "/metadata/versioning/latest/text()";
+    @Language("XPath")
+    private static final String SNAPSHOT_VERSION_XPATH = "/metadata/versioning/snapshotVersions/snapshotVersion[not(classifier) and extension=\"jar\"]/value/text()";
     private final Provider<String> version;
     private final Repository repository;
 
@@ -68,14 +73,11 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
 
     @VisibleForTesting
     public static String getLatestVersion(Document document, Object url) {
-        return Streams.of(document.getElementsByTagName("metadata"))
-            .flatMap(node -> Streams.of(((Element) node).getElementsByTagName("versioning")))
-            .flatMap(node -> Streams.of(((Element) node).getElementsByTagName("latest")))
-            .map(Node::getTextContent)
-            .findFirst()
-            .orElseThrow(() -> new NoSuchElementException(
-                "Could not find latest version in maven-metadata.xml (" + url + ")"
-            ));
+        var version = queryXpath(LATEST_VERSION_XPATH, document);
+        if (version == null) {
+            throw new NoSuchElementException("Could not find latest version in maven-metadata.xml (" + url + ")");
+        }
+        return version;
     }
 
     private static Document readXmlDocument(String url) throws IOException {
@@ -85,6 +87,17 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
                 .parse(in);
         } catch (Exception e) {
             throw new IOException("Could not read maven-metadata.xml for Quiltflower snapshots (" + url + ")", e);
+        }
+    }
+
+    private static @Nullable String queryXpath(@Language("XPath") String expression, Node context) {
+        XPathFactory factory = XPathFactory.newDefaultInstance();
+        XPath xp = factory.newXPath();
+        try {
+            var value = xp.evaluate(expression, context);
+            return !value.isEmpty() ? value : null;
+        } catch (XPathException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -105,17 +118,7 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
      */
     @VisibleForTesting
     public static @Nullable String findLatestSnapshot(Document document) {
-        var view = new XmlView(document.getChildNodes());
-
-        return view
-            .get("versioning")
-            .get("snapshotVersions")
-            .get("snapshotVersion")
-            .filter(version -> "jar".equals(version.get("extension").getTextContent().orElse(null)) &&
-                version.get("classifier").getTextContent().isEmpty())
-            .get("value")
-            .getTextContent()
-            .orElse(null);
+        return queryXpath(SNAPSHOT_VERSION_XPATH, document);
     }
 
     public enum Repository {
