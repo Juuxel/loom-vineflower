@@ -28,7 +28,7 @@ public final class QuiltflowerResolving {
     private static Provider<RegularFile> getQuiltflowerJarPath(Project project, QuiltflowerExtensionImpl extension, String suffix) {
         return project.getLayout().file(project.provider(() -> {
             extension.getSource().finalizeValue();
-            String version = extension.getSource().get().getProvidedVersion();
+            String version = extension.getSource().get().getResolvedVersion();
             String fileName = String.format("quiltflower-%s%s.jar", suffix, version != null ? "-" + version : "");
             return extension.getCache().resolve(fileName).toFile();
         }));
