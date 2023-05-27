@@ -17,12 +17,12 @@ class SnapshotFromQuiltTest extends ProjectTest {
         BuildResult result = GradleRunner.create()
             .withPluginClasspath()
             .withProjectDir(projectDirectory)
-            .withArguments("help", "--stacktrace")
+            .withArguments("genSourcesWithQuiltflower", "--stacktrace")
             .forwardOutput()
             .withDebug(true)
             .build();
 
         assertThat(result.getOutput()).contains("Resolved: 1.9.0-20221030.213144-213");
-        assertThat(result.task(":help").getOutcome()).isEqualTo(TaskOutcome.SUCCESS);
+        assertThat(result.task(":genSourcesWithQuiltflower").getOutcome()).isEqualTo(TaskOutcome.SUCCESS);
     }
 }
