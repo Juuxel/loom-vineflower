@@ -26,6 +26,7 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
     private static final String SNAPSHOT_VERSION_XPATH = "/metadata/versioning/snapshotVersions/snapshotVersion[not(classifier) and extension=\"jar\"]/value/text()";
     private final Provider<String> version;
     private final Repository repository;
+    private @Nullable String artifactVersion;
 
     public QuiltMavenQuiltflowerSource(Provider<String> version, Repository repository) {
         this.version = version;
@@ -49,6 +50,14 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
 
     @Override
     public String getResolvedVersion() throws IOException {
+        if (artifactVersion == null) {
+            return artifactVersion = computeArtifactVersion();
+        }
+
+        return artifactVersion;
+    }
+
+    private String computeArtifactVersion() throws IOException {
         String baseVersion = version.get();
 
         if (baseVersion.endsWith("-SNAPSHOT")) {
