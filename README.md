@@ -47,7 +47,7 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 ```diff
   plugins {
       id 'fabric-loom' version '1.2-SNAPSHOT'
-+     id 'io.github.juuxel.loom-quiltflower' version '1.9.0'
++     id 'io.github.juuxel.loom-quiltflower' version '1.10.0'
       id 'maven-publish'
   }
 ```
@@ -61,7 +61,7 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
   plugins {
       id "architectury-plugin" version "3.4-SNAPSHOT"
       id "dev.architectury.loom" version "1.2-SNAPSHOT" apply false
-+     id 'io.github.juuxel.loom-quiltflower' version '1.9.0' apply false
++     id 'io.github.juuxel.loom-quiltflower' version '1.10.0' apply false
   }
 ```
 
