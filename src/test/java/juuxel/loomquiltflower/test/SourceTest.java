@@ -1,6 +1,6 @@
 package juuxel.loomquiltflower.test;
 
-import juuxel.loomquiltflower.impl.source.QuiltMavenQuiltflowerSource;
+import juuxel.vineflowerforloom.impl.source.QuiltMavenQuiltflowerSource;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 

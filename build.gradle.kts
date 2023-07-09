@@ -1,4 +1,4 @@
-import juuxel.loomquiltflower.plugin.CreateQuiltflowerVersionClass
+import juuxel.loomquiltflower.plugin.CreateToolVersionClass
 
 plugins {
     `java-gradle-plugin`
@@ -125,16 +125,16 @@ val cleanGeneratedSources by tasks.registering(Delete::class) {
     delete(generatedSources)
 }
 
-val createQuiltflowerVersionClass by tasks.registering(CreateQuiltflowerVersionClass::class) {
+val createToolVersionClass by tasks.registering(CreateToolVersionClass::class) {
     dependsOn(cleanGeneratedSources)
-    packageName.set("juuxel.loomquiltflower.impl")
+    packageName.set("juuxel.vineflowerforloom.impl")
     sourceDirectory.set(generatedSources)
 }
 
 sourceSets {
     main {
         java {
-            srcDir(createQuiltflowerVersionClass)
+            srcDir(createToolVersionClass)
         }
     }
 }
@@ -146,7 +146,7 @@ tasks {
     }
 
     clean {
-        dependsOn(createQuiltflowerVersionClass)
+        dependsOn(createToolVersionClass)
     }
 
     jar {
@@ -164,8 +164,8 @@ tasks {
             from(sourceSet.map { it.output })
         }
 
-        relocate("net.fabricmc.mappingio", "juuxel.loomquiltflower.impl.relocated.mappingio")
-        relocate("net.fabricmc.tinyremapper", "juuxel.loomquiltflower.impl.relocated.tinyremapper")
+        relocate("net.fabricmc.mappingio", "juuxel.vineflowerforloom.impl.relocated.mappingio")
+        relocate("net.fabricmc.tinyremapper", "juuxel.vineflowerforloom.impl.relocated.tinyremapper")
     }
 
     assemble {
@@ -193,6 +193,15 @@ tasks {
 }
 
 gradlePlugin {
+    plugins {
+        create("vineflower-for-loom") {
+            id = "io.github.juuxel.vineflower-for-loom"
+            displayName = "Vineflower for Loom"
+            description = "Adds the Vineflower decompiler to projects using Fabric Loom (or its forks) for Minecraft mod development."
+            implementationClass = "juuxel.vineflowerforloom.api.VineflowerPlugin"
+        }
+    }
+
     plugins {
         create("loom-quiltflower") {
             id = "io.github.juuxel.loom-quiltflower"
