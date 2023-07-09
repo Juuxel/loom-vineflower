@@ -79,11 +79,17 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 	protected void configureOptions(Map<String, Object> options) {
 	}
 
+    @Deprecated
+    protected void preDecompile() {
+    }
+
 	@Override
 	public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
 		if (!OperatingSystem.is64Bit()) {
 			throw new UnsupportedOperationException("FernFlower decompiler requires a 64bit JVM to run due to the memory requirements");
 		}
+
+        preDecompile();
 
 		project.getLogging().captureStandardOutput(LogLevel.LIFECYCLE);
 

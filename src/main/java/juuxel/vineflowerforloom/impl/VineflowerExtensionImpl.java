@@ -175,6 +175,12 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
             });
         }
 
+        @Override
+        public void experimentalTryLoopFix(Object experimentalTryLoopFix) {
+            DeprecationReporter.get(extension.project).reportOther("experimentalTryLoopFix", "preference");
+            QuiltflowerPreferences.super.experimentalTryLoopFix(experimentalTryLoopFix);
+        }
+
         // For the Groovy DSL
 
         @SuppressWarnings("unused")

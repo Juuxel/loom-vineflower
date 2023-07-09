@@ -23,7 +23,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class VineflowerDecompiler implements LoomDecompiler {
+public class VineflowerDecompiler implements LoomDecompiler {
     @Override
     public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
         Map<String, Object> options = new HashMap<>();
@@ -77,5 +77,14 @@ public final class VineflowerDecompiler implements LoomDecompiler {
         };
 
         return new PrintWriter(parent);
+    }
+
+    @Deprecated
+    public final static class DeprecatedQuiltflower extends VineflowerDecompiler {
+        @Override
+        public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
+            System.err.println("decompiler 'quiltflower' has been replaced with 'vineflower' and will be removed in a future release");
+            super.decompile(compiledJar, sourcesDestination, linemapDestination, metaData);
+        }
     }
 }

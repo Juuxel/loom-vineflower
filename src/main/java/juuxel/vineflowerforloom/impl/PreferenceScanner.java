@@ -12,12 +12,19 @@ import java.util.regex.Pattern;
  * {@code [vineflower|loom-quiltflower].preference.<preference name>}.
  */
 public final class PreferenceScanner {
-    // TODO: Report deprecations
-    private static final Pattern PREFERENCE_PATTERN = Pattern.compile("^(?:loom-quiltflower|vineflower)\\.preference\\.([a-z]{3})$");
+    private static final Pattern PREFERENCE_PATTERN = Pattern.compile("^vineflower\\.preference\\.([a-z]{3})$");
+    private static final Pattern OLD_PREFERENCE_PATTERN = Pattern.compile("^loom-quiltflower\\.preference\\.([a-z]{3})$");
 
     public static void scan(Project project, VineflowerExtension extension) {
         project.getProperties().forEach((key, value) -> {
-            Matcher matcher = PREFERENCE_PATTERN.matcher(key);
+            // Check deprecated properties first to let the new properties override them.
+            Matcher matcher = OLD_PREFERENCE_PATTERN.matcher(key);
+            if (matcher.matches()) {
+                DeprecationReporter.get(project).reportRename(key, "vineflower.preference." + matcher.group(1));
+                extension.getPreferences().set(matcher.group(1), value);
+            }
+
+            matcher = PREFERENCE_PATTERN.matcher(key);
             if (matcher.matches()) {
                 extension.getPreferences().set(matcher.group(1), value);
             }

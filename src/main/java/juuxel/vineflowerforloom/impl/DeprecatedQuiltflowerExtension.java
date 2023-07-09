@@ -12,7 +12,6 @@ public class DeprecatedQuiltflowerExtension implements QuiltflowerExtension {
     private final Project project;
     private final QuiltflowerExtension parent;
     private final String name;
-    private boolean reported = false;
 
     public DeprecatedQuiltflowerExtension(Project project, QuiltflowerExtension parent, String name) {
         this.project = project;
@@ -21,19 +20,7 @@ public class DeprecatedQuiltflowerExtension implements QuiltflowerExtension {
     }
 
     private void reportDeprecation() {
-        if (!reported) {
-            String message = "'%s' has been replaced by 'quiltflower' and will be removed in a future release"
-                .formatted(name);
-            switch (project.getGradle().getStartParameter().getWarningMode()) {
-                case Fail:
-                    throw new UnsupportedOperationException(message);
-                case None:
-                    break;
-                default:
-                    project.getLogger().warn(message);
-            }
-            reported = true;
-        }
+        DeprecationReporter.get(project).reportRename(name, "vineflower", "extension");
     }
 
     @Override

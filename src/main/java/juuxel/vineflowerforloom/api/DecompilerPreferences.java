@@ -109,7 +109,6 @@ public interface DecompilerPreferences {
      */
     @Deprecated
     default void experimentalTryLoopFix(Object experimentalTryLoopFix) {
-        // TODO: Report deprecations
         set(IFernflowerPreferences.TRY_LOOP_FIX, experimentalTryLoopFix);
     }
 }

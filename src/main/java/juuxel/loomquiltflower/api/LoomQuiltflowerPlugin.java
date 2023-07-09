@@ -1,6 +1,7 @@
 package juuxel.loomquiltflower.api;
 
 import juuxel.vineflowerforloom.api.VineflowerPlugin;
+import juuxel.vineflowerforloom.impl.DeprecationReporter;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
@@ -11,7 +12,11 @@ import org.gradle.api.Project;
 public class LoomQuiltflowerPlugin implements Plugin<Project> {
     @Override
     public void apply(Project target) {
-        // TODO: Report deprecation
+        DeprecationReporter.get(target).reportRename(
+            "io.github.juuxel.loom-quiltflower",
+            "io.github.juuxel.vineflower-for-loom",
+            "plugin"
+        );
         target.getPluginManager().apply(VineflowerPlugin.class);
     }
 }

@@ -1,5 +1,6 @@
 package juuxel.vineflowerforloom.impl.legacy;
 
+import juuxel.vineflowerforloom.impl.DeprecationReporter;
 import juuxel.vineflowerforloom.impl.VineflowerResolving;
 import juuxel.vineflowerforloom.api.VineflowerExtension;
 import org.gradle.api.Project;
@@ -9,6 +10,10 @@ import java.io.File;
 import java.util.Map;
 
 public final class LegacyVineflowerDecompiler extends AbstractFernFlowerDecompiler {
+    public static final String NAME = "Vineflower";
+    @Deprecated
+    public static final String OLD_NAME = "Quiltflower";
+
     private final Project project;
     private final String name;
     private final VineflowerExtension extension;
@@ -39,5 +44,12 @@ public final class LegacyVineflowerDecompiler extends AbstractFernFlowerDecompil
     @Override
     protected void configureOptions(Map<String, Object> options) {
         options.putAll(extension.getPreferences().asMap().get());
+    }
+
+    @Override
+    protected void preDecompile() {
+        if (!name.equals(NAME)) {
+            DeprecationReporter.get(project).reportRename(name, NAME, "decompiler");
+        }
     }
 }

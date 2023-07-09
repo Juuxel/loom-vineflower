@@ -8,8 +8,7 @@ final class OldLoomSetup implements VflModule {
     @Override
     void setup(Project project, VineflowerExtension extension) {
         def loom = project.extensions.getByName("loom")
-        loom.addDecompiler(new LegacyVineflowerDecompiler(project, 'Vineflower', extension))
-        // TODO: Report deprecation
-        loom.addDecompiler(new LegacyVineflowerDecompiler(project, 'Quiltflower', extension))
+        loom.addDecompiler(new LegacyVineflowerDecompiler(project, LegacyVineflowerDecompiler.NAME, extension))
+        loom.addDecompiler(new LegacyVineflowerDecompiler(project, LegacyVineflowerDecompiler.OLD_NAME, extension))
     }
 }
