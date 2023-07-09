@@ -1,4 +1,4 @@
-package juuxel.loomquiltflower.core;
+package juuxel.vineflowerforloom.core;
 
 import org.objectweb.asm.commons.Remapper;
 
@@ -18,8 +18,8 @@ public final class RelocationRemapper extends Remapper {
 
     public static RelocationRemapper createQuiltflowerRelocator() {
         Map<String, String> patterns = new HashMap<>();
-        patterns.put("org/jetbrains/java/decompiler", "juuxel/loomquiltflower/impl/relocated/quiltflower");
-        patterns.put("net/fabricmc/fernflower/api", "juuxel/loomquiltflower/impl/relocated/quiltflowerapi");
+        patterns.put("org/jetbrains/java/decompiler", "juuxel/vineflowerforloom/impl/relocated/vineflower");
+        patterns.put("net/fabricmc/fernflower/api", "juuxel/vineflowerforloom/impl/relocated/vineflowerapi");
         Set<String> excludes = Collections.emptySet();
 
         return new RelocationRemapper(patterns, excludes);

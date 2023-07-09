@@ -1,7 +1,7 @@
 package juuxel.vineflowerforloom.impl.task;
 
-import juuxel.loomquiltflower.core.Remapping;
 import juuxel.vineflowerforloom.api.DecompilerSource;
+import juuxel.vineflowerforloom.core.Remapping;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.Property;

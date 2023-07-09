@@ -1,6 +1,6 @@
 package juuxel.vineflowerforloom.impl;
 
-import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.main.extern.IFernflowerPreferences;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 
 import java.util.Map;

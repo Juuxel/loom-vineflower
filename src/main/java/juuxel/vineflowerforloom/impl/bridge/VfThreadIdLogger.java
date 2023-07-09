@@ -24,7 +24,7 @@
 
 package juuxel.vineflowerforloom.impl.bridge;
 
-import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerLogger;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.main.extern.IFernflowerLogger;
 
 import java.io.PrintStream;
 import java.text.MessageFormat;

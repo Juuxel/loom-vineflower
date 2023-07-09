@@ -1,5 +1,3 @@
-import juuxel.loomquiltflower.plugin.CreateToolVersionClass
-
 plugins {
     `java-gradle-plugin`
     groovy
@@ -90,8 +88,8 @@ dependencies {
     compileOnly("org.ow2.asm:asm-commons:${property("asm-version")}")
 
     // Only needed for providing the classes to compile against, it is downloaded at runtime
-    compileOnly(loomQuiltflowerLogic.quiltflower())
-    shade("io.github.juuxel:loom-quiltflower-core") {
+    compileOnly(buildLogic.vineflower())
+    shade("io.github.juuxel:vineflower-for-loom-core") {
         isTransitive = false
     }
 
@@ -106,7 +104,7 @@ dependencies {
     }
     "archCompileOnly"("dev.architectury:architectury-loom:0.10.0.206")
     "loom011CompileOnly"("net.fabricmc:fabric-loom:0.11.17")
-    "loom011CompileOnly"(loomQuiltflowerLogic.quiltflower())
+    "loom011CompileOnly"(buildLogic.vineflower())
 
     // Tests
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
@@ -125,7 +123,7 @@ val cleanGeneratedSources by tasks.registering(Delete::class) {
     delete(generatedSources)
 }
 
-val createToolVersionClass by tasks.registering(CreateToolVersionClass::class) {
+val createToolVersionClass by tasks.registering(juuxel.vineflowerforloom.plugin.CreateToolVersionClass::class) {
     dependsOn(cleanGeneratedSources)
     packageName.set("juuxel.vineflowerforloom.impl")
     sourceDirectory.set(generatedSources)

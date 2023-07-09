@@ -31,11 +31,11 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import juuxel.loomquiltflower.impl.relocated.quiltflower.struct.StructClass;
-import juuxel.loomquiltflower.impl.relocated.quiltflower.struct.StructField;
-import juuxel.loomquiltflower.impl.relocated.quiltflower.struct.StructMethod;
-import juuxel.loomquiltflower.impl.relocated.quiltflower.struct.StructRecordComponent;
-import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricJavadocProvider;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.struct.StructClass;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.struct.StructField;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.struct.StructMethod;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.struct.StructRecordComponent;
+import juuxel.vineflowerforloom.impl.relocated.vineflowerapi.IFabricJavadocProvider;
 import net.fabricmc.mappingio.MappingReader;
 import net.fabricmc.mappingio.adapter.MappingSourceNsSwitch;
 import net.fabricmc.mappingio.tree.MappingTree;

@@ -24,8 +24,8 @@
 
 package juuxel.vineflowerforloom.impl.bridge;
 
-import juuxel.loomquiltflower.impl.relocated.quiltflower.main.DecompilerContext;
-import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricResultSaver;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.main.DecompilerContext;
+import juuxel.vineflowerforloom.impl.relocated.vineflowerapi.IFabricResultSaver;
 
 import java.io.File;
 import java.io.FileOutputStream;

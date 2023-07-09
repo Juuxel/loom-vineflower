@@ -1,4 +1,4 @@
-package juuxel.loomquiltflower.plugin;
+package juuxel.vineflowerforloom.plugin;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.DirectoryProperty;

@@ -26,7 +26,7 @@ package juuxel.vineflowerforloom.impl.legacy;
 
 import juuxel.vineflowerforloom.impl.ReflectionUtil;
 import juuxel.vineflowerforloom.impl.SharedDecompilerConfig;
-import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.main.extern.IFernflowerPreferences;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
 import net.fabricmc.loom.util.ConsumingOutputStream;

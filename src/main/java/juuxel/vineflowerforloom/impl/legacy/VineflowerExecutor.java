@@ -4,8 +4,8 @@ import juuxel.vineflowerforloom.impl.Zips;
 import juuxel.vineflowerforloom.impl.bridge.VfResultSaver;
 import juuxel.vineflowerforloom.impl.bridge.VfTinyJavadocProvider;
 import juuxel.vineflowerforloom.impl.bridge.VfThreadIdLogger;
-import juuxel.loomquiltflower.impl.relocated.quiltflower.main.Fernflower;
-import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricJavadocProvider;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.main.Fernflower;
+import juuxel.vineflowerforloom.impl.relocated.vineflowerapi.IFabricJavadocProvider;
 
 import java.io.File;
 import java.util.List;

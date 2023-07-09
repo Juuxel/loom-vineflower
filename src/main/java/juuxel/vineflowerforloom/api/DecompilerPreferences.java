@@ -1,6 +1,6 @@
 package juuxel.vineflowerforloom.api;
 
-import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
+import juuxel.vineflowerforloom.impl.relocated.vineflower.main.extern.IFernflowerPreferences;
 import kotlin.Pair;
 import kotlin.collections.MapsKt;
 import org.gradle.api.provider.MapProperty;

@@ -1,6 +1,6 @@
-package juuxel.loomquiltflower.plugin;
+package juuxel.vineflowerforloom.plugin;
 
-import juuxel.loomquiltflower.core.Remapping;
+import juuxel.vineflowerforloom.core.Remapping;
 import org.gradle.api.artifacts.transform.InputArtifact;
 import org.gradle.api.artifacts.transform.InputArtifactDependencies;
 import org.gradle.api.artifacts.transform.TransformAction;

@@ -1,4 +1,4 @@
-package juuxel.loomquiltflower.core;
+package juuxel.vineflowerforloom.core;
 
 import net.fabricmc.tinyremapper.OutputConsumerPath;
 import net.fabricmc.tinyremapper.TinyRemapper;
