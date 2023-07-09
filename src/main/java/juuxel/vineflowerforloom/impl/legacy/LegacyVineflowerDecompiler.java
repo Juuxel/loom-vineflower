@@ -10,17 +10,19 @@ import java.util.Map;
 
 public final class LegacyVineflowerDecompiler extends AbstractFernFlowerDecompiler {
     private final Project project;
+    private final String name;
     private final VineflowerExtension extension;
 
-    public LegacyVineflowerDecompiler(Project project, VineflowerExtension extension) {
+    public LegacyVineflowerDecompiler(Project project, String name, VineflowerExtension extension) {
         super(project);
         this.project = project;
+        this.name = name;
         this.extension = extension;
     }
 
     @Override
     public String name() {
-        return "Quiltflower";
+        return name;
     }
 
     @Override
@@ -30,8 +32,8 @@ public final class LegacyVineflowerDecompiler extends AbstractFernFlowerDecompil
 
     @Override
     protected void configureJavaExec(JavaExecSpec spec) {
-        File qf = VineflowerResolving.getVineflowerJar(project);
-        spec.classpath(qf);
+        File decompilerJar = VineflowerResolving.getVineflowerJar(project);
+        spec.classpath(decompilerJar);
     }
 
     @Override
