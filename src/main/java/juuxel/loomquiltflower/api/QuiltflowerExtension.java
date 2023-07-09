@@ -4,6 +4,10 @@ import juuxel.vineflowerforloom.api.VineflowerExtension;
 import org.gradle.api.provider.Property;
 import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * @deprecated Replaced with {@link VineflowerExtension}.
+ */
+@Deprecated
 @ApiStatus.NonExtendable
 public interface QuiltflowerExtension extends VineflowerExtension {
     /**
@@ -17,6 +21,7 @@ public interface QuiltflowerExtension extends VineflowerExtension {
      * <p>Only used if the source is {@link #fromProjectRepositories()} or {@link #fromQuiltMaven()}.
      * @deprecated Use {@link #getToolVersion()} instead.
      */
+    @Deprecated
     default Property<String> getQuiltflowerVersion() {
         return getToolVersion();
     }
