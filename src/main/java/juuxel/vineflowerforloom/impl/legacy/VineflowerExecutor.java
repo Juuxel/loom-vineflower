@@ -1,9 +1,9 @@
 package juuxel.vineflowerforloom.impl.legacy;
 
 import juuxel.vineflowerforloom.impl.Zips;
-import juuxel.vineflowerforloom.impl.bridge.QfResultSaver;
-import juuxel.vineflowerforloom.impl.bridge.QfTinyJavadocProvider;
-import juuxel.vineflowerforloom.impl.bridge.QfThreadIdLogger;
+import juuxel.vineflowerforloom.impl.bridge.VfResultSaver;
+import juuxel.vineflowerforloom.impl.bridge.VfTinyJavadocProvider;
+import juuxel.vineflowerforloom.impl.bridge.VfThreadIdLogger;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.Fernflower;
 import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricJavadocProvider;
 
@@ -11,16 +11,16 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public class QuiltflowerExecutor extends AbstractForkedFFExecutor {
+public class VineflowerExecutor extends AbstractForkedFFExecutor {
     public static void main(String[] args) {
-        AbstractForkedFFExecutor.decompile(args, new QuiltflowerExecutor());
+        AbstractForkedFFExecutor.decompile(args, new VineflowerExecutor());
     }
 
     @Override
     public void runFF(Map<String, Object> options, List<File> libraries, File input, File output, File lineMap, File mappings) {
-        options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(mappings));
+        options.put(IFabricJavadocProvider.PROPERTY_NAME, new VfTinyJavadocProvider(mappings));
 
-        Fernflower ff = new Fernflower(Zips::getBytes, new QfResultSaver(() -> output, () -> lineMap), options, new QfThreadIdLogger());
+        Fernflower ff = new Fernflower(Zips::getBytes, new VfResultSaver(() -> output, () -> lineMap), options, new VfThreadIdLogger());
 
         for (File library : libraries) {
             ff.addLibrary(library);

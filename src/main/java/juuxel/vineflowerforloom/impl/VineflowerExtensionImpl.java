@@ -4,10 +4,10 @@ import juuxel.loomquiltflower.api.QuiltflowerExtension;
 import juuxel.loomquiltflower.api.QuiltflowerPreferences;
 import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.loomquiltflower.api.SourceFactory;
-import juuxel.vineflowerforloom.impl.module.LqfModule;
-import juuxel.vineflowerforloom.impl.source.ConstantUrlQuiltflowerSource;
-import juuxel.vineflowerforloom.impl.source.QuiltMavenQuiltflowerSource;
-import juuxel.vineflowerforloom.impl.source.RepositoryQuiltflowerSource;
+import juuxel.vineflowerforloom.impl.module.VflModule;
+import juuxel.vineflowerforloom.impl.source.ConstantUrlDecompilerSource;
+import juuxel.vineflowerforloom.impl.source.QuiltMavenDecompilerSource;
+import juuxel.vineflowerforloom.impl.source.RepositoryDecompilerSource;
 import juuxel.vineflowerforloom.api.DecompilerSource;
 import juuxel.vineflowerforloom.api.VineflowerExtension;
 import org.gradle.api.Project;
@@ -35,7 +35,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
     private final QuiltflowerPreferences preferences;
     private final Property<Boolean> addToRuntimeClasspath;
     private final Path cache;
-    private LqfModule activeModule;
+    private VflModule activeModule;
 
     public VineflowerExtensionImpl(Project project) {
         this.project = project;
@@ -48,7 +48,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
         cache = project.file(".gradle/loom-quiltflower-cache").toPath();
     }
 
-    public LqfModule getActiveModule() {
+    public VflModule getActiveModule() {
         if (activeModule == null) {
             throw new IllegalStateException("vinerflower-for-loom module not initialised. Please report this!");
         }
@@ -56,7 +56,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
         return activeModule;
     }
 
-    public void setActiveModule(LqfModule activeModule) {
+    public void setActiveModule(VflModule activeModule) {
         this.activeModule = activeModule;
     }
 
@@ -94,7 +94,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
 
     @Override
     public void fromLatestQuiltSnapshot() {
-        Provider<String> latestSnapshotVersion = project.provider(QuiltMavenQuiltflowerSource::findLatestSnapshot);
+        Provider<String> latestSnapshotVersion = project.provider(QuiltMavenDecompilerSource::findLatestSnapshot);
         this.getToolSource().set(getSourceFactory().fromQuiltSnapshotMaven(latestSnapshotVersion));
     }
 
@@ -117,7 +117,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
         @Override
         public QuiltflowerSource fromUrl(Object url) {
             try {
-                return new ConstantUrlQuiltflowerSource(project.uri(url).toURL());
+                return new ConstantUrlDecompilerSource(project.uri(url).toURL());
             } catch (MalformedURLException e) {
                 throw new IllegalArgumentException("Malformed url: " + url, e);
             }
@@ -125,22 +125,22 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
 
         @Override
         public QuiltflowerSource fromProjectRepositories(Provider<String> version) {
-            return new RepositoryQuiltflowerSource(project, version);
+            return new RepositoryDecompilerSource(project, version);
         }
 
         @Override
         public QuiltflowerSource fromDependency(Object dependencyNotation) {
-            return new RepositoryQuiltflowerSource(project, dependencyNotation);
+            return new RepositoryDecompilerSource(project, dependencyNotation);
         }
 
         @Override
         public QuiltflowerSource fromQuiltMaven(Provider<String> version) {
-            return new QuiltMavenQuiltflowerSource(version, QuiltMavenQuiltflowerSource.Repository.RELEASE);
+            return new QuiltMavenDecompilerSource(version, QuiltMavenDecompilerSource.Repository.RELEASE);
         }
 
         @Override
         public QuiltflowerSource fromQuiltSnapshotMaven(Provider<String> version) {
-            return new QuiltMavenQuiltflowerSource(version, QuiltMavenQuiltflowerSource.Repository.SNAPSHOT);
+            return new QuiltMavenDecompilerSource(version, QuiltMavenDecompilerSource.Repository.SNAPSHOT);
         }
     }
 

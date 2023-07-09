@@ -45,11 +45,11 @@ import org.objectweb.asm.Opcodes;
 // From Fabric Loom 0.8 (commit ed08e47a).
 // As Fudge put it in their ForgedFlowerLoom,
 //   "Unfortunately IFabricJavadocProvider is too entangled in FF api, so we need to reimplement it"
-public class QfTinyJavadocProvider implements IFabricJavadocProvider {
+public class VfTinyJavadocProvider implements IFabricJavadocProvider {
     private final MappingTree mappingTree;
     private final String namespace = "named";
 
-    public QfTinyJavadocProvider(File tinyFile) {
+    public VfTinyJavadocProvider(File tinyFile) {
         mappingTree = readMappings(tinyFile);
     }
 

@@ -1,12 +1,11 @@
 package juuxel.vineflowerforloom.impl;
 
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
-import juuxel.vineflowerforloom.impl.ReflectionUtil;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 
 import java.util.Map;
 
-public final class SharedQfConfig {
+public final class SharedDecompilerConfig {
     public static void configureCommonOptions(Map<String, ? super String> options, DecompilationMetadata metadata) {
         options.put(IFernflowerPreferences.DECOMPILE_GENERIC_SIGNATURES, "1");
         options.put(IFernflowerPreferences.BYTECODE_SOURCE_MAPPING, "1");

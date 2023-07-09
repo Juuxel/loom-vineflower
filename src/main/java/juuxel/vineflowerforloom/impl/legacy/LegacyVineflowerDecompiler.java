@@ -8,11 +8,11 @@ import org.gradle.process.JavaExecSpec;
 import java.io.File;
 import java.util.Map;
 
-public final class LegacyQuiltflowerDecompiler extends AbstractFernFlowerDecompiler {
+public final class LegacyVineflowerDecompiler extends AbstractFernFlowerDecompiler {
     private final Project project;
     private final VineflowerExtension extension;
 
-    public LegacyQuiltflowerDecompiler(Project project, VineflowerExtension extension) {
+    public LegacyVineflowerDecompiler(Project project, VineflowerExtension extension) {
         super(project);
         this.project = project;
         this.extension = extension;
@@ -25,7 +25,7 @@ public final class LegacyQuiltflowerDecompiler extends AbstractFernFlowerDecompi
 
     @Override
     public Class<? extends AbstractForkedFFExecutor> fernFlowerExecutor() {
-        return QuiltflowerExecutor.class;
+        return VineflowerExecutor.class;
     }
 
     @Override

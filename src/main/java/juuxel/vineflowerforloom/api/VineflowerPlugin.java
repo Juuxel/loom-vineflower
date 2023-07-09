@@ -5,7 +5,7 @@ import juuxel.vineflowerforloom.impl.DeprecatedQuiltflowerExtension;
 import juuxel.vineflowerforloom.impl.PreferenceScanner;
 import juuxel.vineflowerforloom.impl.VineflowerResolving;
 import juuxel.vineflowerforloom.impl.ReflectionUtil;
-import juuxel.vineflowerforloom.impl.module.LqfModule;
+import juuxel.vineflowerforloom.impl.module.VflModule;
 import juuxel.vineflowerforloom.impl.VineflowerExtensionImpl;
 import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
@@ -53,17 +53,17 @@ public final class VineflowerPlugin implements Plugin<Project> {
                 } else if (isOldLoom()) {
                     moduleClass = "juuxel.vineflowerforloom.impl.module.OldLoomSetup";
                 } else {
-                    String message = "loom-quiltflower is not supported on this Loom version!\nReplace with loom-quiltflower-mini: https://github.com/Juuxel/loom-quiltflower-mini";
+                    String message = "Vineflower for Loom is not supported on this Loom version!\nReplace with loom-quiltflower-mini: https://github.com/Juuxel/loom-quiltflower-mini";
                     target.getLogger().error(message);
                     throw new UnsupportedOperationException(message);
                 }
 
                 try {
-                    LqfModule module = LqfModule.get(moduleClass);
+                    VflModule module = VflModule.get(moduleClass);
                     module.setup(target, extension);
                     ((VineflowerExtensionImpl) extension).setActiveModule(module);
                 } catch (ReflectiveOperationException e) {
-                    throw new GradleException("Could not find Quiltflower module " + moduleClass + ". Please report this!", e);
+                    throw new GradleException("Could not find Vineflower for Loom module " + moduleClass + ". Please report this!", e);
                 }
 
                 applied = true;
@@ -72,7 +72,7 @@ public final class VineflowerPlugin implements Plugin<Project> {
 
         target.afterEvaluate(p -> {
             if (!applied) {
-                throw new GradleException("loom-quiltflower requires Loom! (One of " + LOOMS + ")");
+                throw new GradleException("Vineflower for Loom requires Loom! (One of " + LOOMS + ")");
             }
         });
     }

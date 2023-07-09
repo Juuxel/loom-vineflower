@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public final class ConstantUrlQuiltflowerSource implements QuiltflowerSource {
+public final class ConstantUrlDecompilerSource implements QuiltflowerSource {
     private final URL url;
 
-    public ConstantUrlQuiltflowerSource(URL url) {
+    public ConstantUrlDecompilerSource(URL url) {
         this.url = url;
     }
 

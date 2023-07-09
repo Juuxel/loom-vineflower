@@ -1,6 +1,6 @@
 package juuxel.vineflowerforloom.impl;
 
-import juuxel.vineflowerforloom.impl.module.LqfModule;
+import juuxel.vineflowerforloom.impl.module.VflModule;
 import juuxel.vineflowerforloom.impl.task.ResolveVineflower;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
@@ -42,7 +42,7 @@ public final class VineflowerResolving {
         });
 
         project.afterEvaluate(p -> {
-            LqfModule module = extension.getActiveModule();
+            VflModule module = extension.getActiveModule();
 
             if (module.shouldGenSourcesDependOnResolving()) {
                 p.getTasks().configureEach(task -> {

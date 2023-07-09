@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class RepositoryQuiltflowerSource implements QuiltflowerSource {
+public final class RepositoryDecompilerSource implements QuiltflowerSource {
     private static final String DEPENDENCY_BASE = "org.quiltmc:quiltflower:";
     private static final String SNAPSHOT_SUFFIX = "-SNAPSHOT";
     private final Project project;
@@ -29,12 +29,12 @@ public final class RepositoryQuiltflowerSource implements QuiltflowerSource {
     private @Nullable File quiltflowerFile = null;
     private @Nullable String resolvedVersion = null;
 
-    public RepositoryQuiltflowerSource(Project project, Provider<String> version) {
+    public RepositoryDecompilerSource(Project project, Provider<String> version) {
         this.project = project;
         this.dependencyNotation = version.map(it -> DEPENDENCY_BASE + it);
     }
 
-    public RepositoryQuiltflowerSource(Project project, Object dependencyNotation) {
+    public RepositoryDecompilerSource(Project project, Object dependencyNotation) {
         this.project = project;
         this.dependencyNotation = dependencyNotation;
     }

@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.NoSuchElementException;
 
-public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
+public final class QuiltMavenDecompilerSource implements QuiltflowerSource {
     private static final String RELEASE_URL = "https://maven.quiltmc.org/repository/release";
     private static final String SNAPSHOT_URL = "https://maven.quiltmc.org/repository/snapshot";
     @Language("XPath")
@@ -28,7 +28,7 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
     private final Repository repository;
     private @Nullable String artifactVersion;
 
-    public QuiltMavenQuiltflowerSource(Provider<String> version, Repository repository) {
+    public QuiltMavenDecompilerSource(Provider<String> version, Repository repository) {
         this.version = version;
         this.repository = repository;
     }
@@ -75,7 +75,7 @@ public final class QuiltMavenQuiltflowerSource implements QuiltflowerSource {
 
     public static String findLatestSnapshot() throws Exception {
         String url = "%s/org/quiltmc/quiltflower/maven-metadata.xml"
-            .formatted(QuiltMavenQuiltflowerSource.SNAPSHOT_URL);
+            .formatted(SNAPSHOT_URL);
         Document document = readXmlDocument(url);
         return getLatestVersion(document, url);
     }

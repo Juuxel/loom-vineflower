@@ -37,18 +37,18 @@ import java.util.Stack;
  * <p>Created by covers1624 on 11/02/19.
  */
 // TODO: Make this simpler (see FernflowerLogger in Loom 0.10)
-public class QfThreadIdLogger extends IFernflowerLogger {
+public class VfThreadIdLogger extends IFernflowerLogger {
     public final PrintStream stdOut;
     public final PrintStream stdErr;
 
     private final ThreadLocal<Stack<String>> workingClass = ThreadLocal.withInitial(Stack::new);
     private final ThreadLocal<Stack<String>> line = ThreadLocal.withInitial(Stack::new);
 
-    public QfThreadIdLogger() {
+    public VfThreadIdLogger() {
         this(System.err, System.out);
     }
 
-    public QfThreadIdLogger(PrintStream stdOut, PrintStream stdErr) {
+    public VfThreadIdLogger(PrintStream stdOut, PrintStream stdErr) {
         this.stdOut = stdOut;
         this.stdErr = stdErr;
     }

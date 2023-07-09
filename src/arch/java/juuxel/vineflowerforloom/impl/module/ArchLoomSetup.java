@@ -6,7 +6,7 @@ import net.fabricmc.loom.api.LoomGradleExtensionAPI;
 import net.fabricmc.loom.task.ArchitecturyGenerateSourcesTask;
 import org.gradle.api.Project;
 
-public final class ArchLoomSetup implements LqfModule {
+public final class ArchLoomSetup implements VflModule {
     @Override
     public void setup(Project project, VineflowerExtension extension) {
         ((LoomGradleExtensionAPI) project.getExtensions().getByName("loom")).addArchDecompiler(new ArchQuiltflowerDecompiler(extension));

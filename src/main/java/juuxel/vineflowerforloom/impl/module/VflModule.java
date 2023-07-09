@@ -4,7 +4,7 @@ import juuxel.vineflowerforloom.api.VineflowerExtension;
 import net.fabricmc.loom.task.GenerateSourcesTask;
 import org.gradle.api.Project;
 
-public interface LqfModule {
+public interface VflModule {
     void setup(Project project, VineflowerExtension extension);
 
     default boolean shouldGenSourcesDependOnResolving() {
@@ -15,7 +15,7 @@ public interface LqfModule {
         return GenerateSourcesTask.class;
     }
 
-    static LqfModule get(String className) throws ReflectiveOperationException {
-        return (LqfModule) Class.forName(className).getConstructor().newInstance();
+    static VflModule get(String className) throws ReflectiveOperationException {
+        return (VflModule) Class.forName(className).getConstructor().newInstance();
     }
 }

@@ -25,7 +25,7 @@
 package juuxel.vineflowerforloom.impl.legacy;
 
 import juuxel.vineflowerforloom.impl.ReflectionUtil;
-import juuxel.vineflowerforloom.impl.SharedQfConfig;
+import juuxel.vineflowerforloom.impl.SharedDecompilerConfig;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
 import net.fabricmc.loom.api.decompilers.DecompilationMetadata;
 import net.fabricmc.loom.api.decompilers.LoomDecompiler;
@@ -90,7 +90,7 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		Map<String, Object> options = new HashMap<>();
 		options.put(IFernflowerPreferences.INDENT_STRING, "\t");
 		configureOptions(options);
-		SharedQfConfig.configureCommonOptions(options, metaData);
+		SharedDecompilerConfig.configureCommonOptions(options, metaData);
 
 		// LQF: replace booleans with 1 and 0
 		for (Map.Entry<String, Object> entry : options.entrySet()) {

@@ -1,10 +1,10 @@
 package juuxel.vineflowerforloom.impl.modern;
 
-import juuxel.vineflowerforloom.impl.SharedQfConfig;
+import juuxel.vineflowerforloom.impl.SharedDecompilerConfig;
 import juuxel.vineflowerforloom.impl.Zips;
 import juuxel.vineflowerforloom.impl.bridge.SimpleLogger;
-import juuxel.vineflowerforloom.impl.bridge.QfResultSaver;
-import juuxel.vineflowerforloom.impl.bridge.QfTinyJavadocProvider;
+import juuxel.vineflowerforloom.impl.bridge.VfResultSaver;
+import juuxel.vineflowerforloom.impl.bridge.VfTinyJavadocProvider;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.Fernflower;
 import juuxel.loomquiltflower.impl.relocated.quiltflower.main.extern.IFernflowerPreferences;
 import juuxel.loomquiltflower.impl.relocated.quiltflowerapi.IFabricJavadocProvider;
@@ -23,17 +23,17 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class QuiltflowerDecompiler implements LoomDecompiler {
+public final class VineflowerDecompiler implements LoomDecompiler {
     @Override
     public void decompile(Path compiledJar, Path sourcesDestination, Path linemapDestination, DecompilationMetadata metaData) {
         Map<String, Object> options = new HashMap<>();
         options.put(IFernflowerPreferences.INDENT_STRING, "\t");
-        SharedQfConfig.configureCommonOptions(options, metaData);
-        options.put(IFabricJavadocProvider.PROPERTY_NAME, new QfTinyJavadocProvider(metaData.javaDocs().toFile()));
+        SharedDecompilerConfig.configureCommonOptions(options, metaData);
+        options.put(IFabricJavadocProvider.PROPERTY_NAME, new VfTinyJavadocProvider(metaData.javaDocs().toFile()));
 
         PrintWriter logger = writerFromLoomLogger(metaData.logger());
         // Note: We use the deprecated API because this needs to work on QF <1.9.0.
-        Fernflower ff = new Fernflower(Zips::getBytes, new QfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new SimpleLogger(logger));
+        Fernflower ff = new Fernflower(Zips::getBytes, new VfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new SimpleLogger(logger));
 
         for (Path library : metaData.libraries()) {
             ff.addLibrary(library.toFile());

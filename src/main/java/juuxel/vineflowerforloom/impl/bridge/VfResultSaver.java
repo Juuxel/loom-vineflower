@@ -48,7 +48,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Created by covers1624 on 18/02/19.
  */
-public class QfResultSaver implements IFabricResultSaver {
+public class VfResultSaver implements IFabricResultSaver {
     private final Supplier<File> output;
     private final Supplier<File> lineMapFile;
 
@@ -56,7 +56,7 @@ public class QfResultSaver implements IFabricResultSaver {
     public Map<String, ExecutorService> saveExecutors = new HashMap<>();
     public PrintWriter lineMapWriter;
 
-    public QfResultSaver(Supplier<File> output, Supplier<File> lineMapFile) {
+    public VfResultSaver(Supplier<File> output, Supplier<File> lineMapFile) {
         this.output = output;
         this.lineMapFile = lineMapFile;
     }
