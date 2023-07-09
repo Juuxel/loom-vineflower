@@ -92,7 +92,7 @@ public abstract class AbstractFernFlowerDecompiler implements LoomDecompiler {
 		configureOptions(options);
 		SharedDecompilerConfig.configureCommonOptions(options, metaData);
 
-		// LQF: replace booleans with 1 and 0
+		// VFL: replace booleans with 1 and 0
 		for (Map.Entry<String, Object> entry : options.entrySet()) {
 			if (entry.getValue() instanceof Boolean) {
 				entry.setValue(((Boolean) entry.getValue()) ? "1" : "0");
