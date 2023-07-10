@@ -66,7 +66,7 @@ public final class MavenDecompilerSource implements QuiltflowerSource {
     private String computeArtifactVersion() throws IOException {
         String baseVersion = version.get();
 
-        if (TimeMachine.isSnapshot("-SNAPSHOT")) {
+        if (TimeMachine.isSnapshot(baseVersion)) {
             @Nullable String snapshot = findLatestSnapshot(repository.get(), brand.getOrNull(), baseVersion);
             if (snapshot != null) return snapshot;
         }
