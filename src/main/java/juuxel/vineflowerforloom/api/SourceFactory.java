@@ -28,8 +28,8 @@ public interface SourceFactory {
 
     /**
      * Creates a dependency-based source that is resolved from project repositories.
-     * The dependency resolved is {@code org.quiltmc:quiltflower:$version},
-     * TODO: VF coordinates
+     * The dependency resolved is {@code org.vineflower:vineflower:$version} or {@code org.quiltmc:quiltflower:$version}
+     * depending on the brand of the version.
      *
      * @param version the decompiler version
      * @return the created source
@@ -44,6 +44,16 @@ public interface SourceFactory {
      * @see org.gradle.api.artifacts.dsl.DependencyHandler dependency notation details
      */
     DecompilerSource fromDependency(Object dependencyNotation);
+
+    /**
+     * Creates a source that downloads the decompiler from the
+     *
+     * @param version
+     * @param brand
+     * @return the created source
+     * @since 1.11.0
+     */
+    DecompilerSource fromOfficialRepository(Provider<String> version, Provider<DecompilerBrand> brand);
 
     // TODO: Should these be deprecated?
 

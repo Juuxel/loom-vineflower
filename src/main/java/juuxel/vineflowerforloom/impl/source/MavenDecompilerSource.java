@@ -1,6 +1,10 @@
 package juuxel.vineflowerforloom.impl.source;
 
 import juuxel.loomquiltflower.api.QuiltflowerSource;
+import juuxel.vineflowerforloom.api.DecompilerBrand;
+import juuxel.vineflowerforloom.impl.DependencyCoordinates;
+import juuxel.vineflowerforloom.impl.Repositories;
+import juuxel.vineflowerforloom.impl.TimeMachine;
 import org.gradle.api.provider.Provider;
 import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.Nullable;
@@ -17,29 +21,32 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.NoSuchElementException;
 
-public final class QuiltMavenDecompilerSource implements QuiltflowerSource {
-    private static final String RELEASE_URL = "https://maven.quiltmc.org/repository/release";
-    private static final String SNAPSHOT_URL = "https://maven.quiltmc.org/repository/snapshot";
+public final class MavenDecompilerSource implements QuiltflowerSource {
     @Language("XPath")
     private static final String LATEST_VERSION_XPATH = "/metadata/versioning/latest/text()";
     @Language("XPath")
     private static final String SNAPSHOT_VERSION_XPATH = "/metadata/versioning/snapshotVersions/snapshotVersion[not(classifier) and extension=\"jar\"]/value/text()";
     private final Provider<String> version;
-    private final Repository repository;
+    private final Provider<String> repository;
+    private final Provider<DecompilerBrand> brand;
     private @Nullable String artifactVersion;
 
-    public QuiltMavenDecompilerSource(Provider<String> version, Repository repository) {
+    public MavenDecompilerSource(Provider<String> version, Provider<String> repository, Provider<DecompilerBrand> brand) {
         this.version = version;
         this.repository = repository;
+        this.brand = brand;
     }
 
     @Override
     public InputStream open() throws IOException {
         String baseVersion = version.get();
         String artifactVersion = getResolvedVersion();
+        DecompilerBrand brand = this.brand.getOrNull();
+        if (brand == null) brand = TimeMachine.determineBrand(baseVersion);
+        var coordinates = TimeMachine.getDependencyCoordinates(brand);
 
-        URL url = new URL("%s/org/quiltmc/quiltflower/%s/quiltflower-%s.jar"
-            .formatted(repository.url, baseVersion, artifactVersion));
+        URL url = new URL("%s/%s/%s/%s-%s.jar"
+            .formatted(repository.get(), coordinates.asUrlPart(), baseVersion, coordinates.artifact(), artifactVersion));
         return url.openStream();
     }
 
@@ -61,7 +68,7 @@ public final class QuiltMavenDecompilerSource implements QuiltflowerSource {
         String baseVersion = version.get();
 
         if (baseVersion.endsWith("-SNAPSHOT")) {
-            @Nullable String snapshot = findLatestSnapshot(repository, baseVersion);
+            @Nullable String snapshot = findLatestSnapshot(repository.get(), brand.getOrNull(), baseVersion);
             if (snapshot != null) return snapshot;
         }
 
@@ -70,12 +77,12 @@ public final class QuiltMavenDecompilerSource implements QuiltflowerSource {
 
     @Override
     public String toString() {
-        return "fromQuiltMaven";
+        return "fromMaven[" + repository.get() + "]";
     }
 
     public static String findLatestSnapshot() throws Exception {
-        String url = "%s/org/quiltmc/quiltflower/maven-metadata.xml"
-            .formatted(SNAPSHOT_URL);
+        String url = "%s/%s/maven-metadata.xml"
+            .formatted(DependencyCoordinates.VINEFLOWER.asUrlPart(), Repositories.OSSRH_SNAPSHOTS);
         Document document = readXmlDocument(url);
         return getLatestVersion(document, url);
     }
@@ -95,7 +102,7 @@ public final class QuiltMavenDecompilerSource implements QuiltflowerSource {
                 .newDocumentBuilder()
                 .parse(in);
         } catch (Exception e) {
-            throw new IOException("Could not read maven-metadata.xml for Quiltflower snapshots (" + url + ")", e);
+            throw new IOException("Could not read maven-metadata.xml for Vineflower snapshots (" + url + ")", e);
         }
     }
 
@@ -110,10 +117,12 @@ public final class QuiltMavenDecompilerSource implements QuiltflowerSource {
         }
     }
 
-    private static @Nullable String findLatestSnapshot(Repository repository, String baseVersion) throws IOException {
+    private static @Nullable String findLatestSnapshot(String repositoryUrl, @Nullable DecompilerBrand brand, String baseVersion) throws IOException {
+        if (brand == null) brand = TimeMachine.determineBrand(baseVersion);
+        String dependencyBase = TimeMachine.getDependencyCoordinates(brand).asUrlPart();
         Document document = readXmlDocument(
-            "%s/org/quiltmc/quiltflower/%s/maven-metadata.xml"
-                .formatted(repository.url, baseVersion)
+            "%s/%s/%s/maven-metadata.xml"
+                .formatted(repositoryUrl, dependencyBase, baseVersion)
         );
         return findLatestSnapshot(document);
     }
@@ -128,16 +137,5 @@ public final class QuiltMavenDecompilerSource implements QuiltflowerSource {
     @VisibleForTesting
     public static @Nullable String findLatestSnapshot(Document document) {
         return queryXpath(SNAPSHOT_VERSION_XPATH, document);
-    }
-
-    public enum Repository {
-        RELEASE(RELEASE_URL),
-        SNAPSHOT(SNAPSHOT_URL);
-
-        private final String url;
-
-        Repository(String url) {
-            this.url = url;
-        }
     }
 }

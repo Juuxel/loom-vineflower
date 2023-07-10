@@ -4,6 +4,7 @@ import juuxel.loomquiltflower.api.QuiltflowerExtension;
 import juuxel.loomquiltflower.api.QuiltflowerPreferences;
 import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.loomquiltflower.api.SourceFactory;
+import juuxel.vineflowerforloom.api.DecompilerBrand;
 import juuxel.vineflowerforloom.api.DecompilerSource;
 import org.gradle.api.Project;
 import org.gradle.api.provider.Property;
@@ -54,6 +55,18 @@ public class DeprecatedQuiltflowerExtension implements QuiltflowerExtension {
     }
 
     @Override
+    public void fromQuiltMaven() {
+        reportDeprecation();
+        parent.fromQuiltMaven();
+    }
+
+    @Override
+    public void fromQuiltSnapshotMaven() {
+        reportDeprecation();
+        parent.fromQuiltSnapshotMaven();
+    }
+
+    @Override
     public void fromLatestQuiltSnapshot() {
         reportDeprecation();
         parent.fromLatestQuiltSnapshot();
@@ -69,5 +82,11 @@ public class DeprecatedQuiltflowerExtension implements QuiltflowerExtension {
     public Property<Boolean> getAddToRuntimeClasspath() {
         reportDeprecation();
         return parent.getAddToRuntimeClasspath();
+    }
+
+    @Override
+    public Property<DecompilerBrand> getBrand() {
+        reportDeprecation();
+        return parent.getBrand();
     }
 }

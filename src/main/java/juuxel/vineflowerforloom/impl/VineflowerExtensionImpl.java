@@ -4,9 +4,10 @@ import juuxel.loomquiltflower.api.QuiltflowerExtension;
 import juuxel.loomquiltflower.api.QuiltflowerPreferences;
 import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.loomquiltflower.api.SourceFactory;
+import juuxel.vineflowerforloom.api.DecompilerBrand;
 import juuxel.vineflowerforloom.impl.module.VflModule;
 import juuxel.vineflowerforloom.impl.source.ConstantUrlDecompilerSource;
-import juuxel.vineflowerforloom.impl.source.QuiltMavenDecompilerSource;
+import juuxel.vineflowerforloom.impl.source.MavenDecompilerSource;
 import juuxel.vineflowerforloom.impl.source.RepositoryDecompilerSource;
 import juuxel.vineflowerforloom.api.DecompilerSource;
 import juuxel.vineflowerforloom.api.VineflowerExtension;
@@ -28,6 +29,7 @@ import java.util.Map;
 public class VineflowerExtensionImpl implements VineflowerExtension, QuiltflowerExtension {
     private final Project project;
     private final Property<String> toolVersion;
+    private final Property<DecompilerBrand> brand;
     private final Property<DecompilerSource> toolSource;
     private final Property<QuiltflowerSource> source;
     private final SourceFactory sourceFactory = new SourceFactoryImpl();
@@ -40,7 +42,8 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
     public VineflowerExtensionImpl(Project project) {
         this.project = project;
         toolVersion = project.getObjects().property(String.class).convention(VineflowerVersion.DEFAULT_VERSION);
-        source = project.getObjects().property(QuiltflowerSource.class).convention(sourceFactory.fromQuiltMaven(toolVersion));
+        brand = project.getObjects().property(DecompilerBrand.class).convention(toolVersion.map(TimeMachine::determineBrand));
+        source = project.getObjects().property(QuiltflowerSource.class).convention(sourceFactory.fromOfficialRepository(toolVersion, brand));
         toolSource = project.getObjects().property(DecompilerSource.class).convention(source);
         preferenceMap = project.getObjects().mapProperty(String.class, Object.class).empty();
         preferences = project.getObjects().newInstance(PreferencesImpl.class, this);
@@ -93,8 +96,18 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
     }
 
     @Override
+    public void fromQuiltMaven() {
+        this.getToolSource().set(new MavenDecompilerSource(toolVersion, project.provider(() -> Repositories.QUILT_RELEASE), brand));
+    }
+
+    @Override
+    public void fromQuiltSnapshotMaven() {
+        this.getToolSource().set(new MavenDecompilerSource(toolVersion, project.provider(() -> Repositories.QUILT_SNAPSHOT), brand));
+    }
+
+    @Override
     public void fromLatestQuiltSnapshot() {
-        Provider<String> latestSnapshotVersion = project.provider(QuiltMavenDecompilerSource::findLatestSnapshot);
+        Provider<String> latestSnapshotVersion = project.provider(MavenDecompilerSource::findLatestSnapshot);
         this.getToolSource().set(getSourceFactory().fromQuiltSnapshotMaven(latestSnapshotVersion));
     }
 
@@ -106,6 +119,11 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
     @Override
     public Property<Boolean> getAddToRuntimeClasspath() {
         return addToRuntimeClasspath;
+    }
+
+    @Override
+    public Property<DecompilerBrand> getBrand() {
+        return brand;
     }
 
     private final class SourceFactoryImpl implements SourceFactory {
@@ -125,7 +143,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
 
         @Override
         public QuiltflowerSource fromProjectRepositories(Provider<String> version) {
-            return new RepositoryDecompilerSource(project, version);
+            return new RepositoryDecompilerSource(project, project.provider(() -> null), version);
         }
 
         @Override
@@ -135,12 +153,17 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
 
         @Override
         public QuiltflowerSource fromQuiltMaven(Provider<String> version) {
-            return new QuiltMavenDecompilerSource(version, QuiltMavenDecompilerSource.Repository.RELEASE);
+            return new MavenDecompilerSource(version, project.provider(() -> Repositories.QUILT_RELEASE), project.provider(() -> null));
         }
 
         @Override
         public QuiltflowerSource fromQuiltSnapshotMaven(Provider<String> version) {
-            return new QuiltMavenDecompilerSource(version, QuiltMavenDecompilerSource.Repository.SNAPSHOT);
+            return new MavenDecompilerSource(version, project.provider(() -> Repositories.QUILT_SNAPSHOT), project.provider(() -> null));
+        }
+
+        @Override
+        public QuiltflowerSource fromOfficialRepository(Provider<String> version, Provider<DecompilerBrand> brand) {
+            return new MavenDecompilerSource(version, brand.map(TimeMachine::getOfficialRepository), brand);
         }
     }
 

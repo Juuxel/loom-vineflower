@@ -115,13 +115,9 @@ public interface VineflowerExtension {
      * Sets the Vineflower source to download Vineflower from the QuiltMC release Maven repository.
      * The version is set in {@link #getToolVersion()}.
      *
-     * <p>This is the default source for downloading Vineflower.
-     *
      * @see SourceFactory#fromQuiltMaven(Provider)
      */
-    default void fromQuiltMaven() {
-        getToolSource().set(getSourceFactory().fromQuiltMaven(getToolVersion()));
-    }
+    void fromQuiltMaven();
 
     /**
      * Sets the Vineflower source to download Vineflower from the QuiltMC snapshot Maven repository.
@@ -131,8 +127,19 @@ public interface VineflowerExtension {
      * @see #fromLatestQuiltSnapshot()
      * @since 1.9.0
      */
-    default void fromQuiltSnapshotMaven() {
-        getToolSource().set(getSourceFactory().fromQuiltSnapshotMaven(getToolVersion()));
+    void fromQuiltSnapshotMaven();
+
+    /**
+     * Sets the Vineflower source to download Vineflower from the official repository for
+     * the current {@linkplain #getBrand() brand}. The version is set in {@link #getToolVersion()}.
+     *
+     * <p>This is the default source for downloading Vineflower.
+     *
+     * @see SourceFactory#fromOfficialRepository(Provider, Provider)
+     * @since 1.11.0
+     */
+    default void fromOfficialRepository() {
+        getToolSource().set(getSourceFactory().fromOfficialRepository(getToolVersion(), getBrand()));
     }
 
     /**
@@ -155,4 +162,13 @@ public interface VineflowerExtension {
      * @since 1.4.0
      */
     Property<Boolean> getAddToRuntimeClasspath();
+
+    /**
+     * The decompiler brand used for determining the dependency coordinates of Vineflower.
+     * By default, it will be determined automatically from the {@linkplain #getToolVersion() tool version}.
+     *
+     * @return the property
+     * @since 1.11.0
+     */
+    Property<DecompilerBrand> getBrand();
 }

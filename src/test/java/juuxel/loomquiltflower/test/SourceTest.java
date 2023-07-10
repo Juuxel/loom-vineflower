@@ -1,6 +1,6 @@
 package juuxel.loomquiltflower.test;
 
-import juuxel.vineflowerforloom.impl.source.QuiltMavenDecompilerSource;
+import juuxel.vineflowerforloom.impl.source.MavenDecompilerSource;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
@@ -38,7 +38,7 @@ class SourceTest {
             </metadata>
             """;
         Document document = readXml(mavenMetadata);
-        String version = QuiltMavenDecompilerSource.getLatestVersion(document, null);
+        String version = MavenDecompilerSource.getLatestVersion(document, null);
         assertThat(version).isEqualTo("1.2.3");
     }
 
@@ -61,7 +61,7 @@ class SourceTest {
             """;
         Document document = readXml(mavenMetadata);
         String url = "https://example.com/maven-metadata.xml";
-        assertThatThrownBy(() -> QuiltMavenDecompilerSource.getLatestVersion(document, url))
+        assertThatThrownBy(() -> MavenDecompilerSource.getLatestVersion(document, url))
             .isInstanceOf(NoSuchElementException.class)
             .hasMessageContaining(url);
     }
@@ -97,7 +97,7 @@ class SourceTest {
             </metadata>
             """;
         var document = readXml(mavenMetadata);
-        assertThat(QuiltMavenDecompilerSource.findLatestSnapshot(document))
+        assertThat(MavenDecompilerSource.findLatestSnapshot(document))
             .isEqualTo("1.2.3-20230527.142100-2");
     }
 
@@ -127,7 +127,7 @@ class SourceTest {
             </metadata>
             """;
         var document = readXml(mavenMetadata);
-        assertThat(QuiltMavenDecompilerSource.findLatestSnapshot(document))
+        assertThat(MavenDecompilerSource.findLatestSnapshot(document))
             .isNull();
     }
 }

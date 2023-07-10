@@ -1,7 +1,9 @@
 package juuxel.vineflowerforloom.impl.source;
 
 import juuxel.loomquiltflower.api.QuiltflowerSource;
+import juuxel.vineflowerforloom.api.DecompilerBrand;
 import juuxel.vineflowerforloom.impl.ReflectionUtil;
+import juuxel.vineflowerforloom.impl.TimeMachine;
 import org.gradle.api.GradleException;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
@@ -21,17 +23,20 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class RepositoryDecompilerSource implements QuiltflowerSource {
-    private static final String DEPENDENCY_BASE = "org.quiltmc:quiltflower:";
     private static final String SNAPSHOT_SUFFIX = "-SNAPSHOT";
     private final Project project;
     private final Object dependencyNotation;
     private @Nullable Dependency dependency = null;
-    private @Nullable File quiltflowerFile = null;
+    private @Nullable File decompilerFile = null;
     private @Nullable String resolvedVersion = null;
 
-    public RepositoryDecompilerSource(Project project, Provider<String> version) {
+    public RepositoryDecompilerSource(Project project, Provider<DecompilerBrand> brand, Provider<String> version) {
         this.project = project;
-        this.dependencyNotation = version.map(it -> DEPENDENCY_BASE + it);
+        this.dependencyNotation = version.map(it -> {
+            DecompilerBrand b = brand.getOrNull();
+            if (b == null) TimeMachine.determineBrand(it);
+            return TimeMachine.getDependencyCoordinates(b).asDependencyNotation() + ':' + it;
+        });
     }
 
     public RepositoryDecompilerSource(Project project, Object dependencyNotation) {
@@ -56,7 +61,7 @@ public final class RepositoryDecompilerSource implements QuiltflowerSource {
     }
 
     private void resolve() {
-        if (quiltflowerFile == null) {
+        if (decompilerFile == null) {
             Dependency dependency = getDependency();
             Set<File> files;
             String version = dependency.getVersion();
@@ -87,12 +92,12 @@ public final class RepositoryDecompilerSource implements QuiltflowerSource {
             }
 
             if (files.size() == 0) {
-                throw new GradleException("Could not resolve Quiltflower " + dependency + " from repositories!");
+                throw new GradleException("Could not resolve Vineflower " + dependency + " from repositories!");
             } else if (files.size() > 1) {
-                throw new GradleException("Found more than 1 Quiltflower jar: " + files.stream().map(File::getAbsolutePath).collect(Collectors.joining(", ")));
+                throw new GradleException("Found more than 1 Vineflower jar: " + files.stream().map(File::getAbsolutePath).collect(Collectors.joining(", ")));
             }
 
-            quiltflowerFile = files.iterator().next();
+            decompilerFile = files.iterator().next();
             resolvedVersion = version;
         }
     }
@@ -100,7 +105,7 @@ public final class RepositoryDecompilerSource implements QuiltflowerSource {
     @Override
     public InputStream open() throws IOException {
         resolve();
-        return new FileInputStream(quiltflowerFile);
+        return new FileInputStream(decompilerFile);
     }
 
     @Override
