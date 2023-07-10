@@ -34,7 +34,7 @@ public final class RepositoryDecompilerSource implements QuiltflowerSource {
         this.project = project;
         this.dependencyNotation = version.map(it -> {
             DecompilerBrand b = brand.getOrNull();
-            if (b == null) TimeMachine.determineBrand(it);
+            if (b == null) b = TimeMachine.determineBrand(it);
             return TimeMachine.getDependencyCoordinates(b).asDependencyNotation() + ':' + it;
         });
     }
