@@ -7,7 +7,7 @@ public final class TimeMachine {
     private static final String LAST_QUILTFLOWER_VERSION = "1.9.0";
 
     public static DecompilerBrand determineBrand(String version) {
-        if (FlexVerComparator.compare(LAST_QUILTFLOWER_VERSION, version) <= 0) {
+        if (FlexVerComparator.compare(version, LAST_QUILTFLOWER_VERSION) <= 0) {
             return DecompilerBrand.QUILTFLOWER;
         }
 
