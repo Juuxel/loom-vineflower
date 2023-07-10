@@ -2,6 +2,8 @@ package juuxel.vineflowerforloom.api;
 
 /**
  * The branding name of the Vineflower decompiler backend.
+ *
+ * @since 1.11.0
  */
 public enum DecompilerBrand {
     /**

@@ -15,6 +15,8 @@ import java.util.List;
 
 /**
  * The Vineflower for Loom plugin.
+ *
+ * @since 1.11.0
  */
 public final class VineflowerPlugin implements Plugin<Project> {
     private static final List<String> LOOMS = List.of(new String[] {
