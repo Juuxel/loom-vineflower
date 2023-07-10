@@ -4,6 +4,7 @@ import juuxel.vineflowerforloom.api.DecompilerBrand;
 import juuxel.vineflowerforloom.api.DecompilerSource;
 import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Creates various {@linkplain QuiltflowerSource Quiltflower sources}.
@@ -53,7 +54,10 @@ public interface SourceFactory extends juuxel.vineflowerforloom.api.SourceFactor
     QuiltflowerSource fromDependency(Object dependencyNotation);
 
     @Override
-    QuiltflowerSource fromOfficialRepository(Provider<String> version, Provider<DecompilerBrand> brand);
+    QuiltflowerSource fromOfficialRepository(Provider<String> version, Provider<@Nullable DecompilerBrand> brand);
+
+    @Override
+    QuiltflowerSource fromOfficialRepository(Provider<String> version);
 
     /**
      * Creates a source that downloads Quiltflower from the QuiltMC release Maven repository.

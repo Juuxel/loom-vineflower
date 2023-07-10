@@ -3,7 +3,6 @@ package juuxel.vineflowerforloom.impl.source;
 import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.vineflowerforloom.api.DecompilerBrand;
 import juuxel.vineflowerforloom.impl.DependencyCoordinates;
-import juuxel.vineflowerforloom.impl.Repositories;
 import juuxel.vineflowerforloom.impl.TimeMachine;
 import org.gradle.api.provider.Provider;
 import org.intellij.lang.annotations.Language;
@@ -28,10 +27,10 @@ public final class MavenDecompilerSource implements QuiltflowerSource {
     private static final String SNAPSHOT_VERSION_XPATH = "/metadata/versioning/snapshotVersions/snapshotVersion[not(classifier) and extension=\"jar\"]/value/text()";
     private final Provider<String> version;
     private final Provider<String> repository;
-    private final Provider<DecompilerBrand> brand;
+    private final Provider<@Nullable DecompilerBrand> brand;
     private @Nullable String artifactVersion;
 
-    public MavenDecompilerSource(Provider<String> version, Provider<String> repository, Provider<DecompilerBrand> brand) {
+    public MavenDecompilerSource(Provider<String> version, Provider<String> repository, Provider<@Nullable DecompilerBrand> brand) {
         this.version = version;
         this.repository = repository;
         this.brand = brand;
@@ -41,7 +40,7 @@ public final class MavenDecompilerSource implements QuiltflowerSource {
     public InputStream open() throws IOException {
         String baseVersion = version.get();
         String artifactVersion = getResolvedVersion();
-        DecompilerBrand brand = this.brand.getOrNull();
+        @Nullable DecompilerBrand brand = this.brand.getOrNull();
         if (brand == null) brand = TimeMachine.determineBrand(baseVersion);
         var coordinates = TimeMachine.getDependencyCoordinates(brand);
 
@@ -67,7 +66,7 @@ public final class MavenDecompilerSource implements QuiltflowerSource {
     private String computeArtifactVersion() throws IOException {
         String baseVersion = version.get();
 
-        if (baseVersion.endsWith("-SNAPSHOT")) {
+        if (TimeMachine.isSnapshot("-SNAPSHOT")) {
             @Nullable String snapshot = findLatestSnapshot(repository.get(), brand.getOrNull(), baseVersion);
             if (snapshot != null) return snapshot;
         }
@@ -80,9 +79,9 @@ public final class MavenDecompilerSource implements QuiltflowerSource {
         return "fromMaven[" + repository.get() + "]";
     }
 
-    public static String findLatestSnapshot() throws Exception {
+    public static String findLatestSnapshot(String repository) throws Exception {
         String url = "%s/%s/maven-metadata.xml"
-            .formatted(DependencyCoordinates.VINEFLOWER.asUrlPart(), Repositories.OSSRH_SNAPSHOTS);
+            .formatted(DependencyCoordinates.VINEFLOWER.asUrlPart(), repository);
         Document document = readXmlDocument(url);
         return getLatestVersion(document, url);
     }

@@ -21,11 +21,14 @@ public final class TimeMachine {
         };
     }
 
-    public static String getOfficialRepository(DecompilerBrand brand) {
+    public static String getOfficialRepository(DecompilerBrand brand, boolean snapshot) {
         return switch (brand) {
-            case VINEFLOWER -> Repositories.MAVEN_CENTRAL;
-            case QUILTFLOWER -> Repositories.QUILT_RELEASE;
+            case VINEFLOWER -> snapshot ? Repositories.OSSRH_SNAPSHOTS : Repositories.MAVEN_CENTRAL;
+            case QUILTFLOWER -> snapshot ? Repositories.QUILT_SNAPSHOT : Repositories.QUILT_RELEASE;
         };
     }
 
+    public static boolean isSnapshot(String version) {
+        return version.endsWith("-SNAPSHOT");
+    }
 }

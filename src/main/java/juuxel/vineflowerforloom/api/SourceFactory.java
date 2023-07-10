@@ -2,6 +2,7 @@ package juuxel.vineflowerforloom.api;
 
 import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Creates various {@linkplain DecompilerSource decompiler sources}.
@@ -46,14 +47,24 @@ public interface SourceFactory {
     DecompilerSource fromDependency(Object dependencyNotation);
 
     /**
-     * Creates a source that downloads the decompiler from the
+     * Creates a source that downloads the decompiler from the official release or snapshot repository for
+     * the provided brand.
      *
-     * @param version
-     * @param brand
+     * @param version the decompiler version
+     * @param brand   the decompiler brand, will be computed automatically if the value is null
      * @return the created source
      * @since 1.11.0
      */
-    DecompilerSource fromOfficialRepository(Provider<String> version, Provider<DecompilerBrand> brand);
+    DecompilerSource fromOfficialRepository(Provider<String> version, Provider<@Nullable DecompilerBrand> brand);
+
+    /**
+     * Creates a source that downloads the decompiler from the official release or snapshot repository for that version.
+     *
+     * @param version the decompiler version
+     * @return the created source
+     * @since 1.11.0
+     */
+    DecompilerSource fromOfficialRepository(Provider<String> version);
 
     // TODO: Should these be deprecated?
 
@@ -63,6 +74,7 @@ public interface SourceFactory {
      * @param version the decompiler version
      * @return the created source
      */
+    @Deprecated
     DecompilerSource fromQuiltMaven(Provider<String> version);
 
     /**
@@ -72,5 +84,6 @@ public interface SourceFactory {
      * @return the created sources
      * @since 1.9.0
      */
+    @Deprecated
     DecompilerSource fromQuiltSnapshotMaven(Provider<String> version);
 }

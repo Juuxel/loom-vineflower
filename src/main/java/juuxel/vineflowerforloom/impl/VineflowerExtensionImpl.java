@@ -48,12 +48,12 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
         preferenceMap = project.getObjects().mapProperty(String.class, Object.class).empty();
         preferences = project.getObjects().newInstance(PreferencesImpl.class, this);
         addToRuntimeClasspath = project.getObjects().property(Boolean.class).convention(false);
-        cache = project.file(".gradle/loom-quiltflower-cache").toPath();
+        cache = project.file(".gradle/vineflower-cache").toPath();
     }
 
     public VflModule getActiveModule() {
         if (activeModule == null) {
-            throw new IllegalStateException("vinerflower-for-loom module not initialised. Please report this!");
+            throw new IllegalStateException("Vineflower for Loom bridge module not initialised. Please report this!");
         }
 
         return activeModule;
@@ -106,8 +106,15 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
     }
 
     @Override
+    public void fromLatestSnapshot() {
+        Provider<String> latestSnapshotVersion = project.provider(() -> MavenDecompilerSource.findLatestSnapshot(Repositories.OSSRH_SNAPSHOTS));
+        this.getToolSource().set(getSourceFactory().fromOfficialRepository(latestSnapshotVersion, project.provider(() -> null)));
+    }
+
+    @Override
     public void fromLatestQuiltSnapshot() {
-        Provider<String> latestSnapshotVersion = project.provider(MavenDecompilerSource::findLatestSnapshot);
+        DeprecationReporter.get(project).reportRename("fromLatestQuiltSnapshot", "fromLatestSnapshot");
+        Provider<String> latestSnapshotVersion = project.provider(() -> MavenDecompilerSource.findLatestSnapshot(Repositories.QUILT_SNAPSHOT));
         this.getToolSource().set(getSourceFactory().fromQuiltSnapshotMaven(latestSnapshotVersion));
     }
 
@@ -162,8 +169,19 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
         }
 
         @Override
-        public QuiltflowerSource fromOfficialRepository(Provider<String> version, Provider<DecompilerBrand> brand) {
-            return new MavenDecompilerSource(version, brand.map(TimeMachine::getOfficialRepository), brand);
+        public QuiltflowerSource fromOfficialRepository(Provider<String> version, Provider<@Nullable DecompilerBrand> brand) {
+            Provider<DecompilerBrand> nonnullBrand = brand
+                .flatMap(brandValue -> brandValue == null ? version.map(TimeMachine::determineBrand) : brand);
+            Provider<String> repository = nonnullBrand.flatMap(brandValue -> {
+                Provider<Boolean> snapshot = version.map(TimeMachine::isSnapshot);
+                return snapshot.map(isSnapshot -> TimeMachine.getOfficialRepository(brandValue, isSnapshot));
+            });
+            return new MavenDecompilerSource(version, repository, nonnullBrand);
+        }
+
+        @Override
+        public QuiltflowerSource fromOfficialRepository(Provider<String> version) {
+            return fromOfficialRepository(version, project.provider(() -> null));
         }
     }
 

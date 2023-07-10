@@ -30,7 +30,7 @@ public final class RepositoryDecompilerSource implements QuiltflowerSource {
     private @Nullable File decompilerFile = null;
     private @Nullable String resolvedVersion = null;
 
-    public RepositoryDecompilerSource(Project project, Provider<DecompilerBrand> brand, Provider<String> version) {
+    public RepositoryDecompilerSource(Project project, Provider<@Nullable DecompilerBrand> brand, Provider<String> version) {
         this.project = project;
         this.dependencyNotation = version.map(it -> {
             DecompilerBrand b = brand.getOrNull();

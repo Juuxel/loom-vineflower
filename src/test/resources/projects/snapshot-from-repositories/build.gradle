@@ -41,13 +41,13 @@ dependencies {
 
 quiltflower {
     fromProjectRepositories()
-    quiltflowerVersion = '1.9.0-SNAPSHOT'
+    quiltflowerVersion = '1.8.1-SNAPSHOT'
 }
 
 String resolved = quiltflower.source.get().resolvedVersion
 println "Resolved: $resolved"
 
-def expected = '1.9.0-20221030.213144-213'
+def expected = '1.8.1-20220429.000346-3'
 if (resolved != expected) {
     throw new AssertionError("expected $expected, found $resolved" as Object)
 }

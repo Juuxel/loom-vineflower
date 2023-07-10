@@ -143,13 +143,23 @@ public interface VineflowerExtension {
     }
 
     /**
+     * Sets the Vineflower source to download the latest official Vineflower snapshot.
+     *
+     * @see SourceFactory#fromOfficialRepository(Provider, Provider)
+     * @since 1.11.0
+     */
+    void fromLatestSnapshot();
+
+    /**
      * Sets the Vineflower source to download the latest Vineflower snapshot from the QuiltMC snapshot Maven
      * repository.
      *
      * @see SourceFactory#fromQuiltSnapshotMaven(Provider)
      * @see #fromQuiltSnapshotMaven()
      * @since 1.9.0
+     * @deprecated Replaced with {@link #fromLatestSnapshot}.
      */
+    @Deprecated
     void fromLatestQuiltSnapshot();
 
     /**

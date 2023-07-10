@@ -22,7 +22,7 @@ class SnapshotFromRepositoriesTest extends ProjectTest {
             .withDebug(true)
             .build();
 
-        assertThat(result.getOutput()).contains("Resolved: 1.9.0-20221030.213144-213");
+        assertThat(result.getOutput()).contains("Resolved: 1.8.1-20220429.000346-3");
         assertThat(result.task(":genSourcesWithQuiltflower").getOutcome()).isEqualTo(TaskOutcome.SUCCESS);
     }
 }
