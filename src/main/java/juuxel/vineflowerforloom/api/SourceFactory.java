@@ -66,8 +66,6 @@ public interface SourceFactory {
      */
     DecompilerSource fromOfficialRepository(Provider<String> version);
 
-    // TODO: Should these be deprecated?
-
     /**
      * Creates a source that downloads the decompiler from the QuiltMC release Maven repository.
      *
