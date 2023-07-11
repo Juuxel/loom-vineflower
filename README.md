@@ -1,8 +1,10 @@
 # Vineflower for Loom
 
-![Build status](https://img.shields.io/github/actions/workflow/status/Juuxel/LoomQuiltflower/build.yml?style=flat-square&branch=master)
-![Maven metadata](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/io/github/juuxel/loom-quiltflower/maven-metadata.xml.svg?label=latest%20plugin%20version&style=flat-square&color=49bfe0)
-![Quiltflower version](https://img.shields.io/maven-metadata/v/https/maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/maven-metadata.xml.svg?label=latest%20quiltflower&style=flat-square&color=fc9505)
+![Build status](https://img.shields.io/github/actions/workflow/status/Juuxel/loom-vineflower/build.yml?style=flat-square&branch=master)
+[![Maven metadata](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/io/github/juuxel/loom-vineflower/maven-metadata.xml.svg?label=latest%20plugin%20version&style=flat-square&color=49bfe0)][pluginportal]
+![Vineflower version](https://img.shields.io/maven-metadata/v/https/repo1.maven.org/maven2/org/vineflower/vineflower/maven-metadata.xml.svg?label=latest%20vineflower&style=flat-square&color=9846d6)
+
+[pluginportal]: https://plugins.gradle.org/plugin/io.github.juuxel.loom-vineflower
 
 🚧 **Work in progress!** This README contains information about future releases of LVF. 🚧
 
