@@ -10,7 +10,7 @@ import org.gradle.api.Project;
 
 import java.util.function.Function;
 
-public final class Loom011Setup implements VflModule {
+public final class Loom011Setup implements LvfModule {
     @Override
     public void setup(Project project, VineflowerExtension extension) {
         LoomGradleExtensionAPI loom = (LoomGradleExtensionAPI) project.getExtensions().getByName("loom");

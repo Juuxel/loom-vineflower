@@ -7,7 +7,7 @@ import net.fabricmc.loom.api.LoomGradleExtensionAPI;
 import net.fabricmc.loom.task.ArchitecturyGenerateSourcesTask;
 import org.gradle.api.Project;
 
-public final class ArchLoomSetup implements VflModule {
+public final class ArchLoomSetup implements LvfModule {
     @Override
     public void setup(Project project, VineflowerExtension extension) {
         var loom = (LoomGradleExtensionAPI) project.getExtensions().getByName("loom");

@@ -38,7 +38,7 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 ## Getting started
 
 > Note: versions before 1.7.1 required adding Cotton's maven repository,
-> but VFL 1.7.1+ is available on the Gradle Plugin Portal
+> but LVF 1.7.1+ is available on the Gradle Plugin Portal
 > like most other plugins. Versions before 1.11.0 are available under the plugin ID
 > `io.github.juuxel.loom-quiltflower`.
 
@@ -48,7 +48,7 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 ```diff
   plugins {
       id 'fabric-loom' version '1.2-SNAPSHOT'
-+     id 'io.github.juuxel.vineflower-for-loom' version '1.11.0'
++     id 'io.github.juuxel.loom-vineflower' version '1.11.0'
       id 'maven-publish'
   }
 ```
@@ -62,7 +62,7 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
   plugins {
       id "architectury-plugin" version "3.4-SNAPSHOT"
       id "dev.architectury.loom" version "1.2-SNAPSHOT" apply false
-+     id 'io.github.juuxel.vineflower-for-loom' version '1.11.0' apply false
++     id 'io.github.juuxel.loom-vineflower' version '1.11.0' apply false
   }
 ```
 
@@ -71,7 +71,7 @@ use [loom-quiltflower-mini](https://github.com/Juuxel/loom-quiltflower-mini) ins
 ```diff
   subprojects {
       apply plugin: "dev.architectury.loom"
-+     apply plugin: "io.github.juuxel.vineflower-for-loom"
++     apply plugin: "io.github.juuxel.loom-vineflower"
 ```
 
 > Note: this can also be done in the subprojects' `plugins` blocks.
@@ -97,7 +97,7 @@ vineflower {
 
 ### Decompiler sources
 
-> Added in VFL 1.2.0.
+> Added in LVF 1.2.0.
 
 In addition to specifying a version, you can also use a completely different *decompiler source*.
 They are configured with the `vineflower.toolSource` property.
@@ -125,7 +125,7 @@ vineflower {
 
 ### Decompilation preferences
 
-> Added in VFL 1.2.0.
+> Added in LVF 1.2.0.
 
 You can also change the preferences used to decompile the game.
 For changing the properties, you can either use their 3-letter names or, with some properties, a preset method.
@@ -169,7 +169,7 @@ quiltflower {
 
 #### gradle.properties
 
-> Added in VFL 1.3.0.
+> Added in LVF 1.3.0.
 
 Preferences can also be declared in gradle.properties files using their 3-letter names, prefixed
 with `vineflower.preference.` or (deprecated) `loom-quiltflower.preference.`.
@@ -180,11 +180,11 @@ vineflower.preference.abc = 1
 ```
 
 You can use the global gradle.properties file in the Gradle user home directory to set your
-wanted properties, like the indentation string, for each project that uses VFL.
+wanted properties, like the indentation string, for each project that uses LVF.
 
 #### Decompiler options
 
-> Added in VFL 1.6.0. Only works on Fabric Loom 0.11+!
+> Added in LVF 1.6.0. Only works on Fabric Loom 0.11+!
 
 You can also configure the options with Loom's new
 decompiler options API:

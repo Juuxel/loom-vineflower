@@ -5,7 +5,7 @@ import juuxel.vineflowerforloom.impl.DeprecatedQuiltflowerExtension;
 import juuxel.vineflowerforloom.impl.PreferenceScanner;
 import juuxel.vineflowerforloom.impl.VineflowerResolving;
 import juuxel.vineflowerforloom.impl.ReflectionUtil;
-import juuxel.vineflowerforloom.impl.module.VflModule;
+import juuxel.vineflowerforloom.impl.module.LvfModule;
 import juuxel.vineflowerforloom.impl.VineflowerExtensionImpl;
 import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
@@ -61,7 +61,7 @@ public final class VineflowerPlugin implements Plugin<Project> {
                 }
 
                 try {
-                    VflModule module = VflModule.get(moduleClass);
+                    LvfModule module = LvfModule.get(moduleClass);
                     module.setup(target, extension);
                     ((VineflowerExtensionImpl) extension).setActiveModule(module);
                 } catch (ReflectiveOperationException e) {

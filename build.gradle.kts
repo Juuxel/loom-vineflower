@@ -192,8 +192,8 @@ tasks {
 
 gradlePlugin {
     plugins {
-        create("vineflower-for-loom") {
-            id = "io.github.juuxel.vineflower-for-loom"
+        create("loom-vineflower") {
+            id = "io.github.juuxel.loom-vineflower"
             displayName = "Vineflower for Loom"
             description = "Adds the Vineflower decompiler to projects using Fabric Loom (or its forks) for Minecraft mod development."
             implementationClass = "juuxel.vineflowerforloom.api.VineflowerPlugin"
@@ -204,7 +204,11 @@ gradlePlugin {
         create("loom-quiltflower") {
             id = "io.github.juuxel.loom-quiltflower"
             displayName = "loom-quiltflower"
-            description = "Adds the Quiltflower decompiler to projects using Fabric Loom (or its forks) for Minecraft mod development."
+            description = """
+                |Deprecated alias for `io.github.juuxel.loom-vineflower`.
+                |Adds the Vineflower decompiler to projects using Fabric Loom (or its forks) for Minecraft mod development.
+                |"""
+                .trimMargin()
             implementationClass = "juuxel.loomquiltflower.api.LoomQuiltflowerPlugin"
         }
     }

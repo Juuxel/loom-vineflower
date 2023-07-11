@@ -5,7 +5,7 @@ import juuxel.loomquiltflower.api.QuiltflowerPreferences;
 import juuxel.loomquiltflower.api.QuiltflowerSource;
 import juuxel.loomquiltflower.api.SourceFactory;
 import juuxel.vineflowerforloom.api.DecompilerBrand;
-import juuxel.vineflowerforloom.impl.module.VflModule;
+import juuxel.vineflowerforloom.impl.module.LvfModule;
 import juuxel.vineflowerforloom.impl.source.ConstantUrlDecompilerSource;
 import juuxel.vineflowerforloom.impl.source.MavenDecompilerSource;
 import juuxel.vineflowerforloom.impl.source.RepositoryDecompilerSource;
@@ -37,7 +37,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
     private final QuiltflowerPreferences preferences;
     private final Property<Boolean> addToRuntimeClasspath;
     private final Path cache;
-    private VflModule activeModule;
+    private LvfModule activeModule;
 
     public VineflowerExtensionImpl(Project project) {
         this.project = project;
@@ -51,7 +51,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
         cache = project.file(".gradle/vineflower-cache").toPath();
     }
 
-    public VflModule getActiveModule() {
+    public LvfModule getActiveModule() {
         if (activeModule == null) {
             throw new IllegalStateException("Vineflower for Loom bridge module not initialised. Please report this!");
         }
@@ -59,7 +59,7 @@ public class VineflowerExtensionImpl implements VineflowerExtension, Quiltflower
         return activeModule;
     }
 
-    public void setActiveModule(VflModule activeModule) {
+    public void setActiveModule(LvfModule activeModule) {
         this.activeModule = activeModule;
     }
 

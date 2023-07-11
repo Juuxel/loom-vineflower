@@ -14,7 +14,7 @@ public class LoomQuiltflowerPlugin implements Plugin<Project> {
     public void apply(Project target) {
         DeprecationReporter.get(target).reportRename(
             "io.github.juuxel.loom-quiltflower",
-            "io.github.juuxel.vineflower-for-loom",
+            "io.github.juuxel.loom-vineflower",
             "plugin"
         );
         target.getPluginManager().apply(VineflowerPlugin.class);
