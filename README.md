@@ -88,10 +88,10 @@ and `loomQuiltflower` before 1.2.0):
 ```groovy
 vineflower {
     // This is the default; 1.4.0 and above should work
-    toolVersion.set("1.9.0")
+    toolVersion.set("1.9.1")
 
     // If you're using Groovy DSL, you can also specify the version like this:
-    toolVersion = '1.9.0'
+    toolVersion = '1.9.1'
 }
 ```
 

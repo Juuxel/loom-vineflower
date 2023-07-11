@@ -12,8 +12,7 @@ public class BuildLogicExtension {
     }
 
     public Dependency vineflower() {
-        // TODO: Dep coordinates
-        Dependency dep = project.getDependencies().create("org.quiltmc:quiltflower:" + project.getRootProject().property("vineflower-version"));
+        Dependency dep = project.getDependencies().create("org.vineflower:vineflower:" + project.getRootProject().property("vineflower-version"));
         ((HasConfigurableAttributes<?>) dep).attributes(attributes -> attributes.attribute(RemapState.REMAP_STATE_ATTRIBUTE, RemapState.REMAPPED));
         return dep;
     }
