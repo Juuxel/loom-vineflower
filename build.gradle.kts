@@ -115,7 +115,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.20.2")
     // This has to be a runtimeClasspath dep because gradle's test kit classpath stuff is really dumb.
-    loomRuntime("$loomId:$loomId.gradle.plugin:$loomVersion")
+    loomRuntime("$loomId:$loomId.gradle.plugin:$loomVersion") {
+        exclude(group = "io.github.juuxel", module = "loom-quiltflower")
+    }
     for (sourceSet in secondarySourceSets) {
         loomRuntime(sourceSet.map { it.output })
     }
