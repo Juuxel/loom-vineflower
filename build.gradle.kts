@@ -1,5 +1,3 @@
-import juuxel.loomquiltflower.plugin.CreateQuiltflowerVersionClass
-
 plugins {
     `java-gradle-plugin`
     groovy
@@ -10,7 +8,11 @@ plugins {
 }
 
 group = "io.github.juuxel"
-version = "1.10.0"
+version = "1.11.0"
+
+base {
+    archivesName.set("loom-vineflower")
+}
 
 if (file("private.gradle").exists()) {
     apply(from = "private.gradle")
@@ -90,8 +92,8 @@ dependencies {
     compileOnly("org.ow2.asm:asm-commons:${property("asm-version")}")
 
     // Only needed for providing the classes to compile against, it is downloaded at runtime
-    compileOnly(loomQuiltflowerLogic.quiltflower())
-    shade("io.github.juuxel:loom-quiltflower-core") {
+    compileOnly(buildLogic.vineflower())
+    shade("io.github.juuxel:vineflower-for-loom-core") {
         isTransitive = false
     }
 
@@ -106,14 +108,16 @@ dependencies {
     }
     "archCompileOnly"("dev.architectury:architectury-loom:0.10.0.206")
     "loom011CompileOnly"("net.fabricmc:fabric-loom:0.11.17")
-    "loom011CompileOnly"(loomQuiltflowerLogic.quiltflower())
+    "loom011CompileOnly"(buildLogic.vineflower())
 
     // Tests
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.20.2")
     // This has to be a runtimeClasspath dep because gradle's test kit classpath stuff is really dumb.
-    loomRuntime("$loomId:$loomId.gradle.plugin:$loomVersion")
+    loomRuntime("$loomId:$loomId.gradle.plugin:$loomVersion") {
+        exclude(group = "io.github.juuxel", module = "loom-quiltflower")
+    }
     for (sourceSet in secondarySourceSets) {
         loomRuntime(sourceSet.map { it.output })
     }
@@ -125,16 +129,16 @@ val cleanGeneratedSources by tasks.registering(Delete::class) {
     delete(generatedSources)
 }
 
-val createQuiltflowerVersionClass by tasks.registering(CreateQuiltflowerVersionClass::class) {
+val createToolVersionClass by tasks.registering(juuxel.vineflowerforloom.plugin.CreateToolVersionClass::class) {
     dependsOn(cleanGeneratedSources)
-    packageName.set("juuxel.loomquiltflower.impl")
+    packageName.set("juuxel.vineflowerforloom.impl")
     sourceDirectory.set(generatedSources)
 }
 
 sourceSets {
     main {
         java {
-            srcDir(createQuiltflowerVersionClass)
+            srcDir(createToolVersionClass)
         }
     }
 }
@@ -146,12 +150,12 @@ tasks {
     }
 
     clean {
-        dependsOn(createQuiltflowerVersionClass)
+        dependsOn(createToolVersionClass)
     }
 
     jar {
         archiveClassifier.set("slim")
-        from(file("LICENSE"), file("LICENSE.quiltflower.txt"))
+        from(file("LICENSE"))
         for (sourceSet in secondarySourceSets) {
             from(sourceSet.map { it.output })
         }
@@ -164,8 +168,8 @@ tasks {
             from(sourceSet.map { it.output })
         }
 
-        relocate("net.fabricmc.mappingio", "juuxel.loomquiltflower.impl.relocated.mappingio")
-        relocate("net.fabricmc.tinyremapper", "juuxel.loomquiltflower.impl.relocated.tinyremapper")
+        relocate("net.fabricmc.mappingio", "juuxel.vineflowerforloom.impl.relocated.mappingio")
+        relocate("net.fabricmc.tinyremapper", "juuxel.vineflowerforloom.impl.relocated.tinyremapper")
     }
 
     assemble {
@@ -183,21 +187,39 @@ tasks {
             showStackTraces = true
             showExceptions = true
             showCauses = true
-            showStandardStreams = true
         }
     }
 
     javadoc {
         exclude("**/impl/**")
     }
+
+    register("printEscapedLoomVariantForActions") {
+        doLast {
+            file(System.getenv("GITHUB_OUTPUT")).appendText("loom=${loomId}_${loomVersion}")
+        }
+    }
 }
 
 gradlePlugin {
     plugins {
+        create("loom-vineflower") {
+            id = "io.github.juuxel.loom-vineflower"
+            displayName = "Vineflower for Loom"
+            description = "Adds the Vineflower decompiler to projects using Fabric Loom (or its forks) for Minecraft mod development."
+            implementationClass = "juuxel.vineflowerforloom.api.VineflowerPlugin"
+        }
+    }
+
+    plugins {
         create("loom-quiltflower") {
             id = "io.github.juuxel.loom-quiltflower"
             displayName = "loom-quiltflower"
-            description = "Adds the Quiltflower decompiler to projects using Fabric Loom (or its forks) for Minecraft mod development."
+            description = """
+                |Deprecated alias for `io.github.juuxel.loom-vineflower`.
+                |Adds the Vineflower decompiler to projects using Fabric Loom (or its forks) for Minecraft mod development.
+                |"""
+                .trimMargin()
             implementationClass = "juuxel.loomquiltflower.api.LoomQuiltflowerPlugin"
         }
     }

@@ -25,7 +25,7 @@ dependencies {
     implementation("org.ow2.asm:asm:${versions["asm-version"]}")
     implementation("org.ow2.asm:asm-commons:${versions["asm-version"]}")
     implementation("net.fabricmc:tiny-remapper:${versions["tiny-remapper-version"]}")
-    implementation("io.github.juuxel:loom-quiltflower-core")
+    implementation("io.github.juuxel:vineflower-for-loom-core")
 }
 
 tasks {

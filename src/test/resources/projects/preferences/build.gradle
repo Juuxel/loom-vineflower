@@ -1,6 +1,6 @@
 plugins {
     id '@LOOM_ID@'
-    id 'io.github.juuxel.loom-quiltflower'
+    id 'io.github.juuxel.loom-vineflower'
     id 'maven-publish'
 }
 
@@ -19,7 +19,7 @@ repositories {
     // for more information about repositories.
 }
 
-quiltflower {
+vineflower {
     preferences {
         efg = 'hello'
         hij = 1
@@ -68,7 +68,7 @@ tasks.withType(JavaCompile).configureEach {
 
 task printPreferences {
     doLast {
-        quiltflower.preferences.asMap().get().forEach { key, value ->
+        vineflower.preferences.asMap().get().forEach { key, value ->
             println "$key:$value"
         }
     }

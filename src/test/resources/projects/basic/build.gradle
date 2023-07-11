@@ -1,6 +1,6 @@
 plugins {
     id '@LOOM_ID@'
-    id 'io.github.juuxel.loom-quiltflower'
+    id 'io.github.juuxel.loom-vineflower'
     id 'maven-publish'
 }
 

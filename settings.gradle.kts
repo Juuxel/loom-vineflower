@@ -10,11 +10,11 @@ pluginManagement {
     }
 }
 
-rootProject.name = "loom-quiltflower"
+rootProject.name = "loom-vineflower"
 includeBuild("build-logic")
 
 includeBuild("shared") {
     dependencySubstitution {
-        substitute(module("io.github.juuxel:loom-quiltflower-core")).using(project(":"))
+        substitute(module("io.github.juuxel:vineflower-for-loom-core")).using(project(":"))
     }
 }
