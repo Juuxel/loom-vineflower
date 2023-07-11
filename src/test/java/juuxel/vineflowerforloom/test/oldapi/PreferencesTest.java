@@ -35,6 +35,8 @@ class PreferencesTest extends ProjectTest {
             // gradle.properties
             "abc", "2",
             "efg", "hello",
+            "klm", "new",
+            "nop", "new",
             // quiltflower.preferences block
             "hij", "1",
             // preset methods
