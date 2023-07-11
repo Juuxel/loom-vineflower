@@ -196,7 +196,7 @@ tasks {
 
     register("printEscapedLoomVariantForActions") {
         doLast {
-            file(System.getenv("GITHUB_ENV")).appendText("loom=${loomId}_${loomVersion}")
+            file(System.getenv("GITHUB_OUTPUT")).appendText("loom=${loomId}_${loomVersion}")
         }
     }
 }
