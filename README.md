@@ -6,8 +6,6 @@
 
 [pluginportal]: https://plugins.gradle.org/plugin/io.github.juuxel.loom-vineflower
 
-🚧 **Work in progress!** This README contains information about future releases of LVF. 🚧
-
 A Loom addon that adds [Vineflower](https://github.com/Vineflower/vineflower) as a decompiler
 for Fabric Loom and its forks (Architectury etc.).
 
