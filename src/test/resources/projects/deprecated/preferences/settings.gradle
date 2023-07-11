@@ -1,5 +1,3 @@
-package projects.deprecated.preferences
-
 pluginManagement {
     repositories {
         maven {

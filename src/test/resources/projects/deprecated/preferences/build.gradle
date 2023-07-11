@@ -1,5 +1,3 @@
-package projects.deprecated.preferences
-
 plugins {
     id '@LOOM_ID@'
     id 'io.github.juuxel.loom-quiltflower'
