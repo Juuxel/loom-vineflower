@@ -1,0 +1,13 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        maven {
+            name = 'Arch'
+            url = 'https://maven.architectury.dev/'
+        }
+        gradlePluginPortal()
+    }
+}
