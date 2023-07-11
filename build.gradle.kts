@@ -181,7 +181,6 @@ tasks {
             showStackTraces = true
             showExceptions = true
             showCauses = true
-            showStandardStreams = true
         }
     }
 
