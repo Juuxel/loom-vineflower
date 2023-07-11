@@ -10,6 +10,10 @@ plugins {
 group = "io.github.juuxel"
 version = "1.10.0"
 
+base {
+    archivesName.set("loom-vineflower")
+}
+
 if (file("private.gradle").exists()) {
     apply(from = "private.gradle")
 }

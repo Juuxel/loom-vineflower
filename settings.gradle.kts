@@ -10,7 +10,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "loom-quiltflower"
+rootProject.name = "loom-vineflower"
 includeBuild("build-logic")
 
 includeBuild("shared") {
