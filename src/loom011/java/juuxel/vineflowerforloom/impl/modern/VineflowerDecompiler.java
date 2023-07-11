@@ -32,7 +32,7 @@ public class VineflowerDecompiler implements LoomDecompiler {
         options.put(IFabricJavadocProvider.PROPERTY_NAME, new VfTinyJavadocProvider(metaData.javaDocs().toFile()));
 
         PrintWriter logger = writerFromLoomLogger(metaData.logger());
-        // Note: We use the deprecated API because this needs to work on QF <1.9.0.
+        // Note: We use the deprecated API because this needs to work on VF <1.9.0.
         Fernflower ff = new Fernflower(Zips::getBytes, new VfResultSaver(sourcesDestination::toFile, linemapDestination::toFile), options, new SimpleLogger(logger));
 
         for (Path library : metaData.libraries()) {

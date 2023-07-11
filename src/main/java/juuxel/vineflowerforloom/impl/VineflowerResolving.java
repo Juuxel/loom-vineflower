@@ -35,7 +35,7 @@ public final class VineflowerResolving {
     }
 
     public static void setup(Project project, VineflowerExtensionImpl extension) {
-        var resolveQuiltflower = project.getTasks().register(TASK_NAME, ResolveVineflower.class, task -> {
+        var resolveVineflower = project.getTasks().register(TASK_NAME, ResolveVineflower.class, task -> {
             task.getSource().set(extension.getToolSource());
             task.getUnprocessedOutput().set(getVineflowerJarPath(project, extension, "unprocessed"));
             task.getRemappedOutput().set(getVineflowerJarPath(project, extension, "remapped"));
@@ -49,7 +49,7 @@ public final class VineflowerResolving {
                     var taskClass = module.getDecompileTaskClass();
 
                     if (taskClass.isInstance(task) && DECOMPILE_TASK_NAME_REGEX.matcher(task.getName()).matches()) {
-                        task.dependsOn(resolveQuiltflower);
+                        task.dependsOn(resolveVineflower);
                     }
                 });
             }
@@ -62,10 +62,10 @@ public final class VineflowerResolving {
                 configuration.setCanBeConsumed(false);
 
                 project.getConfigurations().getByName(JavaPlugin.RUNTIME_CLASSPATH_CONFIGURATION_NAME).extendsFrom(configuration);
-                ConfigurableFileCollection qfFiles = project.files();
-                qfFiles.builtBy(resolveQuiltflower);
-                qfFiles.from(resolveQuiltflower.flatMap(ResolveVineflower::getUnprocessedOutput));
-                project.getDependencies().add(configuration.getName(), qfFiles);
+                ConfigurableFileCollection decompilerFiles = project.files();
+                decompilerFiles.builtBy(resolveVineflower);
+                decompilerFiles.from(resolveVineflower.flatMap(ResolveVineflower::getUnprocessedOutput));
+                project.getDependencies().add(configuration.getName(), decompilerFiles);
             }
         });
     }

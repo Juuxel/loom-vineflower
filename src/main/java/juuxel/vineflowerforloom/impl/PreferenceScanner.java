@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Scans QF preferences declared in project properties. Because this is run at plugin apply time,
+ * Scans decompiler preferences declared in project properties. Because this is run at plugin apply time,
  * it basically only looks at gradle.properties files. The keys are in the format
  * {@code [vineflower|loom-quiltflower].preference.<preference name>}.
  */

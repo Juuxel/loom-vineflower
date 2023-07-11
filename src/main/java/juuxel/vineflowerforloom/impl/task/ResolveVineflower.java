@@ -66,6 +66,6 @@ public class ResolveVineflower extends DefaultTask {
             Files.deleteIfExists(outputPath);
         }
 
-        Remapping.remapQuiltflower(unprocessedOutput, output, Collections.emptySet());
+        Remapping.remapVineflower(unprocessedOutput, output, Collections.emptySet());
     }
 }

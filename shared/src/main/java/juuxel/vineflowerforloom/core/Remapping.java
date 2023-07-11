@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public final class Remapping {
-    public static void remapQuiltflower(File input, File output, Iterable<File> inputDependencies) {
+    public static void remapVineflower(File input, File output, Iterable<File> inputDependencies) {
         try {
             TinyRemapper remapper = TinyRemapper.newRemapper()
                 .extraRemapper(RelocationRemapper.createQuiltflowerRelocator())
@@ -28,7 +28,7 @@ public final class Remapping {
                 System.out.println();
             }
         } catch (IOException e) {
-            throw new GradleException("Could not remap Quiltflower from " + input.getName() + " to " + output.getName(), e);
+            throw new GradleException("Could not remap Vineflower from " + input.getName() + " to " + output.getName(), e);
         }
     }
 }

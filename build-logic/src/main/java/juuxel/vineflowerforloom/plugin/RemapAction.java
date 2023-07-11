@@ -23,6 +23,6 @@ public abstract class RemapAction implements TransformAction<TransformParameters
     public void transform(TransformOutputs outputs) {
         File input = getInputArtifact().get().getAsFile();
         File output = outputs.file("remapped-" + input.getName());
-        Remapping.remapQuiltflower(input, output, getInputDependencies());
+        Remapping.remapVineflower(input, output, getInputDependencies());
     }
 }
