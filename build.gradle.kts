@@ -191,6 +191,12 @@ tasks {
     javadoc {
         exclude("**/impl/**")
     }
+
+    register("printEscapedLoomVariantForActions") {
+        doLast {
+            file(System.getenv("GITHUB_ENV")).appendText("loom=${loomId}_${loomVersion}")
+        }
+    }
 }
 
 gradlePlugin {
