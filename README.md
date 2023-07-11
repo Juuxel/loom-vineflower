@@ -4,6 +4,8 @@
 ![Maven metadata](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/io/github/juuxel/loom-quiltflower/maven-metadata.xml.svg?label=latest%20plugin%20version&style=flat-square&color=49bfe0)
 ![Quiltflower version](https://img.shields.io/maven-metadata/v/https/maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/maven-metadata.xml.svg?label=latest%20quiltflower&style=flat-square&color=fc9505)
 
+🚧 **Work in progress!** This README contains information about future releases of LVF. 🚧
+
 A Loom addon that adds [Vineflower](https://github.com/Vineflower/vineflower) as a decompiler
 for Fabric Loom and its forks (Architectury etc.).
 
