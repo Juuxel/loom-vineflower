@@ -95,21 +95,46 @@ vineflower {
 }
 ```
 
+### Decompiler brand
+
+> Added in LVF 1.11.0.
+
+This plugin supports using Vineflower versions under two names or "brands": Vineflower and Quiltflower.
+By default, the brand is determined automatically from the version with versions ≤1.9.0 being Quiltflower.
+
+The brand affects the default Maven repository for downloading Vineflower, as well as
+its dependency coordinates.
+
+The brand can also be manually set using the `vineflower.brand` property,
+but this should only be done if it cannot be detected automatically:
+```kotlin
+vineflower {
+    // Force the Vineflower brand.
+    brand.set(DecompilerBrand.VINEFLOWER)
+
+    // Force the Quiltflower brand.
+    brand.set(DecompilerBrand.QUILTFLOWER)
+}
+```
+
 ### Decompiler sources
 
 > Added in LVF 1.2.0.
 
 In addition to specifying a version, you can also use a completely different *decompiler source*.
-They are configured with the `vineflower.toolSource` property.
+They are configured with the `vineflower.toolSource` property, or with the following methods.
 
 ```kotlin
 vineflower {
-    // Downloads the wanted VF version from the QuiltMC Maven repo.
+    // Downloads the wanted VF version from the official source for the decompiler version.
     // This is the default behaviour.
-    fromQuiltMaven()
+    fromOfficialRepository()
 
     // Downloads the wanted VF version from the project repositories.
     fromProjectRepositories()
+
+    // Downloads the latest official snapshot of Vineflower.
+    fromLatestSnapshot()
 
     // Resolves VF using a Gradle dependency.
     // The parameter can be any dependency notation supported by Gradle.
