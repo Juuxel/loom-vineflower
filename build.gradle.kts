@@ -226,8 +226,8 @@ gradlePlugin {
 }
 
 pluginBundle {
-    website = "https://github.com/Juuxel/LoomQuiltflower"
-    vcsUrl = "https://github.com/Juuxel/LoomQuiltflower"
+    website = "https://github.com/Juuxel/loom-vineflower"
+    vcsUrl = "https://github.com/Juuxel/loom-vineflower"
     tags = listOf("decompilers", "minecraft", "fabric-loom")
 }
 
