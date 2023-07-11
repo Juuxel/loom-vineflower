@@ -183,7 +183,7 @@ vineflower {
 
 #### Kotlin DSL
 ```kotlin
-quiltflower {
+vineflower {
     preferences(
         // fake options: don't try at home
         "abc" to 1,
