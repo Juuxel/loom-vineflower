@@ -1,3 +1,5 @@
+package projects.deprecated.basic
+
 plugins {
     id '@LOOM_ID@'
     id 'io.github.juuxel.loom-quiltflower'
@@ -17,16 +19,6 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
-}
-
-quiltflower {
-    preferences {
-        efg = 'hello'
-        hij = 1
-
-        useJadVarnaming true
-        inlineSimpleLambdas false
-    }
 }
 
 dependencies {
@@ -63,14 +55,6 @@ tasks.withType(JavaCompile).configureEach {
     def targetVersion = 8
     if (JavaVersion.current().isJava9Compatible()) {
         it.options.release = targetVersion
-    }
-}
-
-task printPreferences {
-    doLast {
-        quiltflower.preferences.asMap().get().forEach { key, value ->
-            println "$key:$value"
-        }
     }
 }
 

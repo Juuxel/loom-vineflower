@@ -1,5 +1,6 @@
-package juuxel.loomquiltflower.test;
+package juuxel.vineflowerforloom.test.oldapi;
 
+import juuxel.vineflowerforloom.test.ProjectTest;
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ class PreferencesTest extends ProjectTest {
     @Test
     void test() {
         // Set up
-        setupProject("preferences", "gradle.properties");
+        setupProject("deprecated/preferences", "gradle.properties");
 
         // Run
         BuildResult result = GradleRunner.create()

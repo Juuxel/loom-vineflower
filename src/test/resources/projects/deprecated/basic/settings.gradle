@@ -1,3 +1,5 @@
+package projects.deprecated.basic
+
 pluginManagement {
     repositories {
         maven {

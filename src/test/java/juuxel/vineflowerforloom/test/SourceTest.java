@@ -1,4 +1,4 @@
-package juuxel.loomquiltflower.test;
+package juuxel.vineflowerforloom.test;
 
 import juuxel.vineflowerforloom.impl.source.MavenDecompilerSource;
 import org.junit.jupiter.api.Test;

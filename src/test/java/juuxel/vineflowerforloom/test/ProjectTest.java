@@ -1,4 +1,4 @@
-package juuxel.loomquiltflower.test;
+package juuxel.vineflowerforloom.test;
 
 import org.junit.jupiter.api.io.TempDir;
 
@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-abstract class ProjectTest {
+public abstract class ProjectTest {
     @TempDir
     protected File projectDirectory;
 
