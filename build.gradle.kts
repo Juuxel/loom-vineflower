@@ -149,7 +149,7 @@ tasks {
 
     jar {
         archiveClassifier.set("slim")
-        from(file("LICENSE"), file("LICENSE.quiltflower.txt"))
+        from(file("LICENSE"))
         for (sourceSet in secondarySourceSets) {
             from(sourceSet.map { it.output })
         }
