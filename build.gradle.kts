@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "io.github.juuxel"
-version = "1.10.0"
+version = "1.11.0"
 
 base {
     archivesName.set("loom-vineflower")
